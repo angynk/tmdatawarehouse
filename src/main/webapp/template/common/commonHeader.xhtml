@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+    <body>
+	    <ui:composition>
+            <!--<div id="wrapper">-->
+            <!--<div style="background-color: #2e6da4">-->
+            <h:form id="formSideBar">
+
+                <div class="menu">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#"><span>
+                                <img src="../resources/images/user.png" height="24"/></span> Gestión Modulos <span class="text-danger"> BRT </span></a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a><p:outputLabel styleClass="icon-camera-retro" style="font-style: italic" value="#{loginBean.nombreUsuario}">  </p:outputLabel></a></li>
+
+                                <li><p:commandButton action="#{loginBean.logout}" value="Desconectarse" styleClass="btn btn-danger btn-margin-right navbar-btn"
+                                                     icon="ui-icon-circle-arrow-e" >Desconectarse</p:commandButton></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </h:form>
+            <!--</div>-->
+            <!--</div>-->
+	    </ui:composition>
+    </body>
+</html>
+
+

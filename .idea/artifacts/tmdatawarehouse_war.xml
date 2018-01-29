@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tmdatawarehouse:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="tm-datawarehouse-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="tmdatawarehouse:war exploded" />
+    </root>
+  </artifact>
+</component>
