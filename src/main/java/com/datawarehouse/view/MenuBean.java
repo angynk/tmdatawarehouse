@@ -10,17 +10,17 @@ import java.io.IOException;
 @SessionScoped
 public class MenuBean {
 
-    public void refreshBVistaUsuarios(){
+    public void refreshCargarDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
-                    + "/secured/configUsuarios.xhtml");
+                    + "/secured/cargarDatos.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void refreshBVistaRoles(){
+    public void refreshActualizarDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
@@ -30,7 +30,7 @@ public class MenuBean {
         }
     }
 
-    public void refreshListadoTareas(){
+    public void refreshConsultarDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()

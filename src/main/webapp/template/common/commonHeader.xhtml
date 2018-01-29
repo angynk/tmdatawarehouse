@@ -14,7 +14,7 @@
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#"><span>
-                                <img src="../resources/images/user.png" height="24"/></span> Gestión Modulos <span class="text-danger"> BRT </span></a>
+                                <img src="../resources/images/user.png" height="24"/></span> Carga Datos <span class="text-danger"> BRT </span></a>
                         </div>
                         <div>
                             <ul class="nav navbar-nav navbar-right">
@@ -26,6 +26,22 @@
                         </div>
                     </div>
                 </div>
+
+                <p:panel style="border:none;padding-top: 5px;">
+
+
+                    <p:menubar orientation="horizontal" style="margin-top:40px;">
+                        <p:submenu label="Datos Programación BRT" icon="ui-icon-script">
+                            <p:menuitem value="Cargar" action="#{menu.refreshCargarDatos}" />
+                            <p:menuitem value="Actualizar" action="#{menu.refreshActualizarDatos}" />
+                            <p:menuitem value="Consultar" action="#{menu.refreshConsultarDatos}" />
+                        </p:submenu>
+                        <f:facet name="options">
+                            <!--<p:outputLabel style="margin-right:10px" value="#{loginBean.nombreUsuario}"/>-->
+                            <!--<p:commandButton type="button" value="Salir" icon="ui-icon-extlink" actionListener="#{loginBean.logout}" />-->
+                        </f:facet>
+                    </p:menubar>
+                </p:panel>
 
 
             </h:form>

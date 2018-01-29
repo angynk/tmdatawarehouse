@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h:form enctype="multipart/form-data" id="form">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+
+                <p:panel header="Crear Programación" visible="#{cargaDatosBean.creacionVisible}">
+                    <p:panelGrid columns="6" >
+                        <p:outputLabel value="Fecha:"  />
+                        <p:calendar  value="#{cargaDatosBean.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:outputLabel value="Jornada:"  />
+                        <p:inputText value="#{cargaDatosBean.jornada}" />
+                        <p:outputLabel value="Tipo día:"  />
+                        <p:selectOneMenu  value="#{cargaDatosBean.tipoDia}" style="width:100%">
+                            <f:selectItems value="#{cargaDatosBean.tiposDias}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Crear" action="#{cargaDatosBean.crearProgramacion}" ajax="false" />
+                    </p:panelGrid>
+                </p:panel>
+
+                <p:panel header="Programación Asociada" visible="#{!cargaDatosBean.creacionVisible}">
+                    <p:panelGrid columns="2" >
+                        <p:outputLabel value="Identificador:"  />
+                        <p:inputText value="#{cargaDatosBean.identificador}" disabled="true" />
+                    </p:panelGrid>
+
+                </p:panel>
+
+
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px">
+                    <h:outputText value="En Proceso.." />
+                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
+
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>
