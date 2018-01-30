@@ -1,15 +1,19 @@
 package com.datawarehouse.view;
 
+import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.Util;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +27,11 @@ public class CargarDatosBean {
     private List<String> tiposDias;
     private boolean creacionVisible;
     private String identificador;
+    private List<Archivos> archivosLista;
+    private List<String> tiposArchivo;
+    private List<String> formatosArchivo;
+    private Archivos nuevoArchivo;
+
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
@@ -55,6 +64,32 @@ public class CargarDatosBean {
 
     }
 
+    public void cargarArchivo(FileUploadEvent event){
+        UploadedFile file = event.getFile();
+        if(file!=null){
+            try {
+                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
+                nuevoArchivo.setNombre(nombre);
+            } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            }
+        }
+
+
+    }
+
+    public void agregarArchivo(){
+        nuevoArchivo = new Archivos();
+    }
+
+    public void guardarArchivo(){
+        archivosLista.add(nuevoArchivo);
+    }
+
+    public void cancelar(){
+
+    }
+
     private String calcularIdentificador() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         return tipoDia+"/"+sdfDate.format(fecha)+"/"+jornada;
@@ -69,6 +104,9 @@ public class CargarDatosBean {
     public void init() {
         tiposDias = Util.listaDePeriocidad();
         creacionVisible = true;
+        archivosLista = new ArrayList<Archivos>();
+        tiposArchivo = Util.listaTipoArchivos();
+        formatosArchivo = Util.listaFormatosArchivo();
     }
 
     public Date getFecha() {
@@ -134,4 +172,38 @@ public class CargarDatosBean {
     public void setMessagesView(MessagesView messagesView) {
         this.messagesView = messagesView;
     }
+
+    public List<Archivos> getArchivosLista() {
+        return archivosLista;
+    }
+
+    public void setArchivosLista(List<Archivos> archivosLista) {
+        this.archivosLista = archivosLista;
+    }
+
+    public Archivos getNuevoArchivo() {
+        return nuevoArchivo;
+    }
+
+    public void setNuevoArchivo(Archivos nuevoArchivo) {
+        this.nuevoArchivo = nuevoArchivo;
+    }
+
+    public List<String> getTiposArchivo() {
+        return tiposArchivo;
+    }
+
+    public void setTiposArchivo(List<String> tiposArchivo) {
+        this.tiposArchivo = tiposArchivo;
+    }
+
+    public List<String> getFormatosArchivo() {
+        return formatosArchivo;
+    }
+
+    public void setFormatosArchivo(List<String> formatosArchivo) {
+        this.formatosArchivo = formatosArchivo;
+    }
+
+
 }

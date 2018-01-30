@@ -39,4 +39,23 @@ public class Util {
         tipoGrafica.add("Con Repeticiones");
         return tipoGrafica;
     }
+
+    public static List<String> listaTipoArchivos() {
+        List<String> tipoArchivos = new ArrayList<>();
+        tipoArchivos.add("Expediciones");
+        tipoArchivos.add("Distribuciones");
+        tipoArchivos.add("Buses");
+        tipoArchivos.add("TraceLog");
+        tipoArchivos.add("Tabla Horario");
+        tipoArchivos.add("Matriz de distancia");
+        return tipoArchivos;
+    }
+
+    public static List<String> listaFormatosArchivo() {
+        List<String> formatoArchivos = new ArrayList<>();
+        formatoArchivos.add("CSV");
+        formatoArchivos.add("XLS");
+        formatoArchivos.add("TXT");
+        return formatoArchivos;
+    }
 }
