@@ -31,6 +31,7 @@ public class CargarDatosBean {
     private List<String> tiposArchivo;
     private List<String> formatosArchivo;
     private Archivos nuevoArchivo;
+    private UploadedFile file;
 
 
     @ManagedProperty(value="#{CargaDatosServicios}")
@@ -83,7 +84,16 @@ public class CargarDatosBean {
     }
 
     public void guardarArchivo(){
-        archivosLista.add(nuevoArchivo);
+        if(file!=null){
+            try {
+                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
+                nuevoArchivo.setNombre(nombre);
+                archivosLista.add(nuevoArchivo);
+            } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            }
+        }
+
     }
 
     public void cancelar(){
@@ -206,4 +216,11 @@ public class CargarDatosBean {
     }
 
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
 }

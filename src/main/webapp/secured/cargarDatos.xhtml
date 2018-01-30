@@ -37,30 +37,31 @@
                     </p:panelGrid>
 
                     <p:panel>
+                        <p:commandButton value="Agregar" action="#{cargaDatosBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"
+                                         update=":form:fileDialog"/>
                         <p:dataTable id="prog" var="prog" value="#{cargaDatosBean.archivosLista}" widgetVar="ProgTable"
                                      emptyMessage="No hay registros relacionados a la busqueda"
-                                     scrollable="true" scrollWidth="98%" scrollHeight="410"
+                                     scrollable="true" scrollWidth="98%" scrollHeight="350"
                                      editable="true" >
 
                             <p:column filterBy="#{prog.grupo}" headerText="Tipo"  filterMatchMode="contains" sortBy="#{prog.grupo}"
-                                      style="width: 50px">
-                                <h:outputText value="#{prog.grupo}" style="width: 50px" />
+                                      >
+                                <h:outputText value="#{prog.grupo}"  />
                             </p:column>
 
                             <p:column filterBy="#{prog.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{prog.nombre}"
-                                      style="width: 50px">
-                                <h:outputText value="#{prog.nombre}" style="width: 50px" />
+                                      >
+                                <h:outputText value="#{prog.nombre}"  />
                             </p:column>
 
                             <p:column filterBy="#{prog.tipo}" headerText="Formato"  filterMatchMode="contains" sortBy="#{prog.tipo}"
-                                      style="width: 50px">
-                                <h:outputText value="#{prog.tipo}" style="width: 50px" />
+                                      >
+                                <h:outputText value="#{prog.tipo}"  />
                             </p:column>
 
                         </p:dataTable>
                     </p:panel>
-                    <p:commandButton value="Agregar" action="#{cargaDatosBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"
-                                     update=":form:fileDialog"/>
+
                 </p:panel>
 
 
@@ -85,8 +86,8 @@
                             </p:selectOneMenu>
 
                             <h:outputText value="Archivo:" />
-                            <p:fileUpload fileUploadListener="#{cargaDatosBean.cargarArchivo}" mode="advanced" dragDropSupport="false"
-                                          update="messages" sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(xls|csv|txt)$/" />
+                            <p:fileUpload value="#{cargaDatosBean.file}" mode="simple"
+                                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(xls|csv|txt)$/" />
 
                         </p:panelGrid>
                         <p:panelGrid columns="2">

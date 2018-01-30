@@ -32,6 +32,6 @@ public class CargaDatosServicios {
 
     public String copyFile(String fileName, InputStream in){
         processorUtils.copyFile(fileName,in,destination);
-        return destination+fileName;
+        return fileName;
     }
 }
