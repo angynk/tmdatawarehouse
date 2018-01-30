@@ -3,7 +3,11 @@ package com.datawarehouse.view.util;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,20 +46,49 @@ public class Util {
 
     public static List<String> listaTipoArchivos() {
         List<String> tipoArchivos = new ArrayList<>();
-        tipoArchivos.add("Expediciones");
-        tipoArchivos.add("Distribuciones");
-        tipoArchivos.add("Buses");
-        tipoArchivos.add("TraceLog");
-        tipoArchivos.add("Tabla Horario");
-        tipoArchivos.add("Matriz de distancia");
+        tipoArchivos.add(TipoArchivo.expediciones);
+        tipoArchivos.add(TipoArchivo.buses);
+        tipoArchivos.add(TipoArchivo.distribuciones);
+        tipoArchivos.add(TipoArchivo.tracelog);
+        tipoArchivos.add(TipoArchivo.tablaHorario);
+        tipoArchivos.add(TipoArchivo.matrizDistancia);
         return tipoArchivos;
     }
 
     public static List<String> listaFormatosArchivo() {
         List<String> formatoArchivos = new ArrayList<>();
-        formatoArchivos.add("CSV");
-        formatoArchivos.add("XLS");
-        formatoArchivos.add("TXT");
+        formatoArchivos.add(FormatoArchivo.CSV_COMMA);
+//        formatoArchivos.add(FormatoArchivo.CSV_PUNTO_COMMA);
+//        formatoArchivos.add(FormatoArchivo.TXT);
+//        formatoArchivos.add(FormatoArchivo.XLS);
         return formatoArchivos;
+    }
+
+    public static Integer convertirANumero(String numBus) {
+        return Integer.parseInt(numBus);
+    }
+
+    public static Time convertirTime(String tiempo) {
+        DateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+        try {
+            Time time = new Time(sdf.parse(tiempo).getTime());
+            return time;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Time(new Date().getTime());
+    }
+
+    public static Integer formatoPuntos(String punto) {
+        Integer puntoFormato = Integer.parseInt(punto);
+        if(puntoFormato>5000000){
+            return puntoFormato - 5000000;
+        }
+        return puntoFormato - 1000000;
+    }
+
+    public static Double formatoKilometros(String km) {
+        Double kilometros = Double.parseDouble(km);
+        return kilometros;
     }
 }

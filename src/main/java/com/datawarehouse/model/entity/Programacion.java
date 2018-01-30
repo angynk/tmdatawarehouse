@@ -2,6 +2,8 @@ package com.datawarehouse.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="dh_programacion")
@@ -24,6 +26,9 @@ public class Programacion {
 
     @Column(name = "tipo_dia")
     private String tipoDia;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
+    private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
 
     public Programacion(Date fecha, String jornada, String identificador) {
         this.fecha = fecha;
@@ -72,5 +77,13 @@ public class Programacion {
 
     public void setTipoDia(String tipoDia) {
         this.tipoDia = tipoDia;
+    }
+
+    public Set<BusRegistro> getBusesLista() {
+        return busesLista;
+    }
+
+    public void setBusesLista(Set<BusRegistro> busesLista) {
+        this.busesLista = busesLista;
     }
 }

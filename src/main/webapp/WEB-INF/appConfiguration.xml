@@ -37,6 +37,10 @@
                 <value>com.datawarehouse.model.entity.Usuario</value>
                 <value>com.datawarehouse.model.entity.Role</value>
                 <value>com.datawarehouse.model.entity.Programacion</value>
+                <value>com.datawarehouse.model.entity.Operador</value>
+                <value>com.datawarehouse.model.entity.Bus</value>
+                <value>com.datawarehouse.model.entity.BusRegistro</value>
+                <value>com.datawarehouse.model.entity.Expediciones</value>
 
             </list>
         </property>

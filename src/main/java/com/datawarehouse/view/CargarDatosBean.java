@@ -3,6 +3,7 @@ package com.datawarehouse.view;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
+import com.datawarehouse.view.util.LogDatos;
 import com.datawarehouse.view.util.Util;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -26,13 +27,16 @@ public class CargarDatosBean {
     private String tipoDia;
     private List<String> tiposDias;
     private boolean creacionVisible;
+    private boolean resultadosVisibles;
+    private boolean incluirArchivosVisibles;
     private String identificador;
     private List<Archivos> archivosLista;
     private List<String> tiposArchivo;
     private List<String> formatosArchivo;
     private Archivos nuevoArchivo;
     private UploadedFile file;
-
+    private List<LogDatos> logDatos;
+    private Programacion programacion;
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
@@ -48,13 +52,14 @@ public class CargarDatosBean {
         if(datosCompletos()){
             identificador = calcularIdentificador();
             if(!cargaDatosServicios.existeProgramacion(identificador)){
-                Programacion programacion = new Programacion();
+                programacion = new Programacion();
                 programacion.setFecha(fecha);
                 programacion.setIdentificador(identificador);
                 programacion.setJornada(jornada);
                 programacion.setTipoDia(tipoDia);
                 cargaDatosServicios.agregarProgramacion(programacion);
                 creacionVisible = false;
+                incluirArchivosVisibles = true;
             }else{
                 messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
             }
@@ -65,18 +70,16 @@ public class CargarDatosBean {
 
     }
 
-    public void cargarArchivo(FileUploadEvent event){
-        UploadedFile file = event.getFile();
-        if(file!=null){
-            try {
-                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                nuevoArchivo.setNombre(nombre);
-            } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
+    public void cargaMasivaDatos(){
+        if(archivosLista.size()>0){
+            for(Archivos archivo: archivosLista){
+                logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion);
             }
+            incluirArchivosVisibles = false;
+            resultadosVisibles = true;
+        }else{
+            messagesView.error("No hay archivos asociados a la programacion","Verificar datos");
         }
-
-
     }
 
     public void agregarArchivo(){
@@ -117,6 +120,9 @@ public class CargarDatosBean {
         archivosLista = new ArrayList<Archivos>();
         tiposArchivo = Util.listaTipoArchivos();
         formatosArchivo = Util.listaFormatosArchivo();
+        resultadosVisibles = false;
+        incluirArchivosVisibles = false;
+        logDatos = new ArrayList<>();
     }
 
     public Date getFecha() {
@@ -222,5 +228,29 @@ public class CargarDatosBean {
 
     public void setFile(UploadedFile file) {
         this.file = file;
+    }
+
+    public List<LogDatos> getLogDatos() {
+        return logDatos;
+    }
+
+    public void setLogDatos(List<LogDatos> logDatos) {
+        this.logDatos = logDatos;
+    }
+
+    public boolean isResultadosVisibles() {
+        return resultadosVisibles;
+    }
+
+    public void setResultadosVisibles(boolean resultadosVisibles) {
+        this.resultadosVisibles = resultadosVisibles;
+    }
+
+    public boolean isIncluirArchivosVisibles() {
+        return incluirArchivosVisibles;
+    }
+
+    public void setIncluirArchivosVisibles(boolean incluirArchivosVisibles) {
+        this.incluirArchivosVisibles = incluirArchivosVisibles;
     }
 }

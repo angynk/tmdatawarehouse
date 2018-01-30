@@ -30,7 +30,7 @@
                     </p:panelGrid>
                 </p:panel>
 
-                <p:panel header="Programación Asociada" visible="#{!cargaDatosBean.creacionVisible}">
+                <p:panel header="Programación Asociada" visible="#{cargaDatosBean.incluirArchivosVisibles}">
                     <p:panelGrid columns="2" >
                         <p:outputLabel value="Identificador:"  />
                         <p:inputText value="#{cargaDatosBean.identificador}" disabled="true" />
@@ -60,8 +60,26 @@
                             </p:column>
 
                         </p:dataTable>
+                        <p:commandButton value="Finalizar" action="#{cargaDatosBean.cargaMasivaDatos}"
+                                         async="true" process="@form" onclick="PF('dlg2').show();" global="false"
+                                         oncomplete="PF('dlg2').hide()"/>
                     </p:panel>
 
+                </p:panel>
+
+                <p:panel visible="#{cargaDatosBean.resultadosVisibles}">
+                    <p:accordionPanel style="width: 100%" activeIndex="null">
+                        <p:tab title="Resultados">
+                            <h:panelGrid columns="2" cellpadding="10" style="width: 100%">
+                                <p:dataList value="#{cargaDatosBean.logDatos}" var="log" type="ordered" style="width: 100%">
+                                    <f:facet name="header">
+                                        Log
+                                    </f:facet>
+                                    #{log.tipoLog} : #{log.mensaje}
+                                </p:dataList>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
                 </p:panel>
 
 
