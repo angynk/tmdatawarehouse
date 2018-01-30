@@ -1,15 +1,20 @@
 package com.datawarehouse.view;
 
+import com.datawarehouse.model.entity.Programacion;
+import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.Util;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name="cargaDatosBean")
-@SessionScoped
+@ViewScoped
 public class CargarDatosBean {
 
     private Date fecha;
@@ -19,13 +24,45 @@ public class CargarDatosBean {
     private boolean creacionVisible;
     private String identificador;
 
+    @ManagedProperty(value="#{CargaDatosServicios}")
+    private CargaDatosServicios cargaDatosServicios;
+
+    @ManagedProperty("#{MessagesView}")
+    private MessagesView messagesView;
 
     public CargarDatosBean() {
+
     }
 
     public void crearProgramacion(){
-        creacionVisible = false;
-        identificador = "TH-SS1/25-04-2018/HABIL";
+        if(datosCompletos()){
+            identificador = calcularIdentificador();
+            if(!cargaDatosServicios.existeProgramacion(identificador)){
+                Programacion programacion = new Programacion();
+                programacion.setFecha(fecha);
+                programacion.setIdentificador(identificador);
+                programacion.setJornada(jornada);
+                programacion.setTipoDia(tipoDia);
+                cargaDatosServicios.agregarProgramacion(programacion);
+                creacionVisible = false;
+            }else{
+                messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+            }
+        }else{
+            messagesView.error("Campos incompletos","Completar correctamente el formulario");
+        }
+
+
+    }
+
+    private String calcularIdentificador() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+        return tipoDia+"/"+sdfDate.format(fecha)+"/"+jornada;
+    }
+
+    private boolean datosCompletos() {
+        if(fecha!=null && jornada!=null ) return true;
+        return false;
     }
 
     @PostConstruct
@@ -80,5 +117,21 @@ public class CargarDatosBean {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+
+    public CargaDatosServicios getCargaDatosServicios() {
+        return cargaDatosServicios;
+    }
+
+    public void setCargaDatosServicios(CargaDatosServicios cargaDatosServicios) {
+        this.cargaDatosServicios = cargaDatosServicios;
+    }
+
+    public MessagesView getMessagesView() {
+        return messagesView;
+    }
+
+    public void setMessagesView(MessagesView messagesView) {
+        this.messagesView = messagesView;
     }
 }

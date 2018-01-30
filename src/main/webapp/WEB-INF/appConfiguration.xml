@@ -36,6 +36,7 @@
             <list>
                 <value>com.datawarehouse.model.entity.Usuario</value>
                 <value>com.datawarehouse.model.entity.Role</value>
+                <value>com.datawarehouse.model.entity.Programacion</value>
 
             </list>
         </property>

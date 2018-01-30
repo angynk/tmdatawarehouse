@@ -19,9 +19,9 @@ public class Util {
 
     public static List<String> listaDePeriocidad(){
         List<String> periocidad = new ArrayList<>();
-        periocidad.add("Habil");
-        periocidad.add("Festivo");
-        periocidad.add("Sabado");
+        periocidad.add("HÁBIL");
+        periocidad.add("SÁBADO");
+        periocidad.add("FESTIVO");
         return periocidad;
     }
 
