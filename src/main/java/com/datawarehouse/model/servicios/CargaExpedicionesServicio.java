@@ -8,11 +8,15 @@ import com.datawarehouse.model.dao.OperadorDao;
 import com.datawarehouse.model.entity.*;
 import com.datawarehouse.view.util.*;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -126,4 +130,24 @@ public class CargaExpedicionesServicio {
     }
 
 
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion) {
+        String csvFile = PathFiles.PATH+"/"+nombre;
+        String csvFileOut = PathFiles.PATH+"/out_"+nombre;
+        CSVWriter writer = null;
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(csvFile));
+            writer = new CSVWriter(new FileWriter(csvFileOut), ',');
+            String[] entries = null;
+            while ((entries = reader.readNext()) != null) {
+                ArrayList list = new ArrayList(Arrays.asList(entries));
+                list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                entries = (String[]) list.toArray();
+                writer.writeNext(entries);
+            }
+            writer.close();
+        } catch (IOException e) {
+        }
+        return csvFileOut;
+    }
 }

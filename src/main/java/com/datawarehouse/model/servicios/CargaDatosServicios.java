@@ -55,4 +55,8 @@ public class CargaDatosServicios {
         }
         return logDatos;
     }
+
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion) {
+        return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion);
+    }
 }

@@ -6,6 +6,7 @@ package com.datawarehouse.view.util;
 public class PathFiles {
 
  public final static String PATH = "C:\\temp\\Datawarehouse\\";
+// public final static String PATH = "C:\\Users\\user\\Documents\\test\\";
 //public final static String PATH = "M:\\temp\\Indicadores\\";
 
 

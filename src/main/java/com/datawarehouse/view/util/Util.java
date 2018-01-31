@@ -23,8 +23,8 @@ public class Util {
 
     public static List<String> listaDePeriocidad(){
         List<String> periocidad = new ArrayList<>();
-        periocidad.add("HÁBIL");
-        periocidad.add("SÁBADO");
+        periocidad.add("HABIL");
+        periocidad.add("SABADO");
         periocidad.add("FESTIVO");
         return periocidad;
     }
