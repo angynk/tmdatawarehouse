@@ -38,10 +38,11 @@
                         <p:outputLabel value="Cargue el archivo de expediciones (Formato CSV)" />
                         <p:fileUpload value="#{pBean.file}" mode="simple"
                                       sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
                     </h:panelGrid>
                     <div style="height: 5px"></div>
                     <p:commandButton value="Finalizar" actionListener="#{pBean.cargarExpediciones}" async="true"
-                                     process="@form" onclick="PF('dlg2').show();" global="false"
+                                     process="@form" onclick="PF('dlg2').show();" global="false" ajax="false"
                                      oncomplete="PF('dlg2').hide()"/>
                 </p:panel>
 

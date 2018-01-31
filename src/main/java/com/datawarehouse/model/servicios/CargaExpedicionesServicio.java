@@ -140,9 +140,9 @@ public class CargaExpedicionesServicio {
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
             while ((entries = reader.readNext()) != null) {
-                ArrayList list = new ArrayList(Arrays.asList(entries));
+                ArrayList<String> list = new ArrayList(Arrays.asList(entries));
                 list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
-                entries = (String[]) list.toArray();
+                entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }
             writer.close();

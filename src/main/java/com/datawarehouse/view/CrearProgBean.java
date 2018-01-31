@@ -1,5 +1,6 @@
 package com.datawarehouse.view;
 
+import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.Util;
@@ -72,6 +73,17 @@ public class CrearProgBean {
         return false;
     }
 
+    public void guardarArchivo(){
+        if(file!=null){
+            try {
+                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
+            } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            }
+        }
+
+    }
+
     private String calcularIdentificador() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         return tipoDia+"/"+sdfDate.format(fecha)+"/"+jornada;
@@ -81,7 +93,7 @@ public class CrearProgBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-//                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion);
+                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion);
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());
             }
