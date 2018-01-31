@@ -62,8 +62,11 @@ public class CargaExpedicionesServicio {
 
                 //GUARDAR BUS REGISTRO
                 BusRegistro busRegistro = guardarBusRegistro(programacion,line[ExpedicionesDEF.BUS]);
-                //GUARDAR INFO EXPEDICIONES
-                guardarExpedicion(line,busRegistro);
+                if(busRegistro!=null){
+                    //GUARDAR INFO EXPEDICIONES
+                    guardarExpedicion(line,busRegistro);
+                }
+
             }
         } catch (IOException e) {
             logDatos.add(new LogDatos(e.getMessage(),TipoLog.ERROR));
@@ -88,11 +91,16 @@ public class CargaExpedicionesServicio {
 
     private BusRegistro guardarBusRegistro(Programacion programacion, String numBus) {
         Integer numeroBus = Util.convertirANumero(numBus);
-        //1. Validar el bus
-         Bus bus = encontrarBus(numeroBus);
-        //2. Validar registroBus
-        BusRegistro busRegistro = encontrarBusRegistro(bus,programacion);
-        return busRegistro;
+        if(numeroBus!=0){
+            //1. Validar el bus
+            Bus bus = encontrarBus(numeroBus);
+            //2. Validar registroBus
+            BusRegistro busRegistro = encontrarBusRegistro(bus,programacion);
+            return busRegistro;
+        }
+
+        return null;
+
     }
 
     private BusRegistro encontrarBusRegistro(Bus bus,Programacion programacion) {

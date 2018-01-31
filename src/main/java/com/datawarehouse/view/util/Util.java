@@ -65,7 +65,12 @@ public class Util {
     }
 
     public static Integer convertirANumero(String numBus) {
-        return Integer.parseInt(numBus);
+        try{
+            return Integer.parseInt(numBus);
+        }catch (Exception e){
+            return 0;
+        }
+
     }
 
     public static Time convertirTime(String tiempo) {
