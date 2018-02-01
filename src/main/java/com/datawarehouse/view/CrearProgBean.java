@@ -24,9 +24,12 @@ public class CrearProgBean {
     private Date fecha;
     private String jornada;
     private String tipoDia;
+    private String descripcion;
+    private String modo;
     private Programacion nuevaProgramacion;
     private String identificador;
     private List<String> tiposDias;
+    private List<String> modos;
     private UploadedFile file;
     private boolean creacionVisible;
     private boolean incluirArchivosVisibles;
@@ -48,6 +51,7 @@ public class CrearProgBean {
         nuevaProgramacion = new Programacion();
         formatosArchivo = Util.listaFormatosCSV();
         tiposDias = Util.listaDePeriocidad();
+        modos = Util.listaModos();
         creacionVisible = true;
         incluirArchivosVisibles = false;
     }
@@ -61,6 +65,8 @@ public class CrearProgBean {
                 nuevaProgramacion.setFecha(fecha);
                 nuevaProgramacion.setJornada(jornada);
                 nuevaProgramacion.setTipoDia(tipoDia);
+                nuevaProgramacion.setDescripcion(descripcion);
+                nuevaProgramacion.setModo(modo);
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
                 creacionVisible = false;
                 incluirArchivosVisibles = true;
@@ -73,7 +79,7 @@ public class CrearProgBean {
     }
 
     private boolean datosCompletos() {
-        if(fecha!=null && jornada!=null ) return true;
+        if(fecha!=null && jornada!=null && descripcion!=null ) return true;
         return false;
     }
 
@@ -208,5 +214,29 @@ public class CrearProgBean {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public List<String> getModos() {
+        return modos;
+    }
+
+    public void setModos(List<String> modos) {
+        this.modos = modos;
     }
 }

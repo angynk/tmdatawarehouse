@@ -21,9 +21,15 @@
                     <p:calendar  value="#{pBean.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                     <p:outputLabel value="Jornada:"  />
                     <p:inputText value="#{pBean.jornada}" />
+                    <p:outputLabel value="Descripcion:"  />
+                    <p:inputText value="#{pBean.descripcion}" />
                     <p:outputLabel value="Tipo día:"  />
                     <p:selectOneMenu  value="#{pBean.tipoDia}" style="width:100%">
                         <f:selectItems value="#{pBean.tiposDias}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Modo:"  />
+                    <p:selectOneMenu  value="#{pBean.modo}" style="width:100%">
+                        <f:selectItems value="#{pBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
                     </p:selectOneMenu>
                     <p:commandButton value="Crear" action="#{pBean.crearProgramacion}" ajax="false" />
                 </p:panelGrid>

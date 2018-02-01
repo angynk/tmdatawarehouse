@@ -27,6 +27,12 @@ public class Programacion {
     @Column(name = "tipo_dia")
     private String tipoDia;
 
+    @Column(name = "modo")
+    private String modo;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
     private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
 
@@ -96,5 +102,21 @@ public class Programacion {
 
     public void setArchivosLista(Set<Archivos> archivosLista) {
         this.archivosLista = archivosLista;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

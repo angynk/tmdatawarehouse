@@ -104,4 +104,12 @@ public class Util {
         formatoArchivos.add(FormatoArchivo.CSV_PUNTO_COMMA);
         return formatoArchivos;
     }
+
+    public static List<String> listaModos() {
+        List<String> modos = new ArrayList<>();
+        modos.add(Modos.TRONCAL);
+        modos.add(Modos.DUAL);
+        modos.add(Modos.ALIMENTADOR);
+        return modos;
+    }
 }
