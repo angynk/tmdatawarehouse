@@ -22,17 +22,21 @@ import java.util.List;
 @ViewScoped
 public class CargarDatosBean {
 
-    private Date fecha;
+    private Date fechaInicio;
+    private Date fechaFin;
     private String jornada;
     private String tipoDia;
     private List<String> tiposDias;
     private boolean creacionVisible;
     private boolean resultadosVisibles;
     private boolean incluirArchivosVisibles;
+    private boolean archivosVisibles;
     private String identificador;
+    private String progr;
     private List<Archivos> archivosLista;
     private List<String> tiposArchivo;
     private List<String> formatosArchivo;
+    private List<String> programaciones;
     private Archivos nuevoArchivo;
     private UploadedFile file;
     private List<LogDatos> logDatos;
@@ -48,27 +52,19 @@ public class CargarDatosBean {
 
     }
 
-    public void crearProgramacion(){
-        if(datosCompletos()){
-            identificador = calcularIdentificador();
-            if(!cargaDatosServicios.existeProgramacion(identificador)){
-                programacion = new Programacion();
-                programacion.setFecha(fecha);
-                programacion.setIdentificador(identificador);
-                programacion.setJornada(jornada);
-                programacion.setTipoDia(tipoDia);
-                cargaDatosServicios.agregarProgramacion(programacion);
-                creacionVisible = false;
-                incluirArchivosVisibles = true;
-            }else{
-                messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+   public void buscarProgramacion(){
+        if(fechaInicio!= null && fechaFin!= null){
+            List<Programacion> programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,tipoDia);
+            for(Programacion p:programacionList){
+                programaciones.add(p.getIdentificador());
             }
-        }else{
-            messagesView.error("Campos incompletos","Completar correctamente el formulario");
+            incluirArchivosVisibles=true;
+            creacionVisible=false;
+
         }
+   }
 
 
-    }
 
     public void cargaMasivaDatos(){
         if(archivosLista.size()>0){
@@ -103,15 +99,6 @@ public class CargarDatosBean {
 
     }
 
-    private String calcularIdentificador() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        return tipoDia+"/"+sdfDate.format(fecha)+"/"+jornada;
-    }
-
-    private boolean datosCompletos() {
-        if(fecha!=null && jornada!=null ) return true;
-        return false;
-    }
 
     @PostConstruct
     public void init() {
@@ -122,16 +109,17 @@ public class CargarDatosBean {
         formatosArchivo = Util.listaFormatosArchivo();
         resultadosVisibles = false;
         incluirArchivosVisibles = false;
+        archivosVisibles = false;
         logDatos = new ArrayList<>();
+        programaciones = new ArrayList<>();
     }
 
-    public Date getFecha() {
-        return fecha;
+    public void seleccionarProgramacion(){
+        archivosVisibles = true;
+        archivosLista = cargaDatosServicios.obtenerArchivosLista(progr);
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+
 
     public String getJornada() {
         return jornada;
@@ -252,5 +240,53 @@ public class CargarDatosBean {
 
     public void setIncluirArchivosVisibles(boolean incluirArchivosVisibles) {
         this.incluirArchivosVisibles = incluirArchivosVisibles;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public Programacion getProgramacion() {
+        return programacion;
+    }
+
+    public void setProgramacion(Programacion programacion) {
+        this.programacion = programacion;
+    }
+
+    public String getProgr() {
+        return progr;
+    }
+
+    public void setProgr(String progr) {
+        this.progr = progr;
+    }
+
+    public List<String> getProgramaciones() {
+        return programaciones;
+    }
+
+    public void setProgramaciones(List<String> programaciones) {
+        this.programaciones = programaciones;
+    }
+
+    public boolean isArchivosVisibles() {
+        return archivosVisibles;
+    }
+
+    public void setArchivosVisibles(boolean archivosVisibles) {
+        this.archivosVisibles = archivosVisibles;
     }
 }

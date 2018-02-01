@@ -1,5 +1,6 @@
 package com.datawarehouse.model.servicios;
 
+import com.datawarehouse.model.dao.ArchivosDao;
 import com.datawarehouse.model.dao.ProgramacionDao;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 @Service("CargaDatosServicios")
@@ -15,6 +17,9 @@ public class CargaDatosServicios {
 
     @Autowired
     private ProgramacionDao programacionDao;
+
+    @Autowired
+    private ArchivosDao archivosDao;
 
     @Autowired
     private ProcessorUtils processorUtils;
@@ -70,5 +75,18 @@ public class CargaDatosServicios {
 
     public void eliminarDatosTemporales(Programacion nuevaProgramacion) {
         cargaExpedicionesServicio.eliminarDatosTemporales(nuevaProgramacion);
+    }
+
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia) {
+        return programacionDao.getProgramaciones(fechaInicio,fechaFin,tipoDia);
+    }
+
+    public void agregarArchivo(Archivos archivo) {
+        archivosDao.addArchivos(archivo);
+    }
+
+    public List<Archivos> obtenerArchivosLista(String progr) {
+        Programacion programacion = programacionDao.encontrarProgramacion(progr);
+        return archivosDao.encontrarArchivos(programacion);
     }
 }

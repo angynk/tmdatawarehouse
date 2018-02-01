@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -45,5 +47,12 @@ public class ProgramacionDao {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Programacion.class);
         criteria.add(Restrictions.eq("identificador",identificador));
         return (Programacion) criteria.uniqueResult();
+    }
+
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Programacion.class);
+        criteria.add(Restrictions.eq("tipoDia",tipoDia));
+        criteria.add(Restrictions.between("fecha",fechaInicio,fechaFin));
+        return criteria.list();
     }
 }

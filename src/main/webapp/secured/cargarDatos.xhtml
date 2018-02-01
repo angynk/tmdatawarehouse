@@ -16,48 +16,60 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
 
-                <p:panel header="Crear Programación" visible="#{cargaDatosBean.creacionVisible}">
+                <p:panel header="Buscar Programación" visible="#{cargaDatosBean.creacionVisible}">
                     <p:panelGrid columns="6" >
-                        <p:outputLabel value="Fecha:"  />
-                        <p:calendar  value="#{cargaDatosBean.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
-                        <p:outputLabel value="Jornada:"  />
-                        <p:inputText value="#{cargaDatosBean.jornada}" />
+                        <p:outputLabel value="Fecha Inicio:"  />
+                        <p:calendar  value="#{cargaDatosBean.fechaInicio}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:outputLabel value="Fecha Fin:"  />
+                        <p:calendar  value="#{cargaDatosBean.fechaFin}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel value="Tipo día:"  />
                         <p:selectOneMenu  value="#{cargaDatosBean.tipoDia}" style="width:100%">
                             <f:selectItems value="#{cargaDatosBean.tiposDias}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
                         </p:selectOneMenu>
-                        <p:commandButton value="Crear" action="#{cargaDatosBean.crearProgramacion}" ajax="false" />
+                        <p:commandButton value="Buscar" action="#{cargaDatosBean.buscarProgramacion}" ajax="false" />
                     </p:panelGrid>
                 </p:panel>
 
                 <p:panel header="Programación Asociada" visible="#{cargaDatosBean.incluirArchivosVisibles}">
                     <p:panelGrid columns="2" >
-                        <p:outputLabel value="Identificador:"  />
-                        <p:inputText value="#{cargaDatosBean.identificador}" disabled="true" />
+                        <p:outputLabel value="Seleccione Programacion:"  />
+                        <p:selectOneMenu id="advanced" value="#{cargaDatosBean.progr}"  panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{cargaDatosBean.programaciones}" var="prog"
+                                           itemLabel="#{prog}" itemValue="#{prog}" />
+
+                            <p:column>
+                                <h:outputText value="#{t}" />
+                            </p:column>
+
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="Seleccionar" action="#{cargaDatosBean.seleccionarProgramacion}" disabled="#{cargaDatosBean.archivosVisibles}"
+                                         update="@form" ajax="false"/>
 
                     </p:panelGrid>
 
-                    <p:panel>
+                    <p:panel visible="#{cargaDatosBean.archivosVisibles}">
                         <p:commandButton value="Agregar" action="#{cargaDatosBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"
                                          update=":form:fileDialog"/>
-                        <p:dataTable id="prog" var="prog" value="#{cargaDatosBean.archivosLista}" widgetVar="ProgTable"
+                        <p:dataTable id="prog" var="arch" value="#{cargaDatosBean.archivosLista}" widgetVar="ProgTable"
                                      emptyMessage="No hay registros relacionados a la busqueda"
                                      scrollable="true" scrollWidth="98%" scrollHeight="350"
                                      editable="true" >
 
-                            <p:column filterBy="#{prog.grupo}" headerText="Tipo"  filterMatchMode="contains" sortBy="#{prog.grupo}"
+                            <p:column filterBy="#{arch.grupo}" headerText="Tipo"  filterMatchMode="contains" sortBy="#{arch.grupo}"
                                       >
-                                <h:outputText value="#{prog.grupo}"  />
+                                <h:outputText value="#{arch.grupo}"  />
                             </p:column>
 
-                            <p:column filterBy="#{prog.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{prog.nombre}"
+                            <p:column filterBy="#{arch.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{arch.nombre}"
                                       >
-                                <h:outputText value="#{prog.nombre}"  />
+                                <h:outputText value="#{arch.nombre}"  />
                             </p:column>
 
-                            <p:column filterBy="#{prog.tipo}" headerText="Formato"  filterMatchMode="contains" sortBy="#{prog.tipo}"
+                            <p:column filterBy="#{arch.tipo}" headerText="Formato"  filterMatchMode="contains" sortBy="#{arch.tipo}"
                                       >
-                                <h:outputText value="#{prog.tipo}"  />
+                                <h:outputText value="#{arch.tipo}"  />
                             </p:column>
 
                         </p:dataTable>

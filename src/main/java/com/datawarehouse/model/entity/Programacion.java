@@ -30,6 +30,9 @@ public class Programacion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
     private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
+    private Set<Archivos> archivosLista = new HashSet<Archivos>(0);
+
     public Programacion(Date fecha, String jornada, String identificador) {
         this.fecha = fecha;
         this.jornada = jornada;
@@ -85,5 +88,13 @@ public class Programacion {
 
     public void setBusesLista(Set<BusRegistro> busesLista) {
         this.busesLista = busesLista;
+    }
+
+    public Set<Archivos> getArchivosLista() {
+        return archivosLista;
+    }
+
+    public void setArchivosLista(Set<Archivos> archivosLista) {
+        this.archivosLista = archivosLista;
     }
 }

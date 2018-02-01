@@ -3,6 +3,7 @@ package com.datawarehouse.view;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
+import com.datawarehouse.view.util.TipoArchivo;
 import com.datawarehouse.view.util.Util;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
@@ -91,6 +92,12 @@ public class CrearProgBean {
                 cargaDatosServicios.eliminarDatosTemporales(nuevaProgramacion);
                 incluirArchivosVisibles = false;
                 messagesView.info("Proceso Exitoso ","Nueva programación creada");
+                Archivos archivo = new Archivos();
+                archivo.setNombre(file.getFileName());
+                archivo.setGrupo(TipoArchivo.expediciones);
+                archivo.setTipo(tipo);
+                archivo.setProgramacion(nuevaProgramacion);
+                cargaDatosServicios.agregarArchivo(archivo);
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());
             } catch (Exception e) {

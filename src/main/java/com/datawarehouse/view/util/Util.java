@@ -46,7 +46,7 @@ public class Util {
 
     public static List<String> listaTipoArchivos() {
         List<String> tipoArchivos = new ArrayList<>();
-        tipoArchivos.add(TipoArchivo.expediciones);
+//        tipoArchivos.add(TipoArchivo.expediciones);
         tipoArchivos.add(TipoArchivo.buses);
         tipoArchivos.add(TipoArchivo.distribuciones);
         tipoArchivos.add(TipoArchivo.tracelog);
@@ -58,9 +58,9 @@ public class Util {
     public static List<String> listaFormatosArchivo() {
         List<String> formatoArchivos = new ArrayList<>();
         formatoArchivos.add(FormatoArchivo.CSV_COMMA);
-//        formatoArchivos.add(FormatoArchivo.CSV_PUNTO_COMMA);
-//        formatoArchivos.add(FormatoArchivo.TXT);
-//        formatoArchivos.add(FormatoArchivo.XLS);
+        formatoArchivos.add(FormatoArchivo.CSV_PUNTO_COMMA);
+        formatoArchivos.add(FormatoArchivo.TXT);
+        formatoArchivos.add(FormatoArchivo.XLS);
         return formatoArchivos;
     }
 

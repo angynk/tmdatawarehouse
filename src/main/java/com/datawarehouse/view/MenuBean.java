@@ -24,7 +24,7 @@ public class MenuBean {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
-                    + "/secured/configRoles.xhtml");
+                    + "/secured/cargarDatos.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
