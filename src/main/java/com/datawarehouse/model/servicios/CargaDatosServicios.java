@@ -41,7 +41,7 @@ public class CargaDatosServicios {
 
     public List<LogDatos> cargarArchivoNuevo(Archivos archivo, List<LogDatos> logDatos, Programacion programacion) {
         if(archivo.getGrupo().equals(TipoArchivo.expediciones)){
-          logDatos = cargaExpedicionesServicio.cargarArchivoExpediciones(archivo,logDatos,programacion);
+
         }else if(archivo.getGrupo().equals(TipoArchivo.buses)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.tracelog)){
@@ -56,7 +56,19 @@ public class CargaDatosServicios {
         return logDatos;
     }
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion) {
-        return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion);
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo) {
+        if(tipo.equals(FormatoArchivo.CSV_COMMA)){
+            return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion);
+        }
+        return cargaExpedicionesServicio.incluirFilaArchivoPuntoComa(nombre,nuevaProgramacion);
+
+    }
+
+    public void cargarArchivoExpediciones(String nombre) throws Exception {
+        cargaExpedicionesServicio.cargarArchivoExpediciones(nombre);
+    }
+
+    public void eliminarDatosTemporales(Programacion nuevaProgramacion) {
+        cargaExpedicionesServicio.eliminarDatosTemporales(nuevaProgramacion);
     }
 }

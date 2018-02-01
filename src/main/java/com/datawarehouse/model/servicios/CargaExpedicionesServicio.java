@@ -38,19 +38,7 @@ public class CargaExpedicionesServicio {
     private ExpedicionesDao expedicionesDao;
 
 
-    public List<LogDatos> cargarArchivoExpediciones(Archivos archivo, List<LogDatos> logDatos, Programacion programacion) {
-        operadorDefecto = encontrarOperadorDefault();
-        if(archivo.getTipo().equals(FormatoArchivo.CSV_COMMA)){
-                logDatos = leerCSVFile(",",archivo,logDatos,programacion);
-        }else if (archivo.getTipo().equals(FormatoArchivo.CSV_PUNTO_COMMA)){
 
-        }else if (archivo.getTipo().equals(FormatoArchivo.TXT)){
-
-        }else if (archivo.getTipo().equals(FormatoArchivo.XLS)){
-
-        }
-        return logDatos;
-    }
 
     private Operador encontrarOperadorDefault() {
         return operadorDao.encontrarOperadorDefault();
@@ -136,11 +124,55 @@ public class CargaExpedicionesServicio {
         CSVWriter writer = null;
         CSVReader reader = null;
         try {
-            reader = new CSVReader(new FileReader(csvFile));
+            reader = new CSVReader(new FileReader(csvFile),',');
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
             while ((entries = reader.readNext()) != null) {
                 ArrayList<String> list = new ArrayList(Arrays.asList(entries));
+                ArrayList<String> listaFinal = new ArrayList<>();
+                if(list.size()>16){
+                    for(int x=0;x<list.size();x++){
+                        if(x == 9 ){
+                            listaFinal.add(list.get(x)+"."+list.get(x+1));
+                            x++;
+                        }else{
+                            listaFinal.add(list.get(x));
+                        }
+
+                    }
+                }else{
+                   listaFinal = list;
+                }
+                listaFinal.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                entries =  listaFinal.toArray(new String[listaFinal.size()]);
+                writer.writeNext(entries);
+            }
+            writer.close();
+        } catch (IOException e) {
+        }
+        return csvFileOut;
+    }
+
+    public void cargarArchivoExpediciones(String nombre) throws Exception {
+        expedicionesDao.cargarArchivoExpediciones(nombre);
+    }
+
+    public void eliminarDatosTemporales(Programacion nuevaProgramacion) {
+        expedicionesDao.eliminarDatos(nuevaProgramacion);
+    }
+
+    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion) {
+        String csvFile = PathFiles.PATH+"/"+nombre;
+        String csvFileOut = PathFiles.PATH+"/out_"+nombre;
+        CSVWriter writer = null;
+        CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(csvFile),';');
+            writer = new CSVWriter(new FileWriter(csvFileOut), ',');
+            String[] entries = null;
+            while ((entries = reader.readNext()) != null) {
+                ArrayList<String> list = new ArrayList(Arrays.asList(entries));
+                list.set(9,list.get(9).replace(",","."));
                 list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);

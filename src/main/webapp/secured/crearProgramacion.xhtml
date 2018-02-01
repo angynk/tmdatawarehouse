@@ -35,6 +35,12 @@
                         <p:inputText value="#{pBean.identificador}" disabled="true" />
                         <p:outputLabel></p:outputLabel>
                         <p:outputLabel></p:outputLabel>
+                        <p:outputLabel value="Formato Archivo:"  />
+                        <p:selectOneMenu  value="#{pBean.tipo}" style="width:100%">
+                            <f:selectItems value="#{pBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel></p:outputLabel>
+                        <p:outputLabel></p:outputLabel>
                         <p:outputLabel value="Cargue el archivo de expediciones (Formato CSV)" />
                         <p:fileUpload value="#{pBean.file}" mode="simple"
                                       sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />

@@ -29,6 +29,8 @@ public class CrearProgBean {
     private UploadedFile file;
     private boolean creacionVisible;
     private boolean incluirArchivosVisibles;
+    private List<String> formatosArchivo;
+    private String tipo;
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
@@ -43,6 +45,7 @@ public class CrearProgBean {
     @PostConstruct
     public void init() {
         nuevaProgramacion = new Programacion();
+        formatosArchivo = Util.listaFormatosCSV();
         tiposDias = Util.listaDePeriocidad();
         creacionVisible = true;
         incluirArchivosVisibles = false;
@@ -73,16 +76,6 @@ public class CrearProgBean {
         return false;
     }
 
-    public void guardarArchivo(){
-        if(file!=null){
-            try {
-                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-            } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
-            }
-        }
-
-    }
 
     private String calcularIdentificador() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -93,8 +86,14 @@ public class CrearProgBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion);
+                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion,tipo);
+                cargaDatosServicios.cargarArchivoExpediciones(nombre);
+                cargaDatosServicios.eliminarDatosTemporales(nuevaProgramacion);
+                incluirArchivosVisibles = false;
+                messagesView.info("Proceso Exitoso ","Nueva programación creada");
             } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            } catch (Exception e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());
             }
         }
@@ -186,5 +185,21 @@ public class CrearProgBean {
 
     public void setTipoDia(String tipoDia) {
         this.tipoDia = tipoDia;
+    }
+
+    public List<String> getFormatosArchivo() {
+        return formatosArchivo;
+    }
+
+    public void setFormatosArchivo(List<String> formatosArchivo) {
+        this.formatosArchivo = formatosArchivo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

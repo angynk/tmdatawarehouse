@@ -96,4 +96,12 @@ public class Util {
         Double kilometros = Double.parseDouble(km);
         return kilometros;
     }
+
+    public static List<String> listaFormatosCSV() {
+
+        List<String> formatoArchivos = new ArrayList<>();
+        formatoArchivos.add(FormatoArchivo.CSV_COMMA);
+        formatoArchivos.add(FormatoArchivo.CSV_PUNTO_COMMA);
+        return formatoArchivos;
+    }
 }
