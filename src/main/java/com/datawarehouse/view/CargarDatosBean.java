@@ -117,6 +117,8 @@ public class CargarDatosBean {
     public void seleccionarProgramacion(){
         archivosVisibles = true;
         archivosLista = cargaDatosServicios.obtenerArchivosLista(progr);
+        programacion = cargaDatosServicios.obtenerProgramacion(progr);
+
     }
 
 

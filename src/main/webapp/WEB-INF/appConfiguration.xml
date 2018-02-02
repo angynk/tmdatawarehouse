@@ -43,6 +43,7 @@
                 <value>com.datawarehouse.model.entity.Expediciones</value>
                 <value>com.datawarehouse.model.entity.Distribuciones</value>
                 <value>com.datawarehouse.model.entity.Archivos</value>
+                <value>com.datawarehouse.model.entity.Buses</value>
 
             </list>
         </property>

@@ -86,7 +86,7 @@ public class CrearProgBean {
 
     private String calcularIdentificador() {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        return tipoDia+"/"+sdfDate.format(fecha)+"/"+jornada;
+        return sdfDate.format(fecha)+"/"+jornada;
     }
 
     public void cargarExpediciones(){

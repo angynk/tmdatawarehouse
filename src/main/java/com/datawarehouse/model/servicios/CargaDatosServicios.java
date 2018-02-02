@@ -27,6 +27,9 @@ public class CargaDatosServicios {
     @Autowired
     private CargaExpedicionesServicio cargaExpedicionesServicio;
 
+    @Autowired
+    private CargaBusesServicio cargaBusesServicio;
+
 
 
     public boolean existeProgramacion(String identificador) {
@@ -48,7 +51,7 @@ public class CargaDatosServicios {
         if(archivo.getGrupo().equals(TipoArchivo.expediciones)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.buses)){
-
+              logDatos = cargaBusesServicio.agregarInformacionBuses(programacion,archivo,logDatos);
         }else if(archivo.getGrupo().equals(TipoArchivo.tracelog)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.distribuciones)){
@@ -60,6 +63,8 @@ public class CargaDatosServicios {
         }
         return logDatos;
     }
+
+
 
     public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo) {
         if(tipo.equals(FormatoArchivo.CSV_COMMA)){
@@ -88,5 +93,9 @@ public class CargaDatosServicios {
     public List<Archivos> obtenerArchivosLista(String progr) {
         Programacion programacion = programacionDao.encontrarProgramacion(progr);
         return archivosDao.encontrarArchivos(programacion);
+    }
+
+    public Programacion obtenerProgramacion(String progr) {
+        return programacionDao.encontrarProgramacion(progr);
     }
 }
