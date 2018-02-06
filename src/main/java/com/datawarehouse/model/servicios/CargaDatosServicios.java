@@ -30,6 +30,8 @@ public class CargaDatosServicios {
     @Autowired
     private CargaBusesServicio cargaBusesServicio;
 
+    @Autowired
+    private CargaTablaHorarioServicio cargaTablaHorarioServicio;
 
 
     public boolean existeProgramacion(String identificador) {
@@ -57,7 +59,7 @@ public class CargaDatosServicios {
         }else if(archivo.getGrupo().equals(TipoArchivo.distribuciones)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.tablaHorario)){
-
+               logDatos = cargaTablaHorarioServicio.agregarInformacionTablaHorario(programacion,archivo,logDatos);
         }else if(archivo.getGrupo().equals(TipoArchivo.matrizDistancia)){
 
         }
