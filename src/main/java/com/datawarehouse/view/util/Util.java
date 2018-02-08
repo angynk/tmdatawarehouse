@@ -109,7 +109,7 @@ public class Util {
         List<String> modos = new ArrayList<>();
         modos.add(Modos.TRONCAL);
         modos.add(Modos.DUAL);
-        modos.add(Modos.ALIMENTADOR);
+//        modos.add(Modos.ALIMENTADOR);
         return modos;
     }
 

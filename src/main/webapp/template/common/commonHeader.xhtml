@@ -31,7 +31,12 @@
 
 
                     <p:menubar orientation="horizontal" style="margin-top:40px;">
-                        <p:submenu label="Datos Programación BRT" icon="ui-icon-script">
+                        <p:submenu label="Programación Troncal" icon="ui-icon-script">
+                            <p:menuitem value="Nueva Programación" action="#{menu.refreshCargarDatos}" />
+                            <p:menuitem value="Actualizar Programación" action="#{menu.refreshActualizarDatos}" />
+                            <p:menuitem value="Consultas" action="#{menu.refreshConsultarDatos}" />
+                        </p:submenu>
+                        <p:submenu label="Programación Alimentación" icon="ui-icon-script">
                             <p:menuitem value="Cargar" action="#{menu.refreshCargarDatos}" />
                             <p:menuitem value="Actualizar" action="#{menu.refreshActualizarDatos}" />
                             <p:menuitem value="Consultar" action="#{menu.refreshConsultarDatos}" />
