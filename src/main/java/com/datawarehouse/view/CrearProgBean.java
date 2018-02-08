@@ -66,7 +66,7 @@ public class CrearProgBean {
                 nuevaProgramacion.setJornada(jornada);
                 nuevaProgramacion.setTipoDia(tipoDia);
                 nuevaProgramacion.setDescripcion(descripcion);
-                nuevaProgramacion.setModo(modo);
+                nuevaProgramacion.setModo(Util.convertirModo(modo));
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
                 creacionVisible = false;
                 incluirArchivosVisibles = true;
@@ -93,7 +93,7 @@ public class CrearProgBean {
         if(file!=null){
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion,tipo);
+                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion,tipo,Util.convertirModo(modo));
                 cargaDatosServicios.cargarArchivoExpediciones(nombre);
                 cargaDatosServicios.eliminarDatosTemporales(nuevaProgramacion);
                 incluirArchivosVisibles = false;

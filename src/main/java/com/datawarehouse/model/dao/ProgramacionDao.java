@@ -49,9 +49,10 @@ public class ProgramacionDao {
         return (Programacion) criteria.uniqueResult();
     }
 
-    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia) {
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia,String modo) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Programacion.class);
         criteria.add(Restrictions.eq("tipoDia",tipoDia));
+        criteria.add(Restrictions.eq("modo",modo));
         criteria.add(Restrictions.between("fecha",fechaInicio,fechaFin));
         return criteria.list();
     }

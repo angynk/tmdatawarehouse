@@ -40,32 +40,6 @@ public class CargaExpedicionesServicio {
 
 
 
-    private Operador encontrarOperadorDefault() {
-        return operadorDao.encontrarOperadorDefault();
-    }
-
-    private List<LogDatos> leerCSVFile(String separador, Archivos archivo, List<LogDatos> logDatos, Programacion programacion) {
-        String csvFile = PathFiles.PATH+"/"+archivo.getNombre();
-        CSVReader reader = null;
-        try {
-            reader = new CSVReader(new FileReader(csvFile));
-            String[] line = reader.readNext();
-            while ((line = reader.readNext()) != null) {
-
-                //GUARDAR BUS REGISTRO
-                BusRegistro busRegistro = guardarBusRegistro(programacion,line[ExpedicionesDEF.BUS]);
-                if(busRegistro!=null){
-                    //GUARDAR INFO EXPEDICIONES
-                    guardarExpedicion(line,busRegistro);
-                }
-
-            }
-        } catch (IOException e) {
-            logDatos.add(new LogDatos(e.getMessage(),TipoLog.ERROR));
-        }
-        return logDatos;
-    }
-
     private void guardarExpedicion(String[] line, BusRegistro busRegistro) {
         Expediciones expediciones = new Expediciones();
         expediciones.setBusRegistro(busRegistro);
@@ -109,16 +83,16 @@ public class CargaExpedicionesServicio {
 
     private Bus encontrarBus(Integer numeroBus) {
         Bus bus = busDao.encontrarBus(numeroBus);
-        if(bus== null){
-            bus = new Bus(numeroBus,new Date());
-            busDao.addBus(bus);
-        }
+//        if(bus== null){
+//            bus = new Bus(numeroBus,new Date());
+//            busDao.addBus(bus);
+//        }
 
         return bus;
     }
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String modo) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -144,6 +118,7 @@ public class CargaExpedicionesServicio {
                    listaFinal = list;
                 }
                 listaFinal.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                listaFinal.add(modo); // Add the new element here
                 entries =  listaFinal.toArray(new String[listaFinal.size()]);
                 writer.writeNext(entries);
             }
@@ -161,7 +136,7 @@ public class CargaExpedicionesServicio {
         expedicionesDao.eliminarDatos(nuevaProgramacion);
     }
 
-    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion) {
+    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion, String modo) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -174,6 +149,7 @@ public class CargaExpedicionesServicio {
                 ArrayList<String> list = new ArrayList(Arrays.asList(entries));
                 list.set(9,list.get(9).replace(",","."));
                 list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                list.add(modo); // Add the new element here
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }

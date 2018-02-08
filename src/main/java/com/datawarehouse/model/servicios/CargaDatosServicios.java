@@ -68,11 +68,11 @@ public class CargaDatosServicios {
 
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo,String modo) {
         if(tipo.equals(FormatoArchivo.CSV_COMMA)){
-            return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion);
+            return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion,modo);
         }
-        return cargaExpedicionesServicio.incluirFilaArchivoPuntoComa(nombre,nuevaProgramacion);
+        return cargaExpedicionesServicio.incluirFilaArchivoPuntoComa(nombre,nuevaProgramacion,modo);
 
     }
 
@@ -84,8 +84,8 @@ public class CargaDatosServicios {
         cargaExpedicionesServicio.eliminarDatosTemporales(nuevaProgramacion);
     }
 
-    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia) {
-        return programacionDao.getProgramaciones(fechaInicio,fechaFin,tipoDia);
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String tipoDia,String modo) {
+        return programacionDao.getProgramaciones(fechaInicio,fechaFin,tipoDia,modo);
     }
 
     public void agregarArchivo(Archivos archivo) {

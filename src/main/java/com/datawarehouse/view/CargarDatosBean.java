@@ -26,7 +26,9 @@ public class CargarDatosBean {
     private Date fechaFin;
     private String jornada;
     private String tipoDia;
+    private String modo;
     private List<String> tiposDias;
+    private List<String> modos;
     private boolean creacionVisible;
     private boolean resultadosVisibles;
     private boolean incluirArchivosVisibles;
@@ -54,7 +56,7 @@ public class CargarDatosBean {
 
    public void buscarProgramacion(){
         if(fechaInicio!= null && fechaFin!= null){
-            List<Programacion> programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,tipoDia);
+            List<Programacion> programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,tipoDia,modo);
             for(Programacion p:programacionList){
                 programaciones.add(p.getIdentificador());
             }
@@ -112,6 +114,7 @@ public class CargarDatosBean {
         archivosVisibles = false;
         logDatos = new ArrayList<>();
         programaciones = new ArrayList<>();
+        modos = Util.listaModos();
     }
 
     public void seleccionarProgramacion(){
@@ -290,5 +293,21 @@ public class CargarDatosBean {
 
     public void setArchivosVisibles(boolean archivosVisibles) {
         this.archivosVisibles = archivosVisibles;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
+    }
+
+    public List<String> getModos() {
+        return modos;
+    }
+
+    public void setModos(List<String> modos) {
+        this.modos = modos;
     }
 }

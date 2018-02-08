@@ -112,4 +112,13 @@ public class Util {
         modos.add(Modos.ALIMENTADOR);
         return modos;
     }
+
+    public static String convertirModo(String modo) {
+        if (Modos.TRONCAL.equals(modo)){
+            return "T";
+        }else if (Modos.ALIMENTADOR.equals(modo)){
+            return "A";
+        }
+        return "D";
+    }
 }
