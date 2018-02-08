@@ -56,7 +56,7 @@ public class CargarDatosBean {
 
    public void buscarProgramacion(){
         if(fechaInicio!= null && fechaFin!= null){
-            List<Programacion> programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,tipoDia,modo);
+            List<Programacion> programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,tipoDia,Util.convertirModo(modo));
             for(Programacion p:programacionList){
                 programaciones.add(p.getIdentificador());
             }

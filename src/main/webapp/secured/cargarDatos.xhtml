@@ -17,7 +17,7 @@
 
 
                 <p:panel header="Buscar Programación" visible="#{cargaDatosBean.creacionVisible}">
-                    <p:panelGrid columns="6" >
+                    <p:panelGrid columns="4" >
                         <p:outputLabel value="Fecha Inicio:"  />
                         <p:calendar  value="#{cargaDatosBean.fechaInicio}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                         <p:outputLabel value="Fecha Fin:"  />
@@ -25,6 +25,10 @@
                         <p:outputLabel value="Tipo día:"  />
                         <p:selectOneMenu  value="#{cargaDatosBean.tipoDia}" style="width:100%">
                             <f:selectItems value="#{cargaDatosBean.tiposDias}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{cargaDatosBean.modo}" style="width:100%">
+                            <f:selectItems value="#{cargaDatosBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="Buscar" action="#{cargaDatosBean.buscarProgramacion}" ajax="false" />
                     </p:panelGrid>
