@@ -49,7 +49,7 @@ public class TablaHorarioDao {
         try {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
-            copyManager.copyIn("COPY dh_temp_exp (evento,tipo,inicio,punto_inicio,fin,punto_fin,duracion,bus,linea,kilometros,inferido,identi,frec,serbus,des_dur,desc_frec,jornada)" +
+            copyManager.copyIn("COPY dh_temp_tabla_horario (jornada_tipo,tipo_dia,operador,instante,serbus,evento,linea,coche,sublinea,ruta,punto,tipo_nodo,viaje,jornada,modo)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,6 +64,6 @@ public class TablaHorarioDao {
     }
 
     public void eliminarDatos(Programacion nuevaProgramacion) {
-        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_temp_exp WHERE jornada = '"+nuevaProgramacion.getIdentificador()+"'").executeUpdate();
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_temp_tabla_horario WHERE jornada = '"+nuevaProgramacion.getIdentificador()+"'").executeUpdate();
     }
 }
