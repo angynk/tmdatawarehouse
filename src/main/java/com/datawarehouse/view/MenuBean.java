@@ -30,6 +30,16 @@ public class MenuBean {
         }
     }
 
+    public void refreshActualizarCuadro(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/cargarDatos.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshConsultarDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

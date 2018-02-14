@@ -35,16 +35,23 @@
                 </p:panel>
 
                 <p:panel header="Programación Asociada" visible="#{cargaDatosBean.incluirArchivosVisibles}">
-                    <p:panelGrid columns="2" >
+                    <p:panelGrid columns="4" >
                         <p:outputLabel value="Seleccione Programacion:"  />
                         <p:selectOneMenu id="advanced" value="#{cargaDatosBean.progr}"  panelStyle="width:180px"
                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                             <f:selectItems value="#{cargaDatosBean.programaciones}" var="prog"
                                            itemLabel="#{prog}" itemValue="#{prog}" />
-
+                            <p:ajax update="@form" listener="#{cargaDatosBean.updateCuadros}"/>
                             <p:column>
                                 <h:outputText value="#{t}" />
                             </p:column>
+
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Cuadro:"  />
+                        <p:selectOneMenu  value="#{cargaDatosBean.cuadro}"  panelStyle="width:180px"
+                                         style="width:160px" >
+                            <f:selectItems value="#{cargaDatosBean.cuadros}" var="cuadro"
+                                           itemLabel="#{cuadro.numero}" itemValue="#{cuadro.numero}" />
 
                         </p:selectOneMenu>
 

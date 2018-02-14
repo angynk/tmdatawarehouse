@@ -1,6 +1,7 @@
 package com.datawarehouse.view;
 
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.LogDatos;
@@ -29,6 +30,8 @@ public class CargarDatosBean {
     private String modo;
     private List<String> tiposDias;
     private List<String> modos;
+    private List<Cuadro> cuadros;
+    private String cuadro;
     private boolean creacionVisible;
     private boolean resultadosVisibles;
     private boolean incluirArchivosVisibles;
@@ -60,8 +63,12 @@ public class CargarDatosBean {
             for(Programacion p:programacionList){
                 programaciones.add(p.getIdentificador());
             }
-            incluirArchivosVisibles=true;
-            creacionVisible=false;
+            if(programaciones.size()>0){
+                incluirArchivosVisibles=true;
+                creacionVisible=false;
+                programacion = cargaDatosServicios.obtenerProgramacion(programaciones.get(0));
+                cuadros = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
+            }
 
         }
    }
@@ -101,6 +108,11 @@ public class CargarDatosBean {
 
     }
 
+    public void updateCuadros(){
+        programacion = cargaDatosServicios.obtenerProgramacion(progr);
+        cuadros = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
+    }
+
 
     @PostConstruct
     public void init() {
@@ -121,7 +133,6 @@ public class CargarDatosBean {
         archivosVisibles = true;
         archivosLista = cargaDatosServicios.obtenerArchivosLista(progr);
         programacion = cargaDatosServicios.obtenerProgramacion(progr);
-
     }
 
 
@@ -309,5 +320,21 @@ public class CargarDatosBean {
 
     public void setModos(List<String> modos) {
         this.modos = modos;
+    }
+
+    public List<Cuadro> getCuadros() {
+        return cuadros;
+    }
+
+    public void setCuadros(List<Cuadro> cuadros) {
+        this.cuadros = cuadros;
+    }
+
+    public String getCuadro() {
+        return cuadro;
+    }
+
+    public void setCuadro(String cuadro) {
+        this.cuadro = cuadro;
     }
 }
