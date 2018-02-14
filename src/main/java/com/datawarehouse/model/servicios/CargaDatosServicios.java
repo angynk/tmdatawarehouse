@@ -1,8 +1,10 @@
 package com.datawarehouse.model.servicios;
 
 import com.datawarehouse.model.dao.ArchivosDao;
+import com.datawarehouse.model.dao.CuadroDao;
 import com.datawarehouse.model.dao.ProgramacionDao;
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.view.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class CargaDatosServicios {
 
     @Autowired
     private ArchivosDao archivosDao;
+
+    @Autowired
+    private CuadroDao cuadroDao;
 
     @Autowired
     private ProcessorUtils processorUtils;
@@ -71,11 +76,11 @@ public class CargaDatosServicios {
 
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo,String modo) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo,String modo,String numeroCuadro) {
         if(tipo.equals(FormatoArchivo.CSV_COMMA)){
-            return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion,modo);
+            return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion,modo,numeroCuadro);
         }
-        return cargaExpedicionesServicio.incluirFilaArchivoPuntoComa(nombre,nuevaProgramacion,modo);
+        return cargaExpedicionesServicio.incluirFilaArchivoPuntoComa(nombre,nuevaProgramacion,modo,numeroCuadro);
 
     }
 
@@ -102,5 +107,13 @@ public class CargaDatosServicios {
 
     public Programacion obtenerProgramacion(String progr) {
         return programacionDao.encontrarProgramacion(progr);
+    }
+
+    public List<Cuadro> obtenerCuadrosProgramacion(Programacion progr) {
+        return cuadroDao.obtenerCuadrosProgramacion(progr);
+    }
+
+    public void guardarCuadro(Cuadro nuevoCuadro) {
+        cuadroDao.addCuadro(nuevoCuadro);
     }
 }

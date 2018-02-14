@@ -46,6 +46,7 @@
                 <value>com.datawarehouse.model.entity.Buses</value>
                 <value>com.datawarehouse.model.entity.TablaHorario</value>
                 <value>com.datawarehouse.model.entity.Tracelog</value>
+                <value>com.datawarehouse.model.entity.Cuadro</value>
 
             </list>
         </property>

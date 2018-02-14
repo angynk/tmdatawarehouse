@@ -1,14 +1,18 @@
 package com.datawarehouse.view;
 
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
+import com.datawarehouse.view.util.TipoArchivo;
 import com.datawarehouse.view.util.Util;
+import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +28,18 @@ public class CrearCuadroBean {
     private String tipoDia;
     private String progr;
     private String modo;
+    private UploadedFile file;
     private List<String> tiposDias;
     private List<String> modos;
     private List<String> programaciones;
+    private List<Cuadro> cuadrosLista;
+    private Cuadro nuevoCuadro;
+    private Programacion programacion;
     private boolean incluirArchivosVisibles;
+    private boolean cuadrosVisibles;
     private boolean archivosVisibles;
+    private List<String> formatosArchivo;
+    private String tipo;
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
@@ -52,9 +63,46 @@ public class CrearCuadroBean {
     }
 
     public void seleccionarProgramacion(){
-        archivosVisibles = true;
-//        archivosLista = cargaDatosServicios.obtenerArchivosLista(progr);
-//        programacion = cargaDatosServicios.obtenerProgramacion(progr);
+        cuadrosVisibles = true;
+        programacion = cargaDatosServicios.obtenerProgramacion(progr);
+        cuadrosLista = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
+    }
+
+    public void crearCuadro(){
+            nuevoCuadro = new Cuadro();
+            nuevoCuadro.setProgramacion(programacion);
+    }
+
+    public void guardarCuadro(){
+
+            cargaDatosServicios.guardarCuadro(nuevoCuadro);
+            cargarExpediciones();
+    }
+
+    public void cargarExpediciones(){
+        if(file!=null){
+            try {
+                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
+                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,programacion,tipo,Util.convertirModo(modo),nuevoCuadro.getNumero());
+                cargaDatosServicios.cargarArchivoExpediciones(nombre);
+                cargaDatosServicios.eliminarDatosTemporales(programacion);
+                incluirArchivosVisibles = false;
+                messagesView.info("Proceso Exitoso ","Nueva programación creada");
+                Archivos archivo = new Archivos();
+                archivo.setNombre(file.getFileName());
+                archivo.setGrupo(TipoArchivo.expediciones);
+                archivo.setTipo(tipo);
+                archivo.setProgramacion(programacion);
+                cargaDatosServicios.agregarArchivo(archivo);
+            } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            } catch (Exception e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            }
+        }
+    }
+
+    public void cancelar(){
 
     }
 
@@ -64,6 +112,7 @@ public class CrearCuadroBean {
         creacionVisible = true;
         incluirArchivosVisibles = false;
         programaciones = new ArrayList<>();
+        formatosArchivo = Util.listaFormatosCSV();
         modos = Util.listaModos();
     }
 
@@ -177,5 +226,61 @@ public class CrearCuadroBean {
 
     public void setArchivosVisibles(boolean archivosVisibles) {
         this.archivosVisibles = archivosVisibles;
+    }
+
+    public boolean isCuadrosVisibles() {
+        return cuadrosVisibles;
+    }
+
+    public void setCuadrosVisibles(boolean cuadrosVisibles) {
+        this.cuadrosVisibles = cuadrosVisibles;
+    }
+
+    public List<Cuadro> getCuadrosLista() {
+        return cuadrosLista;
+    }
+
+    public void setCuadrosLista(List<Cuadro> cuadrosLista) {
+        this.cuadrosLista = cuadrosLista;
+    }
+
+    public Cuadro getNuevoCuadro() {
+        return nuevoCuadro;
+    }
+
+    public void setNuevoCuadro(Cuadro nuevoCuadro) {
+        this.nuevoCuadro = nuevoCuadro;
+    }
+
+    public List<String> getFormatosArchivo() {
+        return formatosArchivo;
+    }
+
+    public void setFormatosArchivo(List<String> formatosArchivo) {
+        this.formatosArchivo = formatosArchivo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public Programacion getProgramacion() {
+        return programacion;
+    }
+
+    public void setProgramacion(Programacion programacion) {
+        this.programacion = programacion;
     }
 }

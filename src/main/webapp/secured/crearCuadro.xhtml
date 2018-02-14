@@ -53,50 +53,32 @@
 
                     </p:panelGrid>
 
-                    <p:panel visible="#{cargaDatosBean.archivosVisibles}">
-                        <p:commandButton value="Agregar" action="#{cargaDatosBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"
+                    <p:panel visible="#{cBean.cuadrosVisibles}" header="Cuadros de programación">
+                        <p:commandButton value="Agregar" action="#{cBean.crearCuadro}"  oncomplete="PF('fileDialog').show()"
                                          update=":form:fileDialog"/>
-                        <p:dataTable id="prog" var="arch" value="#{cargaDatosBean.archivosLista}" widgetVar="ProgTable"
+                        <p:dataTable id="prog" var="cuadro" value="#{cBean.cuadrosLista}" widgetVar="ProgTable"
                                      emptyMessage="No hay registros relacionados a la busqueda"
                                      scrollable="true" scrollWidth="98%" scrollHeight="350"
                                      editable="true" >
 
-                            <p:column filterBy="#{arch.grupo}" headerText="Tipo"  filterMatchMode="contains" sortBy="#{arch.grupo}"
+                            <p:column filterBy="#{cuadro.fecha}" headerText="Fecha"  filterMatchMode="contains" sortBy="#{cuadro.fecha}"
                             >
-                                <h:outputText value="#{arch.grupo}"  />
+                                <h:outputText value="#{cuadro.fecha}"  />
                             </p:column>
 
-                            <p:column filterBy="#{arch.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{arch.nombre}"
+                            <p:column filterBy="#{cuadro.numero}" headerText="Numero"  filterMatchMode="contains" sortBy="#{cuadro.numero}"
                             >
-                                <h:outputText value="#{arch.nombre}"  />
+                                <h:outputText value="#{cuadro.numero}"  />
                             </p:column>
 
-                            <p:column filterBy="#{arch.tipo}" headerText="Formato"  filterMatchMode="contains" sortBy="#{arch.tipo}"
+                            <p:column filterBy="#{cuadro.descripcion}" headerText="Formato"  filterMatchMode="contains" sortBy="#{cuadro.descripcion}"
                             >
-                                <h:outputText value="#{arch.tipo}"  />
+                                <h:outputText value="#{cuadro.descripcion}"  />
                             </p:column>
 
                         </p:dataTable>
-                        <p:commandButton value="Finalizar" action="#{cargaDatosBean.cargaMasivaDatos}"
-                                         async="true" process="@form" onclick="PF('dlg2').show();" global="false"
-                                         oncomplete="PF('dlg2').hide()"/>
                     </p:panel>
 
-                </p:panel>
-
-                <p:panel visible="#{cargaDatosBean.resultadosVisibles}">
-                    <p:accordionPanel style="width: 100%" activeIndex="null">
-                        <p:tab title="Resultados">
-                            <h:panelGrid columns="2" cellpadding="10" style="width: 100%">
-                                <p:dataList value="#{cargaDatosBean.logDatos}" var="log" type="ordered" style="width: 100%">
-                                    <f:facet name="header">
-                                        Log
-                                    </f:facet>
-                                    #{log.tipoLog} : #{log.mensaje}
-                                </p:dataList>
-                            </h:panelGrid>
-                        </p:tab>
-                    </p:accordionPanel>
                 </p:panel>
 
 
@@ -106,31 +88,36 @@
                     <p:graphicImage name="images/ajaxloadingbar.gif" />
                 </p:dialog>
 
-                <p:dialog header="Agregar archivo" widgetVar="fileDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
+                <p:dialog header="Cuadro Programacion" widgetVar="fileDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
                     <p:outputPanel id="fileDialog" style="text-align:center;">
-                        <p:panelGrid  columns="4"  rendered="#{not empty cargaDatosBean.nuevoArchivo}">
+                        <p:panelGrid  columns="6"  rendered="#{not empty cBean.nuevoCuadro}">
 
-                            <h:outputText value="Tipo Archivo:" />
-                            <p:selectOneMenu  value="#{cargaDatosBean.nuevoArchivo.grupo}" style="width:100%">
-                                <f:selectItems value="#{cargaDatosBean.tiposArchivo}" var="grupo" itemLabel="#{grupo}" itemValue="#{grupo}"/>
+                            <p:outputLabel value="Fecha:" />
+                            <p:calendar  value="#{cBean.nuevoCuadro.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+
+                            <p:outputLabel value="Número:"  />
+                            <p:inputText value="#{cBean.nuevoCuadro.numero}" />
+
+                            <p:outputLabel value="Descripción:" />
+                            <p:inputText value="#{cBean.nuevoCuadro.descripcion}"  />
+
+                            <p:outputLabel value="Cargue el archivo de expediciones (Formato CSV)" />
+                            <p:fileUpload value="#{cBean.file}" mode="simple"
+                                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
+                            <p:outputLabel value="Formato Archivo:"  />
+                            <p:selectOneMenu  value="#{cBean.tipo}" style="width:100%">
+                                <f:selectItems value="#{cBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
                             </p:selectOneMenu>
 
-                            <h:outputText value="Formato Archivo:"  />
-                            <p:selectOneMenu  value="#{cargaDatosBean.nuevoArchivo.tipo}" style="width:100%">
-                                <f:selectItems value="#{cargaDatosBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
-                            </p:selectOneMenu>
-
-                            <h:outputText value="Archivo:" />
-                            <p:fileUpload value="#{cargaDatosBean.file}" mode="simple"
-                                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(xls|csv|txt)$/" />
 
                         </p:panelGrid>
                         <p:panelGrid columns="2">
-                            <p:commandButton value="Guardar" action="#{cargaDatosBean.guardarArchivo}" ajax="false"
+                            <p:commandButton value="Guardar" action="#{cBean.guardarCuadro}" ajax="false"
                                              icon="ui-icon ui-icon-disk" id="actualizar"
                                              async="true" />
 
-                            <p:commandButton value="Cancelar" action="#{cargaDatosBean.cancelar}" ajax="false"
+                            <p:commandButton value="Cancelar" action="#{cBean.cancelar}" ajax="false"
                                              icon="ui-icon ui-icon-disk" id="cancelar"
                                              async="true" />
                         </p:panelGrid>

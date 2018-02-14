@@ -32,6 +32,7 @@ public class CrearProgBean {
     private List<String> modos;
     private UploadedFile file;
     private boolean creacionVisible;
+
     private boolean incluirArchivosVisibles;
     private List<String> formatosArchivo;
     private String tipo;
@@ -89,28 +90,7 @@ public class CrearProgBean {
         return sdfDate.format(fecha)+"/"+jornada;
     }
 
-    public void cargarExpediciones(){
-        if(file!=null){
-            try {
-                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                nombre = cargaDatosServicios.incluirFilaArchivo(nombre,nuevaProgramacion,tipo,Util.convertirModo(modo));
-                cargaDatosServicios.cargarArchivoExpediciones(nombre);
-                cargaDatosServicios.eliminarDatosTemporales(nuevaProgramacion);
-                incluirArchivosVisibles = false;
-                messagesView.info("Proceso Exitoso ","Nueva programación creada");
-                Archivos archivo = new Archivos();
-                archivo.setNombre(file.getFileName());
-                archivo.setGrupo(TipoArchivo.expediciones);
-                archivo.setTipo(tipo);
-                archivo.setProgramacion(nuevaProgramacion);
-                cargaDatosServicios.agregarArchivo(archivo);
-            } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
-            } catch (Exception e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
-            }
-        }
-    }
+
 
     public Programacion getNuevaProgramacion() {
         return nuevaProgramacion;
@@ -239,4 +219,5 @@ public class CrearProgBean {
     public void setModos(List<String> modos) {
         this.modos = modos;
     }
+
 }

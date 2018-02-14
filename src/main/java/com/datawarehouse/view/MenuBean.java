@@ -24,7 +24,7 @@ public class MenuBean {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
-                    + "/secured/cargarDatos.xhtml");
+                    + "/secured/crearCuadro.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -92,7 +92,7 @@ public class CargaExpedicionesServicio {
     }
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String modo) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -118,6 +118,7 @@ public class CargaExpedicionesServicio {
                    listaFinal = list;
                 }
                 listaFinal.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                listaFinal.add(numeroCuadro); // Add the new element here
                 listaFinal.add(modo); // Add the new element here
                 entries =  listaFinal.toArray(new String[listaFinal.size()]);
                 writer.writeNext(entries);
@@ -136,7 +137,7 @@ public class CargaExpedicionesServicio {
         expedicionesDao.eliminarDatos(nuevaProgramacion);
     }
 
-    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion, String modo) {
+    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -149,6 +150,7 @@ public class CargaExpedicionesServicio {
                 ArrayList<String> list = new ArrayList(Arrays.asList(entries));
                 list.set(9,list.get(9).replace(",","."));
                 list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
+                list.add(numeroCuadro); // Add the new element here
                 list.add(modo); // Add the new element here
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
