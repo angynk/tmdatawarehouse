@@ -92,7 +92,7 @@ public class CrearCuadroBean {
                 archivo.setNombre(file.getFileName());
                 archivo.setGrupo(TipoArchivo.expediciones);
                 archivo.setTipo(tipo);
-                archivo.setProgramacion(programacion);
+                archivo.setCuadro(nuevoCuadro);
                 cargaDatosServicios.agregarArchivo(archivo);
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());

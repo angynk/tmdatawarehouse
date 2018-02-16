@@ -36,8 +36,7 @@ public class Programacion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
     private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
-    private Set<Archivos> archivosLista = new HashSet<Archivos>(0);
+
 
     public Programacion(Date fecha, String jornada, String identificador) {
         this.fecha = fecha;
@@ -96,13 +95,6 @@ public class Programacion {
         this.busesLista = busesLista;
     }
 
-    public Set<Archivos> getArchivosLista() {
-        return archivosLista;
-    }
-
-    public void setArchivosLista(Set<Archivos> archivosLista) {
-        this.archivosLista = archivosLista;
-    }
 
     public String getModo() {
         return modo;

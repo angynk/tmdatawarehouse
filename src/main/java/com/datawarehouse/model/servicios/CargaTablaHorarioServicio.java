@@ -1,7 +1,9 @@
 package com.datawarehouse.model.servicios;
 
+import com.datawarehouse.model.dao.ArchivosDao;
 import com.datawarehouse.model.dao.TablaHorarioDao;
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.view.util.FormatoArchivo;
 import com.datawarehouse.view.util.LogDatos;
@@ -25,17 +27,21 @@ public class CargaTablaHorarioServicio {
     @Autowired
     private TablaHorarioDao tablaHorarioDao;
 
+    @Autowired
+    private ArchivosDao archivosDao;
 
-    public List<LogDatos> agregarInformacionTablaHorario(Programacion programacion, Archivos archivo, List<LogDatos> logDatos) {
+
+    public List<LogDatos> agregarInformacionTablaHorario(Programacion programacion, Archivos archivo, List<LogDatos> logDatos, Cuadro cuadro) {
         String nombre = archivo.getNombre();
         if(archivo.getTipo().equals(FormatoArchivo.CSV_COMMA)){
-            nombre = incluirFilasArchivo(programacion,nombre,',');
+            nombre = incluirFilasArchivo(programacion,nombre,',',cuadro);
         }else if(archivo.getTipo().equals(FormatoArchivo.CSV_PUNTO_COMMA)){
-            nombre = incluirFilasArchivo(programacion,nombre,';');
+            nombre = incluirFilasArchivo(programacion,nombre,';',cuadro);
         }
         try {
             tablaHorarioDao.cargarArchivoTablaHorario(nombre);
             tablaHorarioDao.eliminarDatos(programacion);
+            archivosDao.addArchivos(archivo);
         } catch (Exception e) {
             logDatos.add(new LogDatos(e.getMessage(), TipoLog.ERROR));
         }
@@ -43,7 +49,7 @@ public class CargaTablaHorarioServicio {
         return logDatos;
     }
 
-    private String incluirFilasArchivo(Programacion programacion, String nombre,char separador) {
+    private String incluirFilasArchivo(Programacion programacion, String nombre, char separador, Cuadro cuadro) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -56,6 +62,7 @@ public class CargaTablaHorarioServicio {
                 ArrayList<String> list = new ArrayList(Arrays.asList(entries));
                 list.add(programacion.getIdentificador());
                 list.add(programacion.getModo());
+                list.add(cuadro.getNumero());
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }

@@ -2,6 +2,8 @@ package com.datawarehouse.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="dh_cuadro")
@@ -25,6 +27,9 @@ public class Cuadro {
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "programacion", nullable = false)
     private Programacion programacion;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cuadro")
+    private Set<Archivos> archivosLista = new HashSet<Archivos>(0);
 
     public Cuadro() {
     }
@@ -67,5 +72,13 @@ public class Cuadro {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Set<Archivos> getArchivosLista() {
+        return archivosLista;
+    }
+
+    public void setArchivosLista(Set<Archivos> archivosLista) {
+        this.archivosLista = archivosLista;
     }
 }

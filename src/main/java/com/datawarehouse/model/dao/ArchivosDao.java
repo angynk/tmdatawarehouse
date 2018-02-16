@@ -2,6 +2,7 @@ package com.datawarehouse.model.dao;
 
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Bus;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -33,9 +34,9 @@ public class ArchivosDao {
         Serializable save = getSessionFactory().getCurrentSession().save(archivos);
     }
 
-    public List<Archivos> encontrarArchivos(Programacion programacion) {
+    public List<Archivos> encontrarArchivos(Cuadro cuadro) {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Archivos.class);
-        criteria.add(Restrictions.eq("programacion",programacion));
+        criteria.add(Restrictions.eq("cuadro",cuadro));
         return criteria.list();
     }
 

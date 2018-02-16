@@ -82,7 +82,9 @@ public class CargarDatosBean {
                 logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion,cuadroProg);
             }
             incluirArchivosVisibles = false;
-            resultadosVisibles = true;
+            resultadosVisibles = false;
+            archivosVisibles = false;
+            messagesView.info("Operación exitosa","Se ha cargado la datos asociados al cuadro de la programación");
         }else{
             messagesView.error("No hay archivos asociados a la programacion","Verificar datos");
         }
@@ -132,7 +134,7 @@ public class CargarDatosBean {
 
     public void seleccionarProgramacion(){
         archivosVisibles = true;
-        archivosLista = cargaDatosServicios.obtenerArchivosLista(progr);
+        archivosLista = cargaDatosServicios.obtenerArchivosLista(progr,cuadro);
         programacion = cargaDatosServicios.obtenerProgramacion(progr);
     }
 

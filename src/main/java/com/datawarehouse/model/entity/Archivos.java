@@ -22,8 +22,8 @@ public class Archivos {
     private String grupo;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "programacion", nullable = false)
-    private Programacion programacion;
+    @JoinColumn(name = "cuadro", nullable = false)
+    private Cuadro cuadro;
 
     public Archivos() {
     }
@@ -60,11 +60,11 @@ public class Archivos {
         this.id = id;
     }
 
-    public Programacion getProgramacion() {
-        return programacion;
+    public Cuadro getCuadro() {
+        return cuadro;
     }
 
-    public void setProgramacion(Programacion programacion) {
-        this.programacion = programacion;
+    public void setCuadro(Cuadro cuadro) {
+        this.cuadro = cuadro;
     }
 }

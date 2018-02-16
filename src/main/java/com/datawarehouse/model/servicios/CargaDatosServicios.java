@@ -67,7 +67,7 @@ public class CargaDatosServicios {
         }else if(archivo.getGrupo().equals(TipoArchivo.distribuciones)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.tablaHorario)){
-               logDatos = cargaTablaHorarioServicio.agregarInformacionTablaHorario(programacion,archivo,logDatos);
+               logDatos = cargaTablaHorarioServicio.agregarInformacionTablaHorario(programacion,archivo,logDatos,cuadro);
         }else if(archivo.getGrupo().equals(TipoArchivo.matrizDistancia)){
 
         }
@@ -100,9 +100,10 @@ public class CargaDatosServicios {
         archivosDao.addArchivos(archivo);
     }
 
-    public List<Archivos> obtenerArchivosLista(String progr) {
+    public List<Archivos> obtenerArchivosLista(String progr,String cuadro) {
         Programacion programacion = programacionDao.encontrarProgramacion(progr);
-        return archivosDao.encontrarArchivos(programacion);
+        Cuadro cuadroProg = cuadroDao.obtenerCuadro(programacion,cuadro);
+        return archivosDao.encontrarArchivos(cuadroProg);
     }
 
     public Programacion obtenerProgramacion(String progr) {
