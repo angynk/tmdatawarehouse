@@ -1,7 +1,9 @@
 package com.datawarehouse.model.servicios;
 
+import com.datawarehouse.model.dao.ArchivosDao;
 import com.datawarehouse.model.dao.BusesDao;
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.view.util.*;
 import com.opencsv.CSVReader;
@@ -22,20 +24,24 @@ public class CargaBusesServicio {
     @Autowired
     private BusesDao busesDao;
 
+    @Autowired
+    private ArchivosDao archivosDao;
+
     public CargaBusesServicio() {
     }
 
 
-    public List<LogDatos> agregarInformacionBuses(Programacion programacion, Archivos archivo, List<LogDatos> logDatos) {
+    public List<LogDatos> agregarInformacionBuses(Programacion programacion, Archivos archivo, List<LogDatos> logDatos, Cuadro cuadro) {
         String nombre = archivo.getNombre();
         if(archivo.getTipo().equals(FormatoArchivo.CSV_COMMA)){
-            nombre = incluirFilasArchivoComma(programacion,nombre);
+            nombre = incluirFilasArchivoComma(programacion,nombre,cuadro);
         }else if(archivo.getTipo().equals(FormatoArchivo.CSV_PUNTO_COMMA)){
-            nombre = incluirFilasArchivoPuntoComma(programacion,nombre);
+            nombre = incluirFilasArchivoPuntoComma(programacion,nombre,cuadro);
         }
         try {
             busesDao.cargarArchivoBuses(nombre);
             busesDao.eliminarDatosBuses(programacion);
+            archivosDao.addArchivos(archivo);
         } catch (Exception e) {
             logDatos.add(new LogDatos(e.getMessage(), TipoLog.ERROR));
         }
@@ -43,7 +49,7 @@ public class CargaBusesServicio {
         return logDatos;
     }
 
-    private String incluirFilasArchivoPuntoComma(Programacion programacion, String nombre) {
+    private String incluirFilasArchivoPuntoComma(Programacion programacion, String nombre, Cuadro cuadro) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -60,6 +66,7 @@ public class CargaBusesServicio {
                 }
                 list.add(programacion.getIdentificador());
                 list.add(programacion.getModo());
+                list.add(cuadro.getNumero());
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }
@@ -69,7 +76,7 @@ public class CargaBusesServicio {
         return csvFileOut;
     }
 
-    private String incluirFilasArchivoComma(Programacion programacion, String nombre) {
+    private String incluirFilasArchivoComma(Programacion programacion, String nombre, Cuadro cuadro) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
@@ -96,6 +103,7 @@ public class CargaBusesServicio {
                 }
                 listaFinal.add(programacion.getIdentificador());
                 listaFinal.add(programacion.getModo());
+                list.add(cuadro.getNumero());
                 entries =  listaFinal.toArray(new String[listaFinal.size()]);
                 writer.writeNext(entries);
             }

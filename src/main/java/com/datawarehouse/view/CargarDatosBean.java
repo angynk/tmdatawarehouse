@@ -77,8 +77,9 @@ public class CargarDatosBean {
 
     public void cargaMasivaDatos(){
         if(archivosLista.size()>0){
+            Cuadro cuadroProg = cargaDatosServicios.obtenerCuadro(programacion,cuadro);
             for(Archivos archivo: archivosLista){
-                logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion);
+                logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion,cuadroProg);
             }
             incluirArchivosVisibles = false;
             resultadosVisibles = true;

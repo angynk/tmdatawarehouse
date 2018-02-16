@@ -50,7 +50,7 @@ public class BusesDao {
         try {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
-            copyManager.copyIn("COPY dh_temp_buses (bus,inicio,fin,jor,circ,punto_inicio,punto_fin,l_inicio,l_fin,kilometros,tipo,busbd,operador,jornada,modo)" +
+            copyManager.copyIn("COPY dh_temp_buses (bus,inicio,fin,jor,circ,punto_inicio,punto_fin,l_inicio,l_fin,kilometros,tipo,busbd,operador,jornada,modo,cuadro)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
             e.printStackTrace();

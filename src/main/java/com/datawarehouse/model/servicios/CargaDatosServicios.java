@@ -57,11 +57,11 @@ public class CargaDatosServicios {
         return fileName;
     }
 
-    public List<LogDatos> cargarArchivoNuevo(Archivos archivo, List<LogDatos> logDatos, Programacion programacion) {
+    public List<LogDatos> cargarArchivoNuevo(Archivos archivo, List<LogDatos> logDatos, Programacion programacion,Cuadro cuadro) {
         if(archivo.getGrupo().equals(TipoArchivo.expediciones)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.buses)){
-              logDatos = cargaBusesServicio.agregarInformacionBuses(programacion,archivo,logDatos);
+              logDatos = cargaBusesServicio.agregarInformacionBuses(programacion,archivo,logDatos,cuadro);
         }else if(archivo.getGrupo().equals(TipoArchivo.tracelog)){
               logDatos = cargaTracelogServicio.agregarDatosTracelog(programacion,archivo,logDatos);
         }else if(archivo.getGrupo().equals(TipoArchivo.distribuciones)){
@@ -115,5 +115,10 @@ public class CargaDatosServicios {
 
     public void guardarCuadro(Cuadro nuevoCuadro) {
         cuadroDao.addCuadro(nuevoCuadro);
+    }
+
+    public Cuadro obtenerCuadro(Programacion programacion, String cuadro) {
+
+        return cuadroDao.obtenerCuadro(programacion,cuadro);
     }
 }

@@ -37,4 +37,11 @@ public class CuadroDao {
         criteria.add(Restrictions.eq("programacion",progr));
         return criteria.list();
     }
+
+    public Cuadro obtenerCuadro(Programacion programacion, String cuadro) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Cuadro.class);
+        criteria.add(Restrictions.eq("programacion",programacion));
+        criteria.add(Restrictions.eq("numero",cuadro));
+        return (Cuadro) criteria.uniqueResult();
+    }
 }
