@@ -42,7 +42,7 @@ public class TracelogDao {
         try {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
-            copyManager.copyIn("COPY dh_tracelog (tipo_solucion, numero_solucion, tiempo_solucion, subfase, iteracion, num_buses, km_linea, km_vacio, num_viajes, num_viajes_vacio,num_cambio_linea, total_horas, horas_vacio, coste_total_buses, coste_hora_desvio, coste_cambios_linea, plus_cambios_linea, plus_autobus,plus_km_vacio, plus_km, plus_exp_vacio, plus_expediciones,jornada)" +
+            copyManager.copyIn("COPY dh_tracelog (tipo_solucion, numero_solucion, tiempo_solucion, subfase, iteracion, num_buses, km_linea, km_vacio, num_viajes, num_viajes_vacio,num_cambio_linea, total_horas, horas_vacio, coste_total_buses, coste_hora_desvio, coste_cambios_linea, plus_cambios_linea, plus_autobus,plus_km_vacio, plus_km, plus_exp_vacio, plus_expediciones,jornada,cuadro)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
             e.printStackTrace();

@@ -86,7 +86,7 @@
                         </p:dataTable>
                         <p:commandButton value="Finalizar" action="#{cargaDatosBean.cargaMasivaDatos}"
                                          async="true" process="@form" onclick="PF('dlg2').show();" global="false"
-                                         oncomplete="PF('dlg2').hide()"/>
+                                         oncomplete="PF('dlg2').hide()" update="@form"/>
                     </p:panel>
 
                 </p:panel>

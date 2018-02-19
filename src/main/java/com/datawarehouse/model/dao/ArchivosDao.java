@@ -31,6 +31,7 @@ public class ArchivosDao {
     }
 
     public void addArchivos(Archivos archivos) {
+        archivos.setAdjuntado(true);
         Serializable save = getSessionFactory().getCurrentSession().save(archivos);
     }
 

@@ -21,6 +21,10 @@ public class Archivos {
     @Column(name = "grupo")
     private String grupo;
 
+    @Column(name = "adjuntado")
+    private boolean adjuntado;
+
+
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cuadro", nullable = false)
     private Cuadro cuadro;
@@ -66,5 +70,13 @@ public class Archivos {
 
     public void setCuadro(Cuadro cuadro) {
         this.cuadro = cuadro;
+    }
+
+    public boolean isAdjuntado() {
+        return adjuntado;
+    }
+
+    public void setAdjuntado(boolean adjuntado) {
+        this.adjuntado = adjuntado;
     }
 }

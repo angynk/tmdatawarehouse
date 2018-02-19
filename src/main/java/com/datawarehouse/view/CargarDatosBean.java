@@ -79,7 +79,10 @@ public class CargarDatosBean {
         if(archivosLista.size()>0){
             Cuadro cuadroProg = cargaDatosServicios.obtenerCuadro(programacion,cuadro);
             for(Archivos archivo: archivosLista){
-                logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion,cuadroProg);
+                if(!archivo.isAdjuntado()){
+                    archivo.setCuadro(cuadroProg);
+                    logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion,cuadroProg);
+                }
             }
             incluirArchivosVisibles = false;
             resultadosVisibles = false;
@@ -99,6 +102,7 @@ public class CargarDatosBean {
             try {
                 String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
                 nuevoArchivo.setNombre(nombre);
+                nuevoArchivo.setAdjuntado(false);
                 archivosLista.add(nuevoArchivo);
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo",e.getMessage());

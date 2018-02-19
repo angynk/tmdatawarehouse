@@ -1,7 +1,9 @@
 package com.datawarehouse.model.servicios;
 
+import com.datawarehouse.model.dao.ArchivosDao;
 import com.datawarehouse.model.dao.TracelogDao;
 import com.datawarehouse.model.entity.Archivos;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.view.util.FormatoArchivo;
 import com.datawarehouse.view.util.LogDatos;
@@ -26,15 +28,18 @@ public class CargaTracelogServicio {
     @Autowired
     TracelogDao tracelogDao;
 
+    @Autowired
+    private ArchivosDao archivosDao;
+
     public List<LogDatos> agregarDatosTracelog(Programacion programacion, Archivos archivo, List<LogDatos> logDatos) {
         String nombre = archivo.getNombre();
         if(archivo.getTipo().equals(FormatoArchivo.TXT)){
-            nombre = incluirFilasArchivo(programacion,nombre);
+            nombre = incluirFilasArchivo(programacion,nombre,archivo.getCuadro());
         }
 
         try {
             tracelogDao.cargarArchivoTracelog(nombre);
-            tracelogDao.eliminarDatos(programacion);
+            archivosDao.addArchivos(archivo);
         } catch (Exception e) {
             logDatos.add(new LogDatos(e.getMessage(), TipoLog.ERROR));
         }
@@ -42,7 +47,7 @@ public class CargaTracelogServicio {
         return logDatos;
     }
 
-    private String incluirFilasArchivo(Programacion programacion, String nombre) {
+    private String incluirFilasArchivo(Programacion programacion, String nombre, Cuadro cuadro) {
             BufferedReader br = null;
             String line = "";
             String csvFile = PathFiles.PATH+"/"+nombre;
@@ -64,6 +69,7 @@ public class CargaTracelogServicio {
                         list.remove(14);
                     }
                     list.add(programacion.getIdentificador());
+                    list.add(cuadro.getNumero());
                     valores =  list.toArray(new String[list.size()]);
                     writer.writeNext(valores);
 
