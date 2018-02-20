@@ -39,9 +39,9 @@ public class CargaDistribucionesServicio {
     public List<LogDatos> agregarDatosDistribuciones(Programacion programacion, Archivos archivo, List<LogDatos> logDatos) {
         String nombre = archivo.getNombre();
         if(archivo.getTipo().equals(FormatoArchivo.CSV_COMMA)){
-
+            nombre = incluirFilasArchivo(programacion,nombre,archivo.getCuadro(),',');
         }else if (archivo.getTipo().equals(FormatoArchivo.CSV_PUNTO_COMMA)){
-            nombre = incluirFilasArchivo(programacion,nombre,archivo.getCuadro());
+            nombre = incluirFilasArchivo(programacion,nombre,archivo.getCuadro(),';');
         }
 
         try {
@@ -54,13 +54,13 @@ public class CargaDistribucionesServicio {
         return logDatos;
     }
 
-    private String incluirFilasArchivo(Programacion programacion, String nombre, Cuadro cuadro) {
+    private String incluirFilasArchivo(Programacion programacion, String nombre, Cuadro cuadro,char separator) {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
         CSVReader reader = null;
         try {
-            reader = new CSVReader(new FileReader(csvFile),';');
+            reader = new CSVReader(new FileReader(csvFile),separator);
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
             while ((entries = reader.readNext()) != null) {
