@@ -41,6 +41,9 @@ public class CargaDatosServicios {
     @Autowired
     private CargaTracelogServicio cargaTracelogServicio;
 
+    @Autowired
+    private CargaDistribucionesServicio cargaDistribucionesServicio;
+
 
     public boolean existeProgramacion(String identificador) {
         Programacion programacion = programacionDao.encontrarProgramacion(identificador);
@@ -65,7 +68,7 @@ public class CargaDatosServicios {
         }else if(archivo.getGrupo().equals(TipoArchivo.tracelog)){
               logDatos = cargaTracelogServicio.agregarDatosTracelog(programacion,archivo,logDatos);
         }else if(archivo.getGrupo().equals(TipoArchivo.distribuciones)){
-
+              logDatos = cargaDistribucionesServicio.agregarDatosDistribuciones(programacion,archivo,logDatos);
         }else if(archivo.getGrupo().equals(TipoArchivo.tablaHorario)){
                logDatos = cargaTablaHorarioServicio.agregarInformacionTablaHorario(programacion,archivo,logDatos,cuadro);
         }else if(archivo.getGrupo().equals(TipoArchivo.matrizDistancia)){

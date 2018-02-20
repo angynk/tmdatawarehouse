@@ -19,20 +19,33 @@ public class Distribuciones {
     @Column(name = "tipologia")
     private String tipologia;
 
-    @Column(name = "vacio_interno")
-    private Integer vacioInterno;
+    @Column(name = "serbus")
+    private String serbus;
 
-    @Column(name = "vacio_valle")
-    private Integer vacioValle;
+    @Column(name = "operador")
+    private String operador;
 
-    @Column(name = "vacio_externo")
-    private Integer vacioExterno;
+    @Column(name = "patio_ini")
+    private String patioIni;
 
-    @Column(name = "vacio_total")
-    private Integer vacioTotal;
+    @Column(name = "patio_fin")
+    private String patioFin;
 
-    @Column(name = "distancia_comercial")
-    private Integer distanciaComercial;
+    @Column(name = "patio_valle")
+    private String patioValle;
+
+    @Column(name = "punto_inicio")
+    private String puntoInicio;
+
+    @Column(name = "punto_fin")
+    private String puntoFin;
+
+    @Column(name = "distancia")
+    private String distancia;
+
+    @Column(name = "vacio_interno_sin_valle")
+    private Double vacioInternoSinValle;
+
 
 
     public Distribuciones() {
@@ -62,43 +75,75 @@ public class Distribuciones {
         this.tipologia = tipologia;
     }
 
-    public Integer getVacioInterno() {
-        return vacioInterno;
+    public String getSerbus() {
+        return serbus;
     }
 
-    public void setVacioInterno(Integer vacioInterno) {
-        this.vacioInterno = vacioInterno;
+    public void setSerbus(String serbus) {
+        this.serbus = serbus;
     }
 
-    public Integer getVacioValle() {
-        return vacioValle;
+    public String getOperador() {
+        return operador;
     }
 
-    public void setVacioValle(Integer vacioValle) {
-        this.vacioValle = vacioValle;
+    public void setOperador(String operador) {
+        this.operador = operador;
     }
 
-    public Integer getVacioExterno() {
-        return vacioExterno;
+    public String getPatioIni() {
+        return patioIni;
     }
 
-    public void setVacioExterno(Integer vacioExterno) {
-        this.vacioExterno = vacioExterno;
+    public void setPatioIni(String patioIni) {
+        this.patioIni = patioIni;
     }
 
-    public Integer getVacioTotal() {
-        return vacioTotal;
+    public String getPatioFin() {
+        return patioFin;
     }
 
-    public void setVacioTotal(Integer vacioTotal) {
-        this.vacioTotal = vacioTotal;
+    public void setPatioFin(String patioFin) {
+        this.patioFin = patioFin;
     }
 
-    public Integer getDistanciaComercial() {
-        return distanciaComercial;
+    public String getPatioValle() {
+        return patioValle;
     }
 
-    public void setDistanciaComercial(Integer distanciaComercial) {
-        this.distanciaComercial = distanciaComercial;
+    public void setPatioValle(String patioValle) {
+        this.patioValle = patioValle;
+    }
+
+    public String getPuntoInicio() {
+        return puntoInicio;
+    }
+
+    public void setPuntoInicio(String puntoInicio) {
+        this.puntoInicio = puntoInicio;
+    }
+
+    public String getPuntoFin() {
+        return puntoFin;
+    }
+
+    public void setPuntoFin(String puntoFin) {
+        this.puntoFin = puntoFin;
+    }
+
+    public String getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(String distancia) {
+        this.distancia = distancia;
+    }
+
+    public Double getVacioInternoSinValle() {
+        return vacioInternoSinValle;
+    }
+
+    public void setVacioInternoSinValle(Double vacioInternoSinValle) {
+        this.vacioInternoSinValle = vacioInternoSinValle;
     }
 }
