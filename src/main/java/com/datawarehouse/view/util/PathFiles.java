@@ -9,6 +9,9 @@ public class PathFiles {
 // public final static String PATH = "C:\\Users\\user\\Documents\\test\\";
 //public final static String PATH = "M:\\temp\\Indicadores\\";
 
+ public static final String PATH_FOR_FILES = "C:\\temp\\Datawarehouse\\";
+ public static final String PATH_EXPEDICIONES = "Expediciones.xls";
+
 
 
 }

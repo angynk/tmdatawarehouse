@@ -20,6 +20,26 @@ public class MenuBean {
         }
     }
 
+    public void refreshConsultasBasicas(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/consultasBasicas.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshConsultasAvanzadas(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/consultasAvanzadas.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void refreshActualizarDatos(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

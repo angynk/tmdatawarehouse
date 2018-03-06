@@ -1,14 +1,24 @@
 package com.datawarehouse.view.util;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 public class Util {
@@ -120,5 +130,60 @@ public class Util {
             return "A";
         }
         return "D";
+    }
+
+    public static String md5(String data) {
+        // Get the algorithm:
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // Calculate Message Digest as bytes:
+        byte[] digest = md5.digest(data.getBytes(UTF_8));
+        // Convert to 32-char long String:
+        return DatatypeConverter.printHexBinary(digest);
+    }
+
+    public static List<String> listaConsultasBasicas() {
+        List<String> tipoArchivos = new ArrayList<>();
+        tipoArchivos.add(TipoArchivo.expediciones);
+//        tipoArchivos.add(TipoArchivo.buses);
+//        tipoArchivos.add(TipoArchivo.distribuciones);
+//        tipoArchivos.add(TipoArchivo.tracelog);
+//        tipoArchivos.add(TipoArchivo.tablaHorario);
+//        tipoArchivos.add(TipoArchivo.matrizDistancia);
+        return tipoArchivos;
+    }
+
+    public static void descargarArchivo(String path,String nombreFile) throws IOException {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+        File file = new File(path);
+        file.createNewFile();
+        FileInputStream fileIn = new FileInputStream(file);
+        ServletOutputStream out = response.getOutputStream();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename="+nombreFile);
+
+
+        byte[] outputByte = new byte[4096];
+        while(fileIn.read(outputByte, 0, 4096) != -1)
+        {
+            out.write(outputByte, 0, 4096);
+        }
+        fileIn.close();
+        out.flush();
+        out.close();
+        out.flush();
+        try {
+            if (out != null) {
+                out.close();
+            }
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (IOException e) {
+
+        }
     }
 }

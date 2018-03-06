@@ -58,7 +58,7 @@ public class LoginBean implements Serializable {
         boolean result = false;
         Usuario usuario = usuarioServicios.encontrarUsuarioByNombreUsuario(uname);
         if (usuario != null) {
-            if (usuario.getContrasena().equals(password) && usuario.getRole().isPermisoEliminar()
+            if (usuario.getContrasena().equals(Util.md5(password)) && usuario.getRole().isPermisoEliminar()
                     && usuario.getRole().isPermisoEscribir() && usuario.getRole().isPermisoLeer()) {
                     HttpSession session = Util.getSession();
                     session.setAttribute("user", uname);

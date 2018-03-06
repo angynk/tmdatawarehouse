@@ -90,7 +90,7 @@
 
                 <p:dialog header="Cuadro Programacion" widgetVar="fileDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
                     <p:outputPanel id="fileDialog" style="text-align:center;">
-                        <p:panelGrid  columns="6"  rendered="#{not empty cBean.nuevoCuadro}">
+                        <p:panelGrid  columns="4"  rendered="#{not empty cBean.nuevoCuadro}">
 
                             <p:outputLabel value="Fecha:" />
                             <p:calendar  value="#{cBean.nuevoCuadro.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>

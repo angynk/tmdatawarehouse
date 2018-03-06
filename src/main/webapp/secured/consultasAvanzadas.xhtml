@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h:form enctype="multipart/form-data" id="form">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+
+                <p:panel header="1.Parametros Consulta" visible="#{cAvanzadaBean.parametrosVisibles}">
+                    <p:panelGrid columns="4" >
+                        <p:outputLabel value="Fecha Inicio:"  />
+                        <p:calendar  value="#{cAvanzadaBean.fechaInicio}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:outputLabel value="Fecha Fin:"  />
+                        <p:calendar  value="#{cAvanzadaBean.fechaFin}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:outputLabel value="Modo:"  />
+                        <p:selectOneMenu  value="#{cAvanzadaBean.modo}" style="width:100%">
+                            <f:selectItems value="#{cAvanzadaBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Generar" action="#{cAvanzadaBean.generarConsulta}" ajax="false" />
+                    </p:panelGrid>
+                </p:panel>
+
+                <p:panel header="2.Descarga de Resultados" visible="#{cAvanzadaBean.resultadosVisibles}">
+
+
+                </p:panel>
+
+
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px">
+                    <h:outputText value="En Proceso.." />
+                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
+
+
+
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

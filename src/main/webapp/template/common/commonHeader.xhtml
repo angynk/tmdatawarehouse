@@ -31,16 +31,14 @@
 
 
                     <p:menubar orientation="horizontal" style="margin-top:40px;">
-                        <p:submenu label="Programación Troncal" icon="ui-icon-script">
+                        <p:submenu label="Carga Programación Troncal" icon="ui-icon-script">
                             <p:menuitem value="Nueva Programación" action="#{menu.refreshCargarDatos}" />
                             <p:menuitem value="Crear Cuadro Programación" action="#{menu.refreshActualizarDatos}" />
                             <p:menuitem value="Actualizar Programación" action="#{menu.refreshActualizarCuadro}" />
-                            <p:menuitem value="Consultas" action="#{menu.refreshConsultarDatos}" />
                         </p:submenu>
-                        <p:submenu label="Programación Alimentación" icon="ui-icon-script">
-                            <p:menuitem value="Cargar" action="#{menu.refreshCargarDatos}" />
-                            <p:menuitem value="Actualizar" action="#{menu.refreshActualizarDatos}" />
-                            <p:menuitem value="Consultar" action="#{menu.refreshConsultarDatos}" />
+                        <p:submenu label="Consultas y Reportes" icon="ui-icon-script">
+                            <p:menuitem value="Consultas Básicas" action="#{menu.refreshConsultasBasicas}" />
+                            <p:menuitem value="Consultas Avanzadas" action="#{menu.refreshConsultasAvanzadas}" />
                         </p:submenu>
                         <f:facet name="options">
                             <!--<p:outputLabel style="margin-right:10px" value="#{loginBean.nombreUsuario}"/>-->
