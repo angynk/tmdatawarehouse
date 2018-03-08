@@ -44,6 +44,9 @@ public class CargaDatosServicios {
     @Autowired
     private CargaDistribucionesServicio cargaDistribucionesServicio;
 
+    @Autowired
+    private ExportarExpedicionesProcessor exportarExpedicionesProcessor;
+
 
     public boolean existeProgramacion(String identificador) {
         Programacion programacion = programacionDao.encontrarProgramacion(identificador);
@@ -124,5 +127,10 @@ public class CargaDatosServicios {
     public Cuadro obtenerCuadro(Programacion programacion, String cuadro) {
 
         return cuadroDao.obtenerCuadro(programacion,cuadro);
+    }
+
+    public void generarConsultaExpediciones(String consultaPath, Programacion programacion, String cuadro) {
+        Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
+        exportarExpedicionesProcessor.generarConsultaExpediciones(consultaPath,programacion,cuadroObj);
     }
 }

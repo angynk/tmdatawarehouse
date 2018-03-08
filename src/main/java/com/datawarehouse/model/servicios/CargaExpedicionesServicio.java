@@ -75,7 +75,7 @@ public class CargaExpedicionesServicio {
             busRegistro = new BusRegistro();
             busRegistro.setBus(bus);
             busRegistro.setOperador(operadorDefecto);
-            busRegistro.setProgramacion(programacion);
+//            busRegistro.setProgramacion(programacion);
             busRegistroDao.addBusRegistro(busRegistro);
         }
         return busRegistro;
@@ -161,4 +161,7 @@ public class CargaExpedicionesServicio {
         return csvFileOut;
     }
 
+    public void getExpedicionesCuadro(Cuadro cuadroObj, String consultaPath) {
+        expedicionesDao.getExpedicionesCuadro(cuadroObj,consultaPath);
+    }
 }

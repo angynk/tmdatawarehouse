@@ -10,7 +10,7 @@ public class PathFiles {
 //public final static String PATH = "M:\\temp\\Indicadores\\";
 
  public static final String PATH_FOR_FILES = "C:\\temp\\Datawarehouse\\";
- public static final String PATH_EXPEDICIONES = "Expediciones.xls";
+ public static final String PATH_EXPEDICIONES = "C:\\temp\\Datawarehouse\\Expediciones.csv";
 
 
 

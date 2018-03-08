@@ -4,6 +4,7 @@ import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.PathFiles;
+import com.datawarehouse.view.util.TipoArchivo;
 import com.datawarehouse.view.util.Util;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +38,8 @@ public class ConsultasBasicasBean {
     private String progr;
     private String consultaPath;
     private List<Cuadro> cuadrosLista;
+    private List<Cuadro> cuadros;
+    private String cuadro;
     private Programacion programacion;
     private boolean incluirArchivosVisibles;
     private boolean cuadrosVisibles;
@@ -72,11 +75,18 @@ public class ConsultasBasicasBean {
             incluirArchivosVisibles=true;
             creacionVisible=false;
 
+            programacion = cargaDatosServicios.obtenerProgramacion(programaciones.get(0));
+            cuadros = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
+
         }
     }
 
     public void generarConsulta(){
-        consultaPath = PathFiles.PATH_EXPEDICIONES;
+        if(tipoConsulta.equals(TipoArchivo.expediciones)){
+            consultaPath = PathFiles.PATH_EXPEDICIONES;
+            cargaDatosServicios.generarConsultaExpediciones(consultaPath,programacion,cuadro);
+        }
+
         descargaVisible = true;
     }
 
@@ -88,12 +98,17 @@ public class ConsultasBasicasBean {
     }
 
     public void descargar(){
-        String path = PathFiles.PATH+""+ consultaPath;
+        String path = PathFiles.PATH_EXPEDICIONES;
         try {
-            Util.descargarArchivo(path,"ejemplo.xls");
+            Util.descargarArchivo(path,"ExpedicionesData.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateCuadros(){
+        programacion = cargaDatosServicios.obtenerProgramacion(progr);
+        cuadros = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
     }
 
     public boolean isCreacionVisible() {
@@ -246,5 +261,21 @@ public class ConsultasBasicasBean {
 
     public void setDescargaVisible(boolean descargaVisible) {
         this.descargaVisible = descargaVisible;
+    }
+
+    public List<Cuadro> getCuadros() {
+        return cuadros;
+    }
+
+    public void setCuadros(List<Cuadro> cuadros) {
+        this.cuadros = cuadros;
+    }
+
+    public String getCuadro() {
+        return cuadro;
+    }
+
+    public void setCuadro(String cuadro) {
+        this.cuadro = cuadro;
     }
 }

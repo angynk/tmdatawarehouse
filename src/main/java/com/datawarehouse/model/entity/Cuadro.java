@@ -31,6 +31,9 @@ public class Cuadro {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cuadro")
     private Set<Archivos> archivosLista = new HashSet<Archivos>(0);
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cuadro")
+    private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
+
     public Cuadro() {
     }
 
@@ -80,5 +83,13 @@ public class Cuadro {
 
     public void setArchivosLista(Set<Archivos> archivosLista) {
         this.archivosLista = archivosLista;
+    }
+
+    public Set<BusRegistro> getBusesLista() {
+        return busesLista;
+    }
+
+    public void setBusesLista(Set<BusRegistro> busesLista) {
+        this.busesLista = busesLista;
     }
 }

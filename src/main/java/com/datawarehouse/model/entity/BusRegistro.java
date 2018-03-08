@@ -24,8 +24,8 @@ public class BusRegistro {
     private Operador operador;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "programacion", nullable = false)
-    private Programacion programacion;
+    @JoinColumn(name = "cuadro", nullable = false)
+    private Cuadro cuadro;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRegistro")
     private Set<Expediciones> expedicionesLista = new HashSet<Expediciones>(0);
@@ -57,11 +57,11 @@ public class BusRegistro {
         this.operador = operador;
     }
 
-    public Programacion getProgramacion() {
-        return programacion;
+    public Cuadro getCuadro() {
+        return cuadro;
     }
 
-    public void setProgramacion(Programacion programacion) {
-        this.programacion = programacion;
+    public void setCuadro(Cuadro cuadro) {
+        this.cuadro = cuadro;
     }
 }

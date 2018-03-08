@@ -2,6 +2,7 @@ package com.datawarehouse.model.dao;
 
 import com.datawarehouse.model.entity.Bus;
 import com.datawarehouse.model.entity.BusRegistro;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -38,6 +39,13 @@ public class BusRegistroDao {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(BusRegistro.class);
         criteria.add(Restrictions.eq("bus",bus));
         criteria.add(Restrictions.eq("programacion",programacion));
+        return (BusRegistro) criteria.uniqueResult();
+    }
+
+    public BusRegistro encontrarBusRegistro(Bus bus,Cuadro cuadro) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(BusRegistro.class);
+        criteria.add(Restrictions.eq("bus",bus));
+        criteria.add(Restrictions.eq("cuadro",cuadro));
         return (BusRegistro) criteria.uniqueResult();
     }
 }

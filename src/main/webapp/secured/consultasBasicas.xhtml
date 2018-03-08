@@ -41,10 +41,18 @@
                                          effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
                             <f:selectItems value="#{cBasicaBean.programaciones}" var="prog"
                                            itemLabel="#{prog}" itemValue="#{prog}" />
-
+                            <p:ajax update="@form" listener="#{cBasicaBean.updateCuadros}"/>
                             <p:column>
                                 <h:outputText value="#{t}" />
                             </p:column>
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Cuadro:"  />
+                        <p:selectOneMenu  value="#{cBasicaBean.cuadro}"  panelStyle="width:180px"
+                                          style="width:160px" >
+                            <f:selectItems value="#{cBasicaBean.cuadros}" var="cuadro"
+                                           itemLabel="#{cuadro.numero}" itemValue="#{cuadro.numero}" />
 
                         </p:selectOneMenu>
 

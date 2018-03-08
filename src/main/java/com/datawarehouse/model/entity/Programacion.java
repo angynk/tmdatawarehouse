@@ -33,8 +33,7 @@ public class Programacion {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "programacion")
-    private Set<BusRegistro> busesLista = new HashSet<BusRegistro>(0);
+
 
 
 
@@ -85,14 +84,6 @@ public class Programacion {
 
     public void setTipoDia(String tipoDia) {
         this.tipoDia = tipoDia;
-    }
-
-    public Set<BusRegistro> getBusesLista() {
-        return busesLista;
-    }
-
-    public void setBusesLista(Set<BusRegistro> busesLista) {
-        this.busesLista = busesLista;
     }
 
 
