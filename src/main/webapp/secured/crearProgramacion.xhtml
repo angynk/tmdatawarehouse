@@ -31,6 +31,8 @@
                     <p:selectOneMenu  value="#{pBean.modo}" style="width:100%">
                         <f:selectItems value="#{pBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
                     </p:selectOneMenu>
+                    <p:outputLabel  value="Fechas Asociadas:" />
+                    <input id="mdp-demo" name="fechas" />
                     <p:commandButton value="Crear" action="#{pBean.crearProgramacion}" ajax="false" />
                 </p:panelGrid>
                 </p:panel>

@@ -3,6 +3,7 @@ package com.datawarehouse.view;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
+import com.datawarehouse.view.util.ProcessorUtils;
 import com.datawarehouse.view.util.TipoArchivo;
 import com.datawarehouse.view.util.Util;
 import org.primefaces.event.FlowEvent;
@@ -12,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +25,7 @@ import java.util.List;
 public class CrearProgBean {
 
     private Date fecha;
+    private String fechas;
     private String jornada;
     private String tipoDia;
     private String descripcion;
@@ -59,8 +63,11 @@ public class CrearProgBean {
 
     public void crearProgramacion(){
         if(datosCompletos()){
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            fechas = ec.getRequestParameterMap().get("fechas");
+            List<Date> fechasRecords = ProcessorUtils.convertirAfechas(fechas);
             identificador = calcularIdentificador();
-            if(!cargaDatosServicios.existeProgramacion(identificador)){
+            if(!cargaDatosServicios.existeProgramacion(identificador) && !cargaDatosServicios.existeProgramacionFechas(fechasRecords)){
                 nuevaProgramacion = new Programacion();
                 nuevaProgramacion.setIdentificador(identificador);
                 nuevaProgramacion.setFecha(fecha);
@@ -69,8 +76,18 @@ public class CrearProgBean {
                 nuevaProgramacion.setDescripcion(descripcion);
                 nuevaProgramacion.setModo(Util.convertirModo(modo));
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
-                creacionVisible = false;
-                incluirArchivosVisibles = true;
+
+
+
+               if( cargaDatosServicios.agregarProgramacionAFechas(fechasRecords,nuevaProgramacion)){
+                   creacionVisible = false;
+                   incluirArchivosVisibles = true;
+               }else{
+                   messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+               }
+
+
+
             }else{
                 messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
             }

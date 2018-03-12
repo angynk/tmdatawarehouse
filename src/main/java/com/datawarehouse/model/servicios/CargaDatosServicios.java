@@ -2,9 +2,11 @@ package com.datawarehouse.model.servicios;
 
 import com.datawarehouse.model.dao.ArchivosDao;
 import com.datawarehouse.model.dao.CuadroDao;
+import com.datawarehouse.model.dao.FechasProgDao;
 import com.datawarehouse.model.dao.ProgramacionDao;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
+import com.datawarehouse.model.entity.FechasProg;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.view.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,10 @@ public class CargaDatosServicios {
 
     @Autowired
     private CuadroDao cuadroDao;
+
+    @Autowired
+    private FechasProgDao fechasProgDao;
+
 
     @Autowired
     private ProcessorUtils processorUtils;
@@ -132,5 +138,31 @@ public class CargaDatosServicios {
     public void generarConsultaExpediciones(String consultaPath, Programacion programacion, String cuadro) {
         Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
         exportarExpedicionesProcessor.generarConsultaExpediciones(consultaPath,programacion,cuadroObj);
+    }
+
+
+    public boolean agregarProgramacionAFechas(List<Date> fechasRecords, Programacion nuevaProgramacion) {
+        try{
+            for(Date fecha:fechasRecords){
+                FechasProg fechasProg = new FechasProg();
+                fechasProg.setFecha(fecha);
+                fechasProg.setProgramacion(nuevaProgramacion);
+                fechasProgDao.addFechaProg(fechasProg);
+            }
+            return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return  false;
+    }
+
+    public boolean existeProgramacionFechas(List<Date> fechasRecords) {
+        for(Date fecha:fechasRecords){
+            if(fechasProgDao.existeFecha(fecha) !=null){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -47,6 +47,7 @@
                 <value>com.datawarehouse.model.entity.TablaHorario</value>
                 <value>com.datawarehouse.model.entity.Tracelog</value>
                 <value>com.datawarehouse.model.entity.Cuadro</value>
+                <value>com.datawarehouse.model.entity.FechasProg</value>
 
             </list>
         </property>
