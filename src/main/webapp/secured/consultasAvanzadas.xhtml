@@ -26,6 +26,14 @@
                         <p:selectOneMenu  value="#{cAvanzadaBean.modo}" style="width:100%">
                             <f:selectItems value="#{cAvanzadaBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="Consulta:"  />
+                        <p:selectOneMenu  value="#{cAvanzadaBean.consulta}" style="width:100%">
+                            <f:selectItems value="#{cAvanzadaBean.consultas}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Tipo de Consulta:"  />
+                        <p:selectOneMenu  value="#{cAvanzadaBean.tipoConsulta}" style="width:100%">
+                            <f:selectItems value="#{cAvanzadaBean.tiposConsulta}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
+                        </p:selectOneMenu>
                         <p:commandButton value="Generar" action="#{cAvanzadaBean.generarConsulta}" ajax="false" />
                     </p:panelGrid>
                 </p:panel>

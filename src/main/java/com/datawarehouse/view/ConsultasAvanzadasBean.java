@@ -1,6 +1,11 @@
 package com.datawarehouse.view;
 
+import com.datawarehouse.model.servicios.ExportarTotalesProcessor;
+import com.datawarehouse.view.util.Consulta;
+import com.datawarehouse.view.util.PathFiles;
+import com.datawarehouse.view.util.TipoConsulta;
 import com.datawarehouse.view.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +23,15 @@ public class ConsultasAvanzadasBean {
     private Date fechaInicio;
     private Date fechaFin;
     private String modo;
+    private String tipoConsulta;
+    private String consulta;
+    private List<String> consultas;
     private List<String> modos;
+    private List<String> tiposConsulta;
+    private String archivoReporte;
+
+    @Autowired
+    private ExportarTotalesProcessor exportarTotalesProcessor;
 
 
     public ConsultasAvanzadasBean() {
@@ -29,9 +42,21 @@ public class ConsultasAvanzadasBean {
         parametrosVisibles = true;
         resultadosVisibles = false;
         modos = Util.listaModos();
+        consultas = Util.listaConsultasAvanzadas();
+        tiposConsulta = Util.listaTiposConsulta();
     }
 
     public void generarConsulta(){
+
+        if(consulta.equals(Consulta.KM_VACIOS_OPERADOR)){
+            archivoReporte = PathFiles.PATH_REPORTE_TOTAL_KM_VACIOS_OPERADOR;
+
+        }
+
+        if(tipoConsulta.equals(TipoConsulta.TOTALES)){
+           archivoReporte = exportarTotalesProcessor.generarReporteTotalVaciosOperador(archivoReporte,fechaInicio,fechaFin,modo,consulta);
+        }
+
 
     }
 
@@ -81,5 +106,53 @@ public class ConsultasAvanzadasBean {
 
     public void setModos(List<String> modos) {
         this.modos = modos;
+    }
+
+    public String getTipoConsulta() {
+        return tipoConsulta;
+    }
+
+    public void setTipoConsulta(String tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
+
+    public List<String> getTiposConsulta() {
+        return tiposConsulta;
+    }
+
+    public void setTiposConsulta(List<String> tiposConsulta) {
+        this.tiposConsulta = tiposConsulta;
+    }
+
+    public String getConsulta() {
+        return consulta;
+    }
+
+    public void setConsulta(String consulta) {
+        this.consulta = consulta;
+    }
+
+    public List<String> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<String> consultas) {
+        this.consultas = consultas;
+    }
+
+    public ExportarTotalesProcessor getExportarTotalesProcessor() {
+        return exportarTotalesProcessor;
+    }
+
+    public void setExportarTotalesProcessor(ExportarTotalesProcessor exportarTotalesProcessor) {
+        this.exportarTotalesProcessor = exportarTotalesProcessor;
+    }
+
+    public String getArchivoReporte() {
+        return archivoReporte;
+    }
+
+    public void setArchivoReporte(String archivoReporte) {
+        this.archivoReporte = archivoReporte;
     }
 }

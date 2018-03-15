@@ -186,4 +186,17 @@ public class Util {
 
         }
     }
+
+    public static List<String> listaConsultasAvanzadas() {
+        List<String> consultas = new ArrayList<>();
+        consultas.add(Consulta.KM_VACIOS_OPERADOR);
+        return consultas;
+    }
+
+    public static List<String> listaTiposConsulta() {
+        List<String> tiposConsulta = new ArrayList<>();
+        tiposConsulta.add(TipoConsulta.TOTALES);
+        tiposConsulta.add(TipoConsulta.POR_DIA);
+        return tiposConsulta;
+    }
 }
