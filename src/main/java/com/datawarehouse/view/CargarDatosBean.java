@@ -76,7 +76,7 @@ public class CargarDatosBean {
 
 
     public void cargaMasivaDatos(){
-        if(archivosLista.size()>0){
+        if(archivosLista.size()>0 && cuadro!=""){
             Cuadro cuadroProg = cargaDatosServicios.obtenerCuadro(programacion,cuadro);
             for(Archivos archivo: archivosLista){
                 if(!archivo.isAdjuntado()){

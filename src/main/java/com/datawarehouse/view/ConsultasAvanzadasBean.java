@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +32,7 @@ public class ConsultasAvanzadasBean {
     private List<String> tiposConsulta;
     private String archivoReporte;
 
-    @Autowired
+    @ManagedProperty(value="#{ExportarTotalesProcessor}")
     private ExportarTotalesProcessor exportarTotalesProcessor;
 
 
@@ -55,9 +57,21 @@ public class ConsultasAvanzadasBean {
 
         if(tipoConsulta.equals(TipoConsulta.TOTALES)){
            archivoReporte = exportarTotalesProcessor.generarReporteTotalVaciosOperador(archivoReporte,fechaInicio,fechaFin,modo,consulta);
+        }else {
+            archivoReporte = exportarTotalesProcessor.generarReporteDiaADiaVaciosOperador(archivoReporte,fechaInicio,fechaFin,modo,consulta);
         }
 
+        resultadosVisibles =true;
+        parametrosVisibles = false;
 
+    }
+
+    public void descargar(){
+        try {
+            Util.descargarArchivo(archivoReporte,"ConsultaAvanzada.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isParametrosVisibles() {
