@@ -75,6 +75,7 @@ public class CrearProgBean {
                 nuevaProgramacion.setTipoDia(tipoDia);
                 nuevaProgramacion.setDescripcion(descripcion);
                 nuevaProgramacion.setModo(Util.convertirModo(modo));
+                nuevaProgramacion.setDiasAplica(fechasRecords.size());
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
 
 

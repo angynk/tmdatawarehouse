@@ -33,7 +33,8 @@ public class Programacion {
     @Column(name = "descripcion")
     private String descripcion;
 
-
+    @Column(name = "dias_aplica")
+    private Integer diasAplica;
 
 
 
@@ -101,5 +102,14 @@ public class Programacion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+
+    public Integer getDiasAplica() {
+        return diasAplica;
+    }
+
+    public void setDiasAplica(Integer diasAplica) {
+        this.diasAplica = diasAplica;
     }
 }
