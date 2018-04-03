@@ -44,7 +44,7 @@ public class KilometrosVaciosDao {
         BufferedWriter fileWriter = null;
         try {
             fileWriter = new BufferedWriter(new FileWriter(archivoReporte));
-            String sqlQuery = "SELECT SUM(d.vacio_total) as vacio, d.operador as operador" +
+            String sqlQuery = "SELECT SUM(d.vacio_total*p.dias_aplica) as vacio, d.operador as operador " +
                               "FROM dh_distribucion d " +
                               "INNER JOIN dh_bus_registro b " +
                               "ON d.bus_registro = b.id " +
@@ -52,8 +52,8 @@ public class KilometrosVaciosDao {
                               "ON b.cuadro = c.id " +
                               "INNER JOIN dh_programacion p " +
                               "ON c.programacion = p.id " +
-                              "WHERE p.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"'"+
-                              " GROUP BY (d.operador)";
+                              "WHERE p.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"' "+
+                              "GROUP BY (d.operador)";
 
 
             copyManager = new CopyManager((BaseConnection) conn);
