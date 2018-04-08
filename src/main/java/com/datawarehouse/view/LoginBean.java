@@ -98,6 +98,20 @@ public class LoginBean implements Serializable {
         return navigationBean.toLogin();
     }
 
+    public boolean puedeEditar(){
+        if(role!= null){
+            return true;
+        }
+        return true;
+    }
+
+    public boolean puedeEliminar(){
+        if(role!= null){
+            return true;
+        }
+        return false;
+    }
+
     public String getLogout() {
         return logout;
     }

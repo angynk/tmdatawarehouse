@@ -78,23 +78,23 @@ public class CrearProgBean {
                 nuevaProgramacion.setDiasAplica(fechasRecords.size());
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
 
-
-
                if( cargaDatosServicios.agregarProgramacionAFechas(fechasRecords,nuevaProgramacion)){
                    creacionVisible = false;
                    incluirArchivosVisibles = true;
+                   messagesView.info("Proceso Exitoso","La progrmación ha sido creada");
                }else{
                    messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
                }
-
-
-
             }else{
                 messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
             }
         }else{
             messagesView.error("Campos incompletos","Completar correctamente el formulario");
         }
+    }
+    
+    public void crearCuadro(){
+        
     }
 
     private boolean datosCompletos() {

@@ -56,4 +56,11 @@ public class ProgramacionDao {
         criteria.add(Restrictions.between("fecha",fechaInicio,fechaFin));
         return criteria.list();
     }
+
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String modo) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Programacion.class);
+        criteria.add(Restrictions.eq("modo",modo));
+        criteria.add(Restrictions.between("fecha",fechaInicio,fechaFin));
+        return criteria.list();
+    }
 }

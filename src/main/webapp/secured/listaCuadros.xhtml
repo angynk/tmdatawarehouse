@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+
+        <ui:define name="content">
+            <h:form >
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:panelGrid columns="4">
+
+                <p:commandButton actionListener="#{buscarProgBean.atras}" id="atras"  icon="ui-icon ui-icon-arrow-1-w" title="atras" />
+                <p:commandButton actionListener="#{buscarProgBean.habilitarNuevoCuadro}" title="Nuevo Cuadro" value="Nuevo Cuadro">
+                </p:commandButton>
+                </p:panelGrid>
+                <p:panel  header="Lista Cuadros">
+                    <p:dataTable id="basicDT" var="cuadro" value="#{buscarProgBean.cuadroList}"
+                                 emptyMessage="No se encontraron registros relacionados a la busqueda">
+                        <f:facet name="header">
+                            Programaciones
+                        </f:facet>
+                        <p:column headerText="Fecha">
+                            <h:outputText value="#{cuadro.numero}" />
+                        </p:column>
+                        <p:column headerText="Número">
+                            <h:outputText value="#{cuadro.numero}" />
+                        </p:column>
+                        <p:column headerText="Descripción">
+                            <h:outputText value="#{cuadro.descripcion}" />
+                        </p:column>
+                        <p:column style="width:50px;text-align: center">
+                            <p:commandButton action="#{buscarProgBean.verDetalleCuadro}" icon="ui-icon-search" title="Ver Detalle Cuadro" >
+                                <f:setPropertyActionListener value="#{cuadro}" target="#{buscarProgBean.cuadro}" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>

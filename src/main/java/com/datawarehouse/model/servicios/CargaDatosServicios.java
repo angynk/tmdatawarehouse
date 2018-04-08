@@ -112,10 +112,8 @@ public class CargaDatosServicios {
         archivosDao.addArchivos(archivo);
     }
 
-    public List<Archivos> obtenerArchivosLista(String progr,String cuadro) {
-        Programacion programacion = programacionDao.encontrarProgramacion(progr);
-        Cuadro cuadroProg = cuadroDao.obtenerCuadro(programacion,cuadro);
-        return archivosDao.encontrarArchivos(cuadroProg);
+    public List<Archivos> obtenerArchivosLista(Cuadro cuadro) {
+        return archivosDao.encontrarArchivos(cuadro);
     }
 
     public Programacion obtenerProgramacion(String progr) {
@@ -164,5 +162,9 @@ public class CargaDatosServicios {
             }
         }
         return false;
+    }
+
+    public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String modo) {
+        return programacionDao.getProgramaciones(fechaInicio,fechaFin,modo);
     }
 }

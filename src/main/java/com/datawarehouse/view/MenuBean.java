@@ -19,6 +19,16 @@ public class MenuBean {
             e.printStackTrace();
         }
     }
+    
+    public void refreshBuscarProgramacion(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/buscarProgramacion.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void refreshConsultasBasicas(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();

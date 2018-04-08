@@ -136,11 +136,7 @@ public class CargarDatosBean {
         modos = Util.listaModos();
     }
 
-    public void seleccionarProgramacion(){
-        archivosVisibles = true;
-        archivosLista = cargaDatosServicios.obtenerArchivosLista(progr,cuadro);
-        programacion = cargaDatosServicios.obtenerProgramacion(progr);
-    }
+
 
 
 

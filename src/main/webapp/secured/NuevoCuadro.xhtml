@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h:form enctype="multipart/form-data" id="form">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                <p:panel header="Crear Cuadro" >
+                    <p:panelGrid columns="6" >
+                        <p:outputLabel value="Fecha:" />
+                        <p:calendar  value="#{buscarProgBean.nuevoCuadro.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+
+                        <p:outputLabel value="Número:"  />
+                        <p:inputText value="#{buscarProgBean.nuevoCuadro.numero}" />
+
+                        <p:outputLabel value="Descripción:" />
+                        <p:inputText value="#{buscarProgBean.nuevoCuadro.descripcion}"  />
+
+                        <p:outputLabel value="Cargue el archivo de expediciones (Formato CSV)" />
+                        <p:fileUpload value="#{buscarProgBean.file}" mode="simple"
+                                      sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
+                        <p:outputLabel value="Formato Archivo:"  />
+                        <p:selectOneMenu  value="#{buscarProgBean.tipo}" style="width:100%">
+                            <f:selectItems value="#{buscarProgBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="Guardar" action="#{buscarProgBean.guardarCuadro}" ajax="false"
+                                         icon="ui-icon ui-icon-disk" id="actualizar"
+                                         async="true" />
+
+                        <p:commandButton value="Cancelar" action="#{buscarProgBean.cancelar}" ajax="false"
+                                         icon="ui-icon ui-icon-disk" id="cancelar"
+                                         async="true" />
+                    </p:panelGrid>
+                </p:panel>
+
+
+            </h:form>
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</h:body>
+
+</html>
