@@ -15,6 +15,10 @@
             <h:form enctype="multipart/form-data" id="form">
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
+                <p:panelGrid columns="2">
+                    <p:commandButton actionListener="#{buscarProgBean.verCuadro}" id="atras"  icon="ui-icon ui-icon-arrow-1-w" title="atras" />
+                </p:panelGrid>
+
                 <p:panel header="Crear Cuadro" >
                     <p:panelGrid columns="6" >
                         <p:outputLabel value="Fecha:" />
@@ -26,7 +30,7 @@
                         <p:outputLabel value="Descripción:" />
                         <p:inputText value="#{buscarProgBean.nuevoCuadro.descripcion}"  />
 
-                        <p:outputLabel value="Cargue el archivo de expediciones (Formato CSV)" />
+                        <p:outputLabel value="Archivo expediciones (CSV)"/>
                         <p:fileUpload value="#{buscarProgBean.file}" mode="simple"
                                       sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
 
@@ -39,8 +43,9 @@
 
                     <p:panelGrid columns="2">
                         <p:commandButton value="Guardar" action="#{buscarProgBean.guardarCuadro}" ajax="false"
-                                         icon="ui-icon ui-icon-disk" id="actualizar"
-                                         async="true" />
+                                         icon="ui-icon ui-icon-disk" id="withIcon" styleClass="boton"
+                                         async="true" process="@form" onclick="PF('dlg2').show();" global="false"
+                                         oncomplete="PF('dlg2').hide()" />
 
                         <p:commandButton value="Cancelar" action="#{buscarProgBean.cancelar}" ajax="false"
                                          icon="ui-icon ui-icon-disk" id="cancelar"
@@ -48,6 +53,11 @@
                     </p:panelGrid>
                 </p:panel>
 
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px">
+                    <h:outputText value="En Proceso.." />
+                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
 
             </h:form>
 

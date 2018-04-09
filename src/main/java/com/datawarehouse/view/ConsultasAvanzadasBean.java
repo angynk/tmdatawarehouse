@@ -52,7 +52,8 @@ public class ConsultasAvanzadasBean {
 
         if(consulta.equals(Consulta.KM_VACIOS_OPERADOR)){
             archivoReporte = PathFiles.PATH_REPORTE_TOTAL_KM_VACIOS_OPERADOR;
-
+        }else if(consulta.equals(Consulta.KM_VACIOS_SERVICIO)){
+            archivoReporte = PathFiles.PATH_REPORTE_TOTAL_KM_VACIOS_SERVICIO;
         }
 
         if(tipoConsulta.equals(TipoConsulta.TOTALES)){

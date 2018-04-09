@@ -28,6 +28,7 @@ public class BuscarProgBean {
     private Date fechaInicio;
     private Date fechaFin;
     private String modo;
+    private String cuadroInformacion;
     private List<String> modos;
     private List<Programacion> programacionList;
     private Programacion programacionSelected;
@@ -72,6 +73,19 @@ public class BuscarProgBean {
         }
     }
 
+
+
+    public void volver(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            ec.redirect(ec.getRequestContextPath()
+                    + "/secured/listaCuadros.xhtml");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public void atras(){
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -85,6 +99,7 @@ public class BuscarProgBean {
 
     public void habilitarNuevoCuadro(){
         nuevoCuadro = new Cuadro();
+        nuevoCuadro.setProgramacion(programacionSelected);
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
@@ -96,8 +111,22 @@ public class BuscarProgBean {
     }
 
     public void guardarCuadro(){
-        cargaDatosServicios.guardarCuadro(nuevoCuadro);
-        cargarExpediciones();
+        if(datosCuadroCompletos()){
+            cargaDatosServicios.guardarCuadro(nuevoCuadro);
+            cargarExpediciones();
+        }else{
+            messagesView.info("Operación fallida","Complete todos los campos para crear un Cuadro Nuevo");
+        }
+    }
+
+    private boolean datosCuadroCompletos() {
+
+        if(nuevoCuadro!=null){
+            if (nuevoCuadro.getFecha()!=null && nuevoCuadro.getNumero()!=null && nuevoCuadro.getDescripcion()!=null){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void cancelar(){
@@ -119,7 +148,7 @@ public class BuscarProgBean {
                 nombre = cargaDatosServicios.incluirFilaArchivo(nombre,programacionSelected,tipo,Util.convertirModo(modo),nuevoCuadro.getNumero());
                 cargaDatosServicios.cargarArchivoExpediciones(nombre);
                 cargaDatosServicios.eliminarDatosTemporales(programacionSelected);
-                messagesView.info("Proceso Exitoso ","Nueva programación creada");
+                messagesView.info("Proceso Exitoso ","Nuevo Cuadro creado");
                 Archivos archivo = new Archivos();
                 archivo.setNombre(file.getFileName());
                 archivo.setGrupo(TipoArchivo.expediciones);
@@ -143,6 +172,7 @@ public class BuscarProgBean {
 
     public void verDetalleCuadro(){
         archivosLista = cargaDatosServicios.obtenerArchivosLista(cuadro);
+        cuadroInformacion = "Información Cuadro No."+cuadro.getNumero();
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()
@@ -313,5 +343,13 @@ public class BuscarProgBean {
 
     public void setResultadosVisibles(boolean resultadosVisibles) {
         this.resultadosVisibles = resultadosVisibles;
+    }
+
+    public String getCuadroInformacion() {
+        return cuadroInformacion;
+    }
+
+    public void setCuadroInformacion(String cuadroInformacion) {
+        this.cuadroInformacion = cuadroInformacion;
     }
 }

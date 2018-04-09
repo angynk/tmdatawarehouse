@@ -190,6 +190,7 @@ public class Util {
     public static List<String> listaConsultasAvanzadas() {
         List<String> consultas = new ArrayList<>();
         consultas.add(Consulta.KM_VACIOS_OPERADOR);
+        consultas.add(Consulta.KM_VACIOS_SERVICIO);
         return consultas;
     }
 
@@ -198,5 +199,10 @@ public class Util {
         tiposConsulta.add(TipoConsulta.TOTALES);
         tiposConsulta.add(TipoConsulta.POR_DIA);
         return tiposConsulta;
+    }
+
+    public static String convertirAString(Date fecha) {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfDate.format(fecha);
     }
 }

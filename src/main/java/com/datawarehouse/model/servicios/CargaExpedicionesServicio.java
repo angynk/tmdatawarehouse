@@ -120,6 +120,7 @@ public class CargaExpedicionesServicio {
                 listaFinal.add(nuevaProgramacion.getIdentificador()); // Add the new element here
                 listaFinal.add(numeroCuadro); // Add the new element here
                 listaFinal.add(modo); // Add the new element here
+                listaFinal.add(Util.convertirAString(nuevaProgramacion.getFecha())); // Add the new element here
                 entries =  listaFinal.toArray(new String[listaFinal.size()]);
                 writer.writeNext(entries);
             }
@@ -152,6 +153,7 @@ public class CargaExpedicionesServicio {
                 list.add(nuevaProgramacion.getIdentificador()); // Add the new element here
                 list.add(numeroCuadro); // Add the new element here
                 list.add(modo); // Add the new element here
+                list.add(Util.convertirAString(nuevaProgramacion.getFecha()));
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }

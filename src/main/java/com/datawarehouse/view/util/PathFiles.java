@@ -13,5 +13,6 @@ public class PathFiles {
  public static final String PATH_EXPEDICIONES = "C:\\temp\\Datawarehouse\\Expediciones.csv";
 
 
-    public static final String PATH_REPORTE_TOTAL_KM_VACIOS_OPERADOR = PATH+"Reporte-km-vacios-totales";
+    public static final String PATH_REPORTE_TOTAL_KM_VACIOS_OPERADOR = PATH+"Reporte-km-vacios-operador";
+    public static final String PATH_REPORTE_TOTAL_KM_VACIOS_SERVICIO = PATH+"Reporte-km-vacios-servicio";
 }

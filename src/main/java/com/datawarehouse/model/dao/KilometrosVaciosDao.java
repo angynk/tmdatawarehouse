@@ -114,4 +114,48 @@ public class KilometrosVaciosDao {
             }
         }
     }
+
+
+    public void generarReporteDiaADiaVaciosServicio(String archivoReporte, Date fechaInicio, Date fechaFin) {
+        SessionFactory factory = getSessionFactory();
+        Session session = factory.getCurrentSession();
+        SessionImplementor sessImpl = (SessionImplementor) session;
+        Connection conn = null;
+        conn = sessImpl.getJDBCContext().connection();
+        CopyManager copyManager = null;
+        BufferedWriter fileWriter = null;
+        try {
+            fileWriter = new BufferedWriter(new FileWriter(archivoReporte));
+            String sqlQuery = "SELECT f.fecha ,SUM(d.kilometros), d.linea, d.punto_inicio " +
+                    "FROM dh_expediciones d " +
+                    "INNER JOIN dh_bus_registro b " +
+                    "ON d.bus_registro = b.id " +
+                    "INNER JOIN dh_cuadro c " +
+                    "ON b.cuadro = c.id " +
+                    "INNER JOIN dh_programacion p " +
+                    "ON c.programacion = p.id " +
+                    "INNER JOIN dh_fechas_programacion f " +
+                    "ON p.id = f.programacion " +
+                    "WHERE (d.tipo = 'VEx' OR d.tipo = 'VPa' OR d.tipo = 'VIn') AND  f.fecha BETWEEN '"+fechaInicio+"' AND '"+fechaFin+"'" +
+                    "GROUP BY d.linea,f.fecha , d.punto_inicio " +
+                    "ORDER BY f.fecha, d.linea";
+
+
+            copyManager = new CopyManager((BaseConnection) conn);
+//            copyManager.copyOut("COPY ("+sqlQuery+") TO STDOUT WITH DELIMITER ';'",fileWriter);
+            ((BaseConnection) conn).execSQLQuery("COPY ("+sqlQuery+") TO 'C:\\\\temp\\resultado.csv'"+" WITH DELIMITER ';'");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

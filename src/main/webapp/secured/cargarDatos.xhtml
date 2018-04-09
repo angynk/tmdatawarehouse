@@ -15,7 +15,13 @@
             <h:form enctype="multipart/form-data" id="form">
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
-                <p:panel header="Cuadro Información" >
+                <p:panelGrid columns="4">
+
+                    <p:commandButton actionListener="#{buscarProgBean.volver}" id="atras"  icon="ui-icon ui-icon-arrow-1-w" title="atras" />
+
+                </p:panelGrid>
+
+                <p:panel header="#{buscarProgBean.cuadroInformacion}" >
 
                     <p:panel >
                         <p:commandButton value="Agregar" action="#{buscarProgBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"

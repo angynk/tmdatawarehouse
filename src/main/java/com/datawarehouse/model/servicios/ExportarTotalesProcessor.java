@@ -25,10 +25,12 @@ public class ExportarTotalesProcessor {
     }
 
     public String generarReporteDiaADiaVaciosOperador(String archivoReporte, Date fechaInicio, Date fechaFin, String modo, String consulta) {
+        archivoReporte = archivoReporte+"-"+RandomStringUtils.randomAlphanumeric(3)+".csv";
 
         if(consulta.equals(Consulta.KM_VACIOS_OPERADOR)){
-            archivoReporte = archivoReporte+"-"+RandomStringUtils.randomAlphanumeric(3)+".csv";
             kilometrosVaciosDao.generarReporteDiaADiaVaciosOperador(archivoReporte,fechaInicio,fechaFin);
+        }else if(consulta.equals(Consulta.KM_VACIOS_SERVICIO)){
+            kilometrosVaciosDao.generarReporteDiaADiaVaciosServicio(archivoReporte,fechaInicio,fechaFin);
         }
         return archivoReporte;
     }
