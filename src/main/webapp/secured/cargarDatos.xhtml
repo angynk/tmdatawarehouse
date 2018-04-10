@@ -78,29 +78,29 @@
 
                 <p:dialog header="Agregar archivo" widgetVar="fileDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
                     <p:outputPanel id="fileDialog" style="text-align:center;">
-                        <p:panelGrid  columns="4"  rendered="#{not empty cargaDatosBean.nuevoArchivo}">
+                        <p:panelGrid  columns="4"  rendered="#{not empty buscarProgBean.nuevoArchivo}">
 
                             <h:outputText value="Tipo Archivo:" />
-                            <p:selectOneMenu  value="#{cargaDatosBean.nuevoArchivo.grupo}" style="width:100%">
-                                <f:selectItems value="#{cargaDatosBean.tiposArchivo}" var="grupo" itemLabel="#{grupo}" itemValue="#{grupo}"/>
+                            <p:selectOneMenu  value="#{buscarProgBean.nuevoArchivo.grupo}" style="width:100%">
+                                <f:selectItems value="#{buscarProgBean.tiposArchivo}" var="grupo" itemLabel="#{grupo}" itemValue="#{grupo}"/>
                             </p:selectOneMenu>
 
                             <h:outputText value="Formato Archivo:"  />
-                            <p:selectOneMenu  value="#{cargaDatosBean.nuevoArchivo.tipo}" style="width:100%">
-                                <f:selectItems value="#{cargaDatosBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                            <p:selectOneMenu  value="#{buscarProgBean.nuevoArchivo.tipo}" style="width:100%">
+                                <f:selectItems value="#{buscarProgBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
                             </p:selectOneMenu>
 
                             <h:outputText value="Archivo:" />
-                            <p:fileUpload value="#{cargaDatosBean.file}" mode="simple"
+                            <p:fileUpload value="#{buscarProgBean.file}" mode="simple"
                                           sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(xls|csv|txt)$/" />
 
                         </p:panelGrid>
                         <p:panelGrid columns="2">
-                            <p:commandButton value="Guardar" action="#{cargaDatosBean.guardarArchivo}" ajax="false"
+                            <p:commandButton value="Guardar" action="#{buscarProgBean.guardarArchivo}" ajax="false"
                                              icon="ui-icon ui-icon-disk" id="actualizar"
                                              async="true" />
 
-                            <p:commandButton value="Cancelar" action="#{cargaDatosBean.cancelar}" ajax="false"
+                            <p:commandButton value="Cancelar" action="#{buscarProgBean.cancelar}" ajax="false"
                                              icon="ui-icon ui-icon-disk" id="cancelar"
                                              async="true" />
                         </p:panelGrid>

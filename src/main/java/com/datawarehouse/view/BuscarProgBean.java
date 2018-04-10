@@ -42,6 +42,8 @@ public class BuscarProgBean {
     private boolean resultadosVisibles;
     private Archivos nuevoArchivo;
     private List<LogDatos> logDatos;
+    private boolean visibleCargaArchivos;
+    private List<String> tiposArchivo;
 
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
@@ -59,6 +61,7 @@ public class BuscarProgBean {
         modos = Util.listaModos();
         formatosArchivo = Util.listaFormatosCSV();
         archivosLista = new ArrayList<Archivos>();
+        tiposArchivo = Util.listaTipoArchivos();
     }
 
     public void verCuadro(){
@@ -95,6 +98,10 @@ public class BuscarProgBean {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void cancelarCreacionArchivo(){
+        visibleCargaArchivos = false;
     }
 
     public void habilitarNuevoCuadro(){
@@ -201,6 +208,7 @@ public class BuscarProgBean {
 
     public void agregarArchivo(){
         nuevoArchivo = new Archivos();
+        visibleCargaArchivos = true;
     }
 
     public void guardarArchivo(){
@@ -351,5 +359,37 @@ public class BuscarProgBean {
 
     public void setCuadroInformacion(String cuadroInformacion) {
         this.cuadroInformacion = cuadroInformacion;
+    }
+
+    public boolean isVisibleCargaArchivos() {
+        return visibleCargaArchivos;
+    }
+
+    public void setVisibleCargaArchivos(boolean visibleCargaArchivos) {
+        this.visibleCargaArchivos = visibleCargaArchivos;
+    }
+
+    public Archivos getNuevoArchivo() {
+        return nuevoArchivo;
+    }
+
+    public void setNuevoArchivo(Archivos nuevoArchivo) {
+        this.nuevoArchivo = nuevoArchivo;
+    }
+
+    public List<LogDatos> getLogDatos() {
+        return logDatos;
+    }
+
+    public void setLogDatos(List<LogDatos> logDatos) {
+        this.logDatos = logDatos;
+    }
+
+    public List<String> getTiposArchivo() {
+        return tiposArchivo;
+    }
+
+    public void setTiposArchivo(List<String> tiposArchivo) {
+        this.tiposArchivo = tiposArchivo;
     }
 }
