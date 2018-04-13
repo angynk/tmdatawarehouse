@@ -5,10 +5,7 @@ import com.datawarehouse.model.dao.TablaHorarioDao;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
-import com.datawarehouse.view.util.FormatoArchivo;
-import com.datawarehouse.view.util.LogDatos;
-import com.datawarehouse.view.util.PathFiles;
-import com.datawarehouse.view.util.TipoLog;
+import com.datawarehouse.view.util.*;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +60,7 @@ public class CargaTablaHorarioServicio {
                 list.add(programacion.getIdentificador());
                 list.add(programacion.getModo());
                 list.add(cuadro.getNumero());
+                list.add(Util.convertirAString(programacion.getFecha()));
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }

@@ -49,7 +49,7 @@ public class TablaHorarioDao {
         try {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
-            copyManager.copyIn("COPY dh_temp_tabla_horario (jornada_tipo,dia,operador,instante,serbus,evento,linea,coche,sublinea,ruta,punto,tipo_nodo,viaje,ad1,ad2,ad3,ad4,ad5,jornada,modo,cuadro)" +
+            copyManager.copyIn("COPY dh_temp_tabla_horario (jornada_tipo,dia,operador,instante,serbus,evento,linea,coche,sublinea,ruta,punto,tipo_nodo,viaje,ad1,ad2,ad3,ad4,ad5,jornada,modo,cuadro,fecha)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
             e.printStackTrace();
