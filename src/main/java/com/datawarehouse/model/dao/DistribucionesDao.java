@@ -50,7 +50,7 @@ public class DistribucionesDao {
         try {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
-            copyManager.copyIn("COPY dh_distribucion (serbus,operador,patio_ini,patio_fin,patio_valle,tipologia,punto_inicio,punto_fin,distancia,vacio_interno_sin_valle,km_vacio_valle,vacio_externo,vacio_total,punto_inicio_valle,punto_fin_valle,duracion_valle,reserva,jornada,cuadro)" +
+            copyManager.copyIn("COPY dh_distribucion (serbus,operador,patio_ini,patio_fin,patio_valle,tipologia,punto_inicio,punto_fin,distancia,vacio_interno_sin_valle,km_vacio_valle,vacio_externo,vacio_total,punto_inicio_valle,punto_fin_valle,duracion_valle,reserva,jornada,cuadro,fecha)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
             e.printStackTrace();

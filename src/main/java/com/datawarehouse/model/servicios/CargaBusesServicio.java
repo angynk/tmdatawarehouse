@@ -67,6 +67,7 @@ public class CargaBusesServicio {
                 list.add(programacion.getIdentificador());
                 list.add(programacion.getModo());
                 list.add(cuadro.getNumero());
+                list.add(Util.convertirAString(programacion.getFecha()));
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }
@@ -104,6 +105,7 @@ public class CargaBusesServicio {
                 listaFinal.add(programacion.getIdentificador());
                 listaFinal.add(programacion.getModo());
                 list.add(cuadro.getNumero());
+                list.add(Util.convertirAString(programacion.getFecha()));
                 entries =  listaFinal.toArray(new String[listaFinal.size()]);
                 writer.writeNext(entries);
             }

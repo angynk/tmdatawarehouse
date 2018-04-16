@@ -5,10 +5,7 @@ import com.datawarehouse.model.dao.DistribucionesDao;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
-import com.datawarehouse.view.util.FormatoArchivo;
-import com.datawarehouse.view.util.LogDatos;
-import com.datawarehouse.view.util.PathFiles;
-import com.datawarehouse.view.util.TipoLog;
+import com.datawarehouse.view.util.*;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,12 +62,9 @@ public class CargaDistribucionesServicio {
             String[] entries = null;
             while ((entries = reader.readNext()) != null) {
                 ArrayList<String> list = new ArrayList(Arrays.asList(entries));
-//                list.set(9,list.get(9).replace(",","."));
-//                if(list.size()>12){
-//                    list.remove(list.size()-1);
-//                }
                 list.add(programacion.getIdentificador());
                 list.add(cuadro.getNumero());
+                list.add(Util.convertirAString(programacion.getFecha()));
                 entries =  list.toArray(new String[list.size()]);
                 writer.writeNext(entries);
             }
