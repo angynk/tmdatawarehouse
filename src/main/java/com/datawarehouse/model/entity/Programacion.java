@@ -36,6 +36,15 @@ public class Programacion {
     @Column(name = "dias_aplica")
     private Integer diasAplica;
 
+    @Column(name = "tipo_programacion")
+    private String tipoProgramacion;
+
+    @Column(name = "tipologia")
+    private String tipologia;
+
+    @Column(name = "fecha_duplicado")
+    private Date fechaDuplicado;
+
 
 
     public Programacion(Date fecha, String jornada, String identificador) {
@@ -111,5 +120,30 @@ public class Programacion {
 
     public void setDiasAplica(Integer diasAplica) {
         this.diasAplica = diasAplica;
+    }
+
+    public String getTipoProgramacion() {
+        return tipoProgramacion;
+    }
+
+    public void setTipoProgramacion(String tipoProgramacion) {
+        this.tipoProgramacion = tipoProgramacion;
+    }
+
+
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
+
+    public Date getFechaDuplicado() {
+        return fechaDuplicado;
+    }
+
+    public void setFechaDuplicado(Date fechaDuplicado) {
+        this.fechaDuplicado = fechaDuplicado;
     }
 }

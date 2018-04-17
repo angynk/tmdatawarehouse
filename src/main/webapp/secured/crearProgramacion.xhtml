@@ -21,7 +21,7 @@
                     <p:calendar  value="#{pBean.fecha}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
                     <p:outputLabel value="Jornada:"  />
                     <p:inputText value="#{pBean.jornada}" />
-                    <p:outputLabel value="Descripcion:"  />
+                    <p:outputLabel value="Razón de cambio:"  />
                     <p:inputText value="#{pBean.descripcion}" />
                     <p:outputLabel value="Tipo día:"  />
                     <p:selectOneMenu  value="#{pBean.tipoDia}" style="width:100%">
@@ -30,11 +30,17 @@
                     <p:outputLabel value="Modo:"  />
                     <p:selectOneMenu  value="#{pBean.modo}" style="width:100%">
                         <f:selectItems value="#{pBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
+                        <p:ajax update="tipologia" listener="#{pBean.updateTipologias}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Tipología:" for="tipologia" />
+                    <p:selectOneMenu id="tipologia" value="#{pBean.tipologia}" style="width:90%">
+                        <f:selectItems value="#{pBean.tipologias}" var="tip" itemLabel="#{tip.label}" itemValue="#{tip.value}"/>
                     </p:selectOneMenu>
                     <p:outputLabel  value="Fechas Asociadas:" />
                     <input id="mdp-demo" name="fechas" />
-                    <p:commandButton value="Crear" action="#{pBean.crearProgramacion}" ajax="false" />
+
                 </p:panelGrid>
+                    <p:commandButton value="Crear" action="#{pBean.crearProgramacion}" ajax="false" />
                 </p:panel>
 
                 <p:panel header="Programación Asociada" visible="#{pBean.incluirArchivosVisibles}">

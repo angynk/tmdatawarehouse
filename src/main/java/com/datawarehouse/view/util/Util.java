@@ -205,4 +205,21 @@ public class Util {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         return sdfDate.format(fecha);
     }
+
+    public static List<ListObject> cargarListaTipologiaTroncal() {
+        List<ListObject> tipologias = new ArrayList<ListObject>();
+        tipologias.add(new ListObject("Articulado","ART"));
+        tipologias.add(new ListObject("Biarticulado","BI"));
+        tipologias.add(new ListObject("Definitivo Troncal","DEF"));
+        return tipologias;
+
+    }
+
+    public static List<ListObject> cargarListaTipologiaDual() {
+        List<ListObject> tipologias = new ArrayList<ListObject>();
+        tipologias.add(new ListObject("Dual Hibrído","DU-HI"));
+        tipologias.add(new ListObject("Dual Disel","DU-DI"));
+        tipologias.add(new ListObject("Definitivo Dual","DU-DEF"));
+        return tipologias;
+    }
 }
