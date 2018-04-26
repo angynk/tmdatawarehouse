@@ -28,12 +28,10 @@ public class CrearProgBean {
     private String tipoDia;
     private String descripcion;
     private String modo;
-    private String tipologia;
     private Programacion nuevaProgramacion;
     private String identificador;
     private List<String> tiposDias;
     private List<String> modos;
-    private List<ListObject> tipologias;
     private UploadedFile file;
     private boolean creacionVisible;
 
@@ -57,15 +55,14 @@ public class CrearProgBean {
         formatosArchivo = Util.listaFormatosCSV();
         tiposDias = Util.listaDePeriocidad();
         modos = Util.listaModos();
-        tipologias = Util.cargarListaTipologiaTroncal();
         creacionVisible = true;
         incluirArchivosVisibles = false;
     }
 
     public void crearProgramacion(){
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        fechas = ec.getRequestParameterMap().get("fechas");
         if(datosCompletos()){
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            fechas = ec.getRequestParameterMap().get("fechas");
             List<Date> fechasRecords = ProcessorUtils.convertirAfechas(fechas);
             identificador = calcularIdentificador();
             if(!cargaDatosServicios.existeProgramacion(identificador) && !cargaDatosServicios.existeProgramacionFechas(fechasRecords)){
@@ -78,7 +75,6 @@ public class CrearProgBean {
                 nuevaProgramacion.setModo(Util.convertirModo(modo));
                 nuevaProgramacion.setDiasAplica(fechasRecords.size());
                 nuevaProgramacion.setTipoProgramacion(TipoProgramacion.N.toString());
-                nuevaProgramacion.setTipologia(tipologia);
                 cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
 
                if( cargaDatosServicios.agregarProgramacionAFechas(fechasRecords,nuevaProgramacion)){
@@ -95,19 +91,12 @@ public class CrearProgBean {
             messagesView.error("Campos incompletos","Completar correctamente el formulario");
         }
     }
-    
-    public void updateTipologias(){
-        if(modo.equals("TRO")){
-            tipologias = Util.cargarListaTipologiaTroncal();
-        }else{
-            tipologias = Util.cargarListaTipologiaDual();
-        }
-    }
+
 
 
 
     private boolean datosCompletos() {
-        if(fecha!=null && jornada!=null && descripcion!=null ) return true;
+        if(fecha!=null && jornada!=null && descripcion!=null && fechas!=null) return true;
         return false;
     }
 
@@ -253,21 +242,5 @@ public class CrearProgBean {
 
     public void setFechas(String fechas) {
         this.fechas = fechas;
-    }
-
-    public String getTipologia() {
-        return tipologia;
-    }
-
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
-    }
-
-    public List<ListObject> getTipologias() {
-        return tipologias;
-    }
-
-    public void setTipologias(List<ListObject> tipologias) {
-        this.tipologias = tipologias;
     }
 }

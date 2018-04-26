@@ -29,17 +29,35 @@
 
                         <p:outputLabel value="Descripción:" />
                         <p:inputText value="#{buscarProgBean.nuevoCuadro.descripcion}"  />
-
-                        <p:outputLabel value="Archivo expediciones (CSV)"/>
-                        <p:fileUpload value="#{buscarProgBean.file}" mode="simple"
-                                      sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
-
-                        <p:outputLabel value="Formato Archivo:"  />
-                        <p:selectOneMenu  value="#{buscarProgBean.tipo}" style="width:100%">
-                            <f:selectItems value="#{buscarProgBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
-                        </p:selectOneMenu>
-
                     </p:panelGrid>
+                    <div style="height: 15px"></div>
+
+                    <p:panel header="Información de Expediciones">
+                        <p:panelGrid columns="4">
+                            <p:outputLabel value="Archivo expediciones (CSV)"/>
+                            <p:fileUpload value="#{buscarProgBean.file}" mode="simple"
+                                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
+                            <p:outputLabel value="Formato Archivo:"  />
+                            <p:selectOneMenu  value="#{buscarProgBean.tipo}" style="width:100%">
+                                <f:selectItems value="#{buscarProgBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:panel>
+                    <div style="height: 15px"></div>
+                    <p:panel header="Información de Buses">
+                        <p:panelGrid columns="4">
+                            <p:outputLabel value="Archivo buses (CSV)"/>
+                            <p:fileUpload value="#{buscarProgBean.fileBuses}" mode="simple"
+                                          sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
+                            <p:outputLabel value="Formato Archivo:"  />
+                            <p:selectOneMenu  value="#{buscarProgBean.tipobuses}" style="width:100%">
+                                <f:selectItems value="#{buscarProgBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </p:panel>
+
 
                     <p:panelGrid columns="2">
                         <p:commandButton value="Guardar" action="#{buscarProgBean.guardarCuadro}" ajax="false"

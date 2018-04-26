@@ -23,9 +23,6 @@
                 <p:panel  header="Lista Cuadros">
                     <p:dataTable id="basicDT" var="cuadro" value="#{buscarProgBean.cuadroList}"
                                  emptyMessage="No se encontraron registros relacionados a la busqueda">
-                        <f:facet name="header">
-                            Programaciones
-                        </f:facet>
                         <p:column headerText="Fecha">
                             <h:outputText value="#{cuadro.numero}" />
                         </p:column>

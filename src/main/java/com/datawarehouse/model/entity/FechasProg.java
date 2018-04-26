@@ -1,15 +1,20 @@
 package com.datawarehouse.model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="dh_fechas_programacion")
-public class FechasProg {
+public class FechasProg implements Serializable{
 
     @Id
     @Column(name = "fecha")
     private Date fecha;
+
+    @Id
+    @Column(name = "modo")
+    private String modo;
 
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "programacion", nullable = false)
@@ -32,5 +37,13 @@ public class FechasProg {
 
     public void setProgramacion(Programacion programacion) {
         this.programacion = programacion;
+    }
+
+    public String getModo() {
+        return modo;
+    }
+
+    public void setModo(String modo) {
+        this.modo = modo;
     }
 }

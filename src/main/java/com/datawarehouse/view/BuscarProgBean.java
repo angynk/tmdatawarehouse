@@ -37,7 +37,9 @@ public class BuscarProgBean {
     private Cuadro nuevoCuadro;
     private List<String> formatosArchivo;
     private String tipo;
+    private String tipobuses;
     private UploadedFile file;
+    private UploadedFile fileBuses;
     private List<Archivos> archivosLista;
     private boolean resultadosVisibles;
     private Archivos nuevoArchivo;
@@ -119,10 +121,44 @@ public class BuscarProgBean {
 
     public void guardarCuadro(){
         if(datosCuadroCompletos()){
-            cargaDatosServicios.guardarCuadro(nuevoCuadro);
-            cargarExpediciones();
+            if(file!=null){
+                if(fileBuses!=null){
+                    cargaDatosServicios.guardarCuadro(nuevoCuadro);
+                    cargarExpediciones();
+                    cargarBuses();
+                    verCuadro();
+                }else{
+                    messagesView.error("Operación fallida","Debe adjuntar el archivo de buses");
+                }
+
+            }else{
+                messagesView.error("Operación fallida","Debe adjuntar el archivo de expediciones");
+            }
+
         }else{
-            messagesView.info("Operación fallida","Complete todos los campos para crear un Cuadro Nuevo");
+            messagesView.error("Operación fallida","Complete todos los campos para crear un Cuadro Nuevo");
+        }
+    }
+
+    private void cargarBuses() {
+        if(fileBuses!=null){
+            try {
+                List<LogDatos> logDatos = new ArrayList<>();
+
+
+                String nombre = cargaDatosServicios.copyFile(fileBuses.getFileName(),fileBuses.getInputstream());
+                Archivos archivo = new Archivos();
+                archivo.setNombre(fileBuses.getFileName());
+                archivo.setGrupo(TipoArchivo.buses);
+                archivo.setTipo(tipobuses);
+                archivo.setCuadro(nuevoCuadro);
+                cargaDatosServicios.agregarInformacionBuses(programacionSelected, archivo, logDatos,nuevoCuadro);
+                messagesView.info("Proceso Exitoso ","Nuevo Cuadro creado");
+            } catch (IOException e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            } catch (Exception e) {
+                messagesView.error("Error en la carga del archivo",e.getMessage());
+            }
         }
     }
 
@@ -391,5 +427,21 @@ public class BuscarProgBean {
 
     public void setTiposArchivo(List<String> tiposArchivo) {
         this.tiposArchivo = tiposArchivo;
+    }
+
+    public String getTipobuses() {
+        return tipobuses;
+    }
+
+    public void setTipobuses(String tipobuses) {
+        this.tipobuses = tipobuses;
+    }
+
+    public UploadedFile getFileBuses() {
+        return fileBuses;
+    }
+
+    public void setFileBuses(UploadedFile fileBuses) {
+        this.fileBuses = fileBuses;
     }
 }

@@ -30,11 +30,6 @@
                     <p:outputLabel value="Modo:"  />
                     <p:selectOneMenu  value="#{pBean.modo}" style="width:100%">
                         <f:selectItems value="#{pBean.modos}" var="mdo" itemLabel="#{mdo}" itemValue="#{mdo}"/>
-                        <p:ajax update="tipologia" listener="#{pBean.updateTipologias}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="Tipología:" for="tipologia" />
-                    <p:selectOneMenu id="tipologia" value="#{pBean.tipologia}" style="width:90%">
-                        <f:selectItems value="#{pBean.tipologias}" var="tip" itemLabel="#{tip.label}" itemValue="#{tip.value}"/>
                     </p:selectOneMenu>
                     <p:outputLabel  value="Fechas Asociadas:" />
                     <input id="mdp-demo" name="fechas" />

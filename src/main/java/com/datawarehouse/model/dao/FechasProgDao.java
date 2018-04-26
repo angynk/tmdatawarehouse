@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -35,5 +36,12 @@ public class FechasProgDao {
         Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FechasProg.class);
         criteria.add(Restrictions.eq("fecha",fecha));
         return (FechasProg) criteria.uniqueResult();
+    }
+
+    public List<FechasProg> getfechasByModo(Date date, String modo) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(FechasProg.class);
+        criteria.add(Restrictions.eq("fecha",date));
+        criteria.add(Restrictions.eq("modo",modo));
+        return criteria.list();
     }
 }

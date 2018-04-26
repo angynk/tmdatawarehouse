@@ -1,6 +1,7 @@
 package com.datawarehouse.model.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,6 +27,11 @@ public class BusRegistro {
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cuadro", nullable = false)
     private Cuadro cuadro;
+
+    @Column(name = "fecha")
+    private Date fecha;
+
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "busRegistro")
     private Set<Expediciones> expedicionesLista = new HashSet<Expediciones>(0);
@@ -63,5 +69,14 @@ public class BusRegistro {
 
     public void setCuadro(Cuadro cuadro) {
         this.cuadro = cuadro;
+    }
+
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 }

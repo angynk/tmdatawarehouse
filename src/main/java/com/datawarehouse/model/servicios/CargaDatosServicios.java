@@ -144,6 +144,7 @@ public class CargaDatosServicios {
             for(Date fecha:fechasRecords){
                 FechasProg fechasProg = new FechasProg();
                 fechasProg.setFecha(fecha);
+                fechasProg.setModo(nuevaProgramacion.getModo());
                 fechasProg.setProgramacion(nuevaProgramacion);
                 fechasProgDao.addFechaProg(fechasProg);
             }
@@ -166,5 +167,9 @@ public class CargaDatosServicios {
 
     public List<Programacion> getProgramaciones(Date fechaInicio, Date fechaFin, String modo) {
         return programacionDao.getProgramaciones(fechaInicio,fechaFin,modo);
+    }
+
+    public void agregarInformacionBuses(Programacion programacionSelected, Archivos archivo, List<LogDatos> logDatos, Cuadro nuevoCuadro) {
+        cargaBusesServicio.agregarInformacionBuses(programacionSelected,archivo,logDatos,nuevoCuadro);
     }
 }

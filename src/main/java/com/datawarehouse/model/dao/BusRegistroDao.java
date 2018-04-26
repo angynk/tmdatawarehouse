@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -47,5 +48,11 @@ public class BusRegistroDao {
         criteria.add(Restrictions.eq("bus",bus));
         criteria.add(Restrictions.eq("cuadro",cuadro));
         return (BusRegistro) criteria.uniqueResult();
+    }
+
+    public List<BusRegistro> encontrarBusRegistroByCuadro(Cuadro cuadro) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(BusRegistro.class);
+        criteria.add(Restrictions.eq("cuadro",cuadro));
+        return  criteria.list();
     }
 }

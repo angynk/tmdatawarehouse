@@ -39,8 +39,6 @@ public class Programacion {
     @Column(name = "tipo_programacion")
     private String tipoProgramacion;
 
-    @Column(name = "tipologia")
-    private String tipologia;
 
     @Column(name = "fecha_duplicado")
     private Date fechaDuplicado;
@@ -130,14 +128,6 @@ public class Programacion {
         this.tipoProgramacion = tipoProgramacion;
     }
 
-
-    public String getTipologia() {
-        return tipologia;
-    }
-
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
-    }
 
     public Date getFechaDuplicado() {
         return fechaDuplicado;
