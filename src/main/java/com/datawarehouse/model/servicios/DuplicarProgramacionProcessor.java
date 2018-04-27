@@ -180,4 +180,8 @@ public class DuplicarProgramacionProcessor {
 
         return  false;
     }
+
+    public List<Programacion> getAllProgramacionbyModo(String modo, Date fechaInicio, Date fechaFin) {
+        return programacionDao.getProgramacionBetweenFechas(modo,fechaInicio,fechaFin);
+    }
 }

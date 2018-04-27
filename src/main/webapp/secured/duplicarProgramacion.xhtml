@@ -17,10 +17,16 @@
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                 <p:panel visible="#{!duplicarBean.visibleDuplicacion}">
                     <p:panelGrid columns="4">
+                        <p:outputLabel value="Fecha Inicio:"  />
+                        <p:calendar  value="#{duplicarBean.fechaInicio}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+                        <p:outputLabel value="Fecha Fin:"  />
+                        <p:calendar  value="#{duplicarBean.fechaFin}" showOn="button" pattern="dd-MM-yyyy" locale="es"/>
+
                         <p:outputLabel value="Modo Programación:" />
                         <p:selectOneMenu  value="#{duplicarBean.modo}" style="width:140px" >
                             <f:selectItems value="#{duplicarBean.modos}" var="modo" itemLabel="#{modo}" itemValue="#{modo}"/>
                         </p:selectOneMenu>
+
                         <p:commandButton value="Cargar" action="#{duplicarBean.updateProgList}" ajax="false" />
                     </p:panelGrid>
                 </p:panel>
@@ -54,12 +60,31 @@
                                 <input id="mdp-demo" name="fechas"/>
                                 <!--<input type="text" id="altField" name="fechas"  />-->
 
-                                <p:commandButton value="Duplicar" action="#{duplicarBean.duplicar}" ajax="false"
-                                                 icon="ui-icon ui-icon-disk" id="withIcon"
-                                                 async="true" process="@form" onclick="PF('dlg2').show();" global="false"
-                                                 oncomplete="PF('dlg2').hide()"
-                                />
+                                <p:selectOneRadio id="busqueda" value="#{duplicarBean.nuevaDistribucion}">
+                                    <p:ajax process="@this" update="@form" listener="#{duplicarBean.cambioArchivoDistribuciones}"/>
+                                    <f:selectItem itemLabel="Mantener Distribución" itemValue="1" />
+                                    <f:selectItem itemLabel="Nueva Distribución" itemValue="2" />
+                                </p:selectOneRadio>
+
                             </p:panelGrid>
+                            <p:panel visible="#{duplicarBean.cargaNuevoArchivoVisible}">
+                                <p:panelGrid columns="4">
+                                    <p:outputLabel value="Archivo Distribuciones (CSV)"/>
+                                    <p:fileUpload value="#{duplicarBean.file}" mode="simple"
+                                                  sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
+
+                                    <p:outputLabel value="Formato Archivo:"  />
+                                    <p:selectOneMenu  value="#{duplicarBean.tipo}" style="width:100%">
+                                        <f:selectItems value="#{duplicarBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panel>
+
+                            <p:commandButton value="Duplicar" action="#{duplicarBean.duplicar}" ajax="false"
+                                             icon="ui-icon ui-icon-disk" id="withIcon"
+                                             async="true" process="@form" onclick="PF('dlg2').show();" global="false"
+                                             oncomplete="PF('dlg2').hide()"
+                            />
                         </p:panel>
                     </h:panelGrid>
                 </p:panel>

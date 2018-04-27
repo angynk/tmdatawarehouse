@@ -4,6 +4,7 @@ import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.servicios.DuplicarProgramacionProcessor;
 import com.datawarehouse.view.util.Util;
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@ManagedBean(name = "duplicarBean", eager = true)
+@ManagedBean(name = "duplicarBean")
 @ViewScoped
 public class DuplicarIndicadoresBean {
 
@@ -32,6 +33,14 @@ public class DuplicarIndicadoresBean {
     private List<String> logDatos;
     private boolean resultadosVisibles;
     private String razonProgramacion;
+    private String nuevaDistribucion;
+    private boolean cargaNuevoArchivoVisible;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private UploadedFile file;
+    private List<String> formatosArchivo;
+    private String tipo;
+
 
     private Programacion selectedProg;
     private List<String> progDateList;
@@ -52,6 +61,17 @@ public class DuplicarIndicadoresBean {
         modo = "TRO";
         modos =  Util.listaModos();
         visibleDuplicacion = false;
+        cargaNuevoArchivoVisible = false;
+        nuevaDistribucion = "1";
+        formatosArchivo = Util.listaFormatosCSV();
+    }
+
+    public void cambioArchivoDistribuciones(){
+        if(nuevaDistribucion.equals("2")){
+            cargaNuevoArchivoVisible = true;
+        }else {
+            cargaNuevoArchivoVisible = false;
+        }
     }
 
     public void duplicar(){
@@ -92,10 +112,20 @@ public class DuplicarIndicadoresBean {
     }
 
     public void updateProgList(){
-//        List<Programacion> allProgramacionbyModo = duplicarProgramacionProcessor.getAllProgramacionbyModo(modo);
-//        progDateList = convertirFechasLista(allProgramacionbyModo);
-//        visibleDuplicacion = true;
-//        tituloPanel = "Duplicar Indicadores Goal Bus -  "+modo;
+        if(fechaInicio != null && fechaFin != null ){
+            List<Programacion> allProgramacionbyModo = duplicarProgramacionProcessor.getAllProgramacionbyModo(Util.convertirModo(modo),fechaInicio,fechaFin);
+            progDateList = convertirFechasLista(allProgramacionbyModo);
+            if(progDateList.size()>0){
+                visibleDuplicacion = true;
+                tituloPanel = "Duplicar Programación -  "+modo;
+            }else{
+                messagesView.error("Error","No existe niguna programación para las fechas y el modo seleccionado");
+            }
+
+        }else{
+            messagesView.error("Error","Seleccione las fechas de busqueda");
+        }
+
     }
 
     private List<String> convertirFechasLista(List<Programacion> allProgramacionbyModo) {
@@ -224,4 +254,67 @@ public class DuplicarIndicadoresBean {
     }
 
 
+    public DuplicarProgramacionProcessor getDuplicarProgramacionProcessor() {
+        return duplicarProgramacionProcessor;
+    }
+
+    public void setDuplicarProgramacionProcessor(DuplicarProgramacionProcessor duplicarProgramacionProcessor) {
+        this.duplicarProgramacionProcessor = duplicarProgramacionProcessor;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public String getNuevaDistribucion() {
+        return nuevaDistribucion;
+    }
+
+    public void setNuevaDistribucion(String nuevaDistribucion) {
+        this.nuevaDistribucion = nuevaDistribucion;
+    }
+
+    public boolean isCargaNuevoArchivoVisible() {
+        return cargaNuevoArchivoVisible;
+    }
+
+    public void setCargaNuevoArchivoVisible(boolean cargaNuevoArchivoVisible) {
+        this.cargaNuevoArchivoVisible = cargaNuevoArchivoVisible;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public List<String> getFormatosArchivo() {
+        return formatosArchivo;
+    }
+
+    public void setFormatosArchivo(List<String> formatosArchivo) {
+        this.formatosArchivo = formatosArchivo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
