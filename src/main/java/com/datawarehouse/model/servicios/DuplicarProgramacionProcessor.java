@@ -4,9 +4,11 @@ import com.datawarehouse.model.dao.*;
 import com.datawarehouse.model.entity.*;
 import com.datawarehouse.view.util.ProcessorUtils;
 import com.datawarehouse.view.util.TipoProgramacion;
+import com.datawarehouse.view.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +60,7 @@ public class DuplicarProgramacionProcessor {
         logDatos = new ArrayList<>();
 
         List<Date> fechasRecords = ProcessorUtils.convertirAfechas(fechas);
-        Programacion programacionbyFecha = programacionDao.getProgramacionbyFechaModo(fechasRecords.get(0),modo);
+        Programacion programacionbyFecha = programacionDao.getProgramacionbyFechaModo(fechaADuplicar, Util.convertirModo(modo));
 
         //  Duplicar Programacion
         Programacion nuevaProgramacion = copiarDatosProgramaicon(programacionbyFecha,razonProgramacion,fechasRecords);
@@ -79,24 +81,23 @@ public class DuplicarProgramacionProcessor {
     }
 
     private void duplicarDatosCuadro(Cuadro cuadro, Programacion nuevaProgramacion) {
+        java.sql.Date dateSql = new java.sql.Date(cuadro.getFecha().getTime());
 
         //Duplicar Cuadro
         Cuadro cuadroNuevo = copiarDatosCuadro(cuadro,nuevaProgramacion);
         cuadroDao.addCuadro(cuadroNuevo);
-
-        //Duplicar Buses Registro Lista
-        List<BusRegistro> busesRegistroViejo  = busRegistroDao.encontrarBusRegistroByCuadro(cuadro);
-        List<BusRegistro> busesRegistroNuevos = duplicarBusesRegistro(busesRegistroViejo,cuadroNuevo);
 
         //Duplicar Archivos Lista
         List<Archivos> archivosCuadroViejo = archivosDao.encontrarArchivos(cuadro);
         List<Archivos> archivosNuevo = copiarArchivos(archivosCuadroViejo,cuadroNuevo);
 
 
+        llamarFunctionPSQLDuplicacion(cuadro,cuadroNuevo,dateSql,false);
 
+    }
 
-
-
+    private String llamarFunctionPSQLDuplicacion(Cuadro cuadroViejo, Cuadro cuadroNuevo, java.sql.Date fecha, Boolean duplicarDistribuciones) {
+        return cuadroDao.duplicarDatosCuadro(cuadroViejo,cuadroNuevo,fecha,duplicarDistribuciones);
     }
 
     private List<BusRegistro> duplicarBusesRegistro(List<BusRegistro> busesRegistroViejo, Cuadro cuadroNuevo) {
@@ -162,6 +163,7 @@ public class DuplicarProgramacionProcessor {
         nueva.setFecha(fechasRecords.get(0));
         nueva.setDiasAplica(fechasRecords.size());
         nueva.setFechaDuplicado(programacionbyFecha.getFecha());
+        nueva.setIdentificador(programacionbyFecha.getFecha().toString() +"/"+programacionbyFecha.getJornada());
         return nueva;
     }
 

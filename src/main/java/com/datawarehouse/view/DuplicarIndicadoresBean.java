@@ -84,7 +84,7 @@ public class DuplicarIndicadoresBean {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(duplicarProgramacionProcessor.existeProgramacionParaLaFecha(fechas,modo)){
+        if(!duplicarProgramacionProcessor.existeProgramacionParaLaFecha(fechas,modo)){
             duplicarDatos();
         }else{
             messagesView.info("Error","Ya existe una programación asociada a la fecha");
