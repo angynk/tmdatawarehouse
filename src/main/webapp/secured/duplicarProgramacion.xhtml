@@ -60,25 +60,7 @@
                                 <input id="mdp-demo" name="fechas"/>
                                 <!--<input type="text" id="altField" name="fechas"  />-->
 
-                                <p:selectOneRadio id="busqueda" value="#{duplicarBean.nuevaDistribucion}">
-                                    <p:ajax process="@this" update="@form" listener="#{duplicarBean.cambioArchivoDistribuciones}"/>
-                                    <f:selectItem itemLabel="Mantener Distribución" itemValue="1" />
-                                    <f:selectItem itemLabel="Nueva Distribución" itemValue="2" />
-                                </p:selectOneRadio>
-
                             </p:panelGrid>
-                            <p:panel visible="#{duplicarBean.cargaNuevoArchivoVisible}">
-                                <p:panelGrid columns="4">
-                                    <p:outputLabel value="Archivo Distribuciones (CSV)"/>
-                                    <p:fileUpload value="#{duplicarBean.file}" mode="simple"
-                                                  sizeLimit="10000000" fileLimit="3" allowTypes="/(\.|\/)(csv)$/" />
-
-                                    <p:outputLabel value="Formato Archivo:"  />
-                                    <p:selectOneMenu  value="#{duplicarBean.tipo}" style="width:100%">
-                                        <f:selectItems value="#{duplicarBean.formatosArchivo}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}"/>
-                                    </p:selectOneMenu>
-                                </p:panelGrid>
-                            </p:panel>
 
                             <p:commandButton value="Duplicar" action="#{duplicarBean.duplicar}" ajax="false"
                                              icon="ui-icon ui-icon-disk" id="withIcon"

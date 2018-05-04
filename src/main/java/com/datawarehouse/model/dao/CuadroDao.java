@@ -57,7 +57,7 @@ public class CuadroDao {
         return (Cuadro) criteria.uniqueResult();
     }
 
-    public String duplicarDatosCuadro(Cuadro cuadroViejo, Cuadro cuadroNuevo, java.sql.Date fecha,Boolean duplicarDistribuciones) {
+    public String duplicarDatosCuadro(Cuadro cuadroViejo, Cuadro cuadroNuevo, java.sql.Date fecha) {
         String SQL = "SELECT duplicar_cuadro_programacion(?,?,?)";
         SessionFactory factory = getSessionFactory();
         Session session = factory.getCurrentSession();
@@ -70,7 +70,6 @@ public class CuadroDao {
                 pstmt.setDate(1, fecha);
                 pstmt.setInt(2, (int) cuadroViejo.getId());
                 pstmt.setInt(3, (int) cuadroNuevo.getId());
-//                pstmt.setBoolean(4, duplicarDistribuciones);
                 ResultSet rs = pstmt.executeQuery();
 
                 while (rs.next()) {

@@ -33,8 +33,6 @@ public class DuplicarIndicadoresBean {
     private List<String> logDatos;
     private boolean resultadosVisibles;
     private String razonProgramacion;
-    private String nuevaDistribucion;
-    private boolean cargaNuevoArchivoVisible;
     private Date fechaInicio;
     private Date fechaFin;
     private UploadedFile file;
@@ -61,18 +59,9 @@ public class DuplicarIndicadoresBean {
         modo = "TRO";
         modos =  Util.listaModos();
         visibleDuplicacion = false;
-        cargaNuevoArchivoVisible = false;
-        nuevaDistribucion = "1";
         formatosArchivo = Util.listaFormatosCSV();
     }
 
-    public void cambioArchivoDistribuciones(){
-        if(nuevaDistribucion.equals("2")){
-            cargaNuevoArchivoVisible = true;
-        }else {
-            cargaNuevoArchivoVisible = false;
-        }
-    }
 
     public void duplicar(){
         //Obtener fechas
@@ -94,21 +83,9 @@ public class DuplicarIndicadoresBean {
     }
 
     public void duplicarDatos(){
+
         logDatos = duplicarProgramacionProcessor.duplicarProgramacion(fechaADuplicar,fechas,modo,razonProgramacion);
         resultadosVisibles = true;
-//        if(duplicarProgramacionProcessor.isDuplicacionValida()){
-//            messagesView.info("Carga existosa","");
-//        }else{
-////            messagesView.error(Messages.MENSAJE_CARGA_FALLIDA,Messages.VALIDE_LOG);
-//        }
-    }
-
-    public void continuarDuplicacion(){
-            duplicarDatos();
-    }
-
-    public void finalizarDuplicacion(){
-//        messagesView.error(Messages.MENSAJE_CARGA_FALLIDA,"La programación no fue duplicada");
     }
 
     public void updateProgList(){
@@ -141,9 +118,6 @@ public class DuplicarIndicadoresBean {
         return fechas;
     }
 
-//    public Programacion getProgramacionbyID(long id){
-//        return duplicarProgramacionProcessor.getProgramacionbyID(id);
-////    }
 
     public String getRazonProgramacion() {
         return razonProgramacion;
@@ -276,22 +250,6 @@ public class DuplicarIndicadoresBean {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
-    }
-
-    public String getNuevaDistribucion() {
-        return nuevaDistribucion;
-    }
-
-    public void setNuevaDistribucion(String nuevaDistribucion) {
-        this.nuevaDistribucion = nuevaDistribucion;
-    }
-
-    public boolean isCargaNuevoArchivoVisible() {
-        return cargaNuevoArchivoVisible;
-    }
-
-    public void setCargaNuevoArchivoVisible(boolean cargaNuevoArchivoVisible) {
-        this.cargaNuevoArchivoVisible = cargaNuevoArchivoVisible;
     }
 
     public UploadedFile getFile() {

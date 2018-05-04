@@ -81,7 +81,7 @@ public class DuplicarProgramacionProcessor {
     }
 
     private void duplicarDatosCuadro(Cuadro cuadro, Programacion nuevaProgramacion) {
-        java.sql.Date dateSql = new java.sql.Date(cuadro.getFecha().getTime());
+        java.sql.Date dateSql = new java.sql.Date(nuevaProgramacion.getFecha().getTime());
 
         //Duplicar Cuadro
         Cuadro cuadroNuevo = copiarDatosCuadro(cuadro,nuevaProgramacion);
@@ -92,12 +92,12 @@ public class DuplicarProgramacionProcessor {
         List<Archivos> archivosNuevo = copiarArchivos(archivosCuadroViejo,cuadroNuevo);
 
 
-        llamarFunctionPSQLDuplicacion(cuadro,cuadroNuevo,dateSql,false);
+        llamarFunctionPSQLDuplicacion(cuadro,cuadroNuevo,dateSql);
 
     }
 
-    private String llamarFunctionPSQLDuplicacion(Cuadro cuadroViejo, Cuadro cuadroNuevo, java.sql.Date fecha, Boolean duplicarDistribuciones) {
-        return cuadroDao.duplicarDatosCuadro(cuadroViejo,cuadroNuevo,fecha,duplicarDistribuciones);
+    private String llamarFunctionPSQLDuplicacion(Cuadro cuadroViejo, Cuadro cuadroNuevo, java.sql.Date fecha) {
+        return cuadroDao.duplicarDatosCuadro(cuadroViejo,cuadroNuevo,fecha);
     }
 
     private List<BusRegistro> duplicarBusesRegistro(List<BusRegistro> busesRegistroViejo, Cuadro cuadroNuevo) {

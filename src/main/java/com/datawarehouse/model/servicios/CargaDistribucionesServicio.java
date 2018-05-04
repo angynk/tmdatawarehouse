@@ -43,6 +43,7 @@ public class CargaDistribucionesServicio {
 
         try {
             distribucionesDao.cargarArchivoDistribuciones(nombre);
+            distribucionesDao.deleteData(programacion);
             archivosDao.addArchivos(archivo);
         } catch (Exception e) {
             logDatos.add(new LogDatos(e.getMessage(), TipoLog.ERROR));
