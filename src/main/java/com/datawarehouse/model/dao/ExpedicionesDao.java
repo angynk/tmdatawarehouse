@@ -99,4 +99,8 @@ public class ExpedicionesDao {
         }
 
     }
+
+    public void eliminarDatosCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_expediciones WHERE bus_registro IN (SELECT id FROM dh_bus_registro WHERE cuadro = "+cuadro.getId()+")").executeUpdate();
+    }
 }

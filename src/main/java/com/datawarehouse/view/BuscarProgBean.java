@@ -43,6 +43,7 @@ public class BuscarProgBean {
     private List<Archivos> archivosLista;
     private boolean resultadosVisibles;
     private Archivos nuevoArchivo;
+    private Archivos selectedArchivo;
     private List<LogDatos> logDatos;
     private boolean visibleCargaArchivos;
     private List<String> tiposArchivo;
@@ -240,6 +241,12 @@ public class BuscarProgBean {
         }else{
             messagesView.error("No hay archivos asociados a la programacion","Verificar datos");
         }
+    }
+
+    public void eliminarDatosArchivo(){
+        cargaDatosServicios.eliminarDatosArchivo(selectedArchivo);
+        verDetalleCuadro();
+        messagesView.info("Operación exitosa","Datos Eliminados");
     }
 
     public void agregarArchivo(){
@@ -443,5 +450,13 @@ public class BuscarProgBean {
 
     public void setFileBuses(UploadedFile fileBuses) {
         this.fileBuses = fileBuses;
+    }
+
+    public Archivos getSelectedArchivo() {
+        return selectedArchivo;
+    }
+
+    public void setSelectedArchivo(Archivos selectedArchivo) {
+        this.selectedArchivo = selectedArchivo;
     }
 }

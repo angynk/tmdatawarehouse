@@ -74,4 +74,8 @@ public class CargaDistribucionesServicio {
         }
         return csvFileOut;
     }
+
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        distribucionesDao.eliminarDatosDeCuadro(cuadro);
+    }
 }

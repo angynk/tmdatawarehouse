@@ -26,6 +26,7 @@
                     <p:panel >
                         <p:commandButton value="Agregar" action="#{buscarProgBean.agregarArchivo}"  oncomplete="PF('fileDialog').show()"
                                          update=":form:fileDialog"/>
+                        <div style="height: 10px"></div>
                         <p:dataTable id="prog" var="arch" value="#{buscarProgBean.archivosLista}" widgetVar="ProgTable"
                                      emptyMessage="No hay registros relacionados a la busqueda"
                                      scrollable="true" scrollWidth="98%" scrollHeight="350"
@@ -36,14 +37,19 @@
                                 <h:outputText value="#{arch.grupo}"  />
                             </p:column>
 
-                            <p:column filterBy="#{arch.nombre}" headerText="Nombre"  filterMatchMode="contains" sortBy="#{arch.nombre}"
-                                      >
-                                <h:outputText value="#{arch.nombre}"  />
-                            </p:column>
-
                             <p:column filterBy="#{arch.tipo}" headerText="Formato"  filterMatchMode="contains" sortBy="#{arch.tipo}"
                                       >
                                 <h:outputText value="#{arch.tipo}"  />
+                            </p:column>
+
+                            <p:column style="width:50px;text-align: center" exportable="false" rendered="#{loginBean.puedeEliminar()}">
+                                <p:commandButton id="delete"
+                                                 icon="ui-icon ui-icon-trash"
+                                                 title="GDeleteButton"
+                                                 onclick="PF('groupDeleteConfirm').show()">
+                                    <f:setPropertyActionListener value="#{arch}" target="#{buscarProgBean.selectedArchivo}" />
+                                </p:commandButton>
+
                             </p:column>
 
                         </p:dataTable>
@@ -68,6 +74,21 @@
                         </p:tab>
                     </p:accordionPanel>
                 </p:panel>
+
+                <p:confirmDialog message="¿Esta seguro de eliminar estos datos?"
+                                 showEffect="fade"
+                                 hideEffect="explode"
+                                 widgetVar="groupDeleteConfirm">
+                    <p:commandButton title="GDelYesButton"
+                                     value="Sí"
+                                     action="#{buscarProgBean.eliminarDatosArchivo}" ajax="false"
+                                     oncomplete="PF('groupDeleteConfirm').hide()"
+                    />
+                    <p:commandButton title="GDelNoButton"
+                                     value="No"
+                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+
+                </p:confirmDialog>
 
 
                 <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"

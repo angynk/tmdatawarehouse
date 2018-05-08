@@ -1,5 +1,6 @@
 package com.datawarehouse.model.dao;
 
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Distribuciones;
 import com.datawarehouse.model.entity.Expediciones;
 import com.datawarehouse.model.entity.Programacion;
@@ -70,5 +71,9 @@ public class DistribucionesDao {
 
     public void deleteData(Programacion nuevaProgramacion) {
         getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_temp_distribucion WHERE jornada = '"+nuevaProgramacion.getIdentificador()+"'").executeUpdate();
+    }
+
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_distribucion WHERE bus_registro IN (SELECT id FROM dh_bus_registro WHERE cuadro ="+cuadro.getId()+")").executeUpdate();
     }
 }

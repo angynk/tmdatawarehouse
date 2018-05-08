@@ -1,5 +1,6 @@
 package com.datawarehouse.model.dao;
 
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Expediciones;
 import com.datawarehouse.model.entity.Programacion;
 import com.datawarehouse.model.entity.TablaHorario;
@@ -65,5 +66,9 @@ public class TablaHorarioDao {
 
     public void eliminarDatos(Programacion nuevaProgramacion) {
         getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_temp_tabla_horario WHERE jornada = '"+nuevaProgramacion.getIdentificador()+"'").executeUpdate();
+    }
+
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_tabla_horario WHERE bus_registro IN (SELECT id FROM dh_bus_registro WHERE cuadro ="+cuadro.getId()+")").executeUpdate();
     }
 }

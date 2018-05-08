@@ -166,4 +166,8 @@ public class CargaExpedicionesServicio {
     public void getExpedicionesCuadro(Cuadro cuadroObj, String consultaPath) {
         expedicionesDao.getExpedicionesCuadro(cuadroObj,consultaPath);
     }
+
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        expedicionesDao.eliminarDatosCuadro(cuadro);
+    }
 }

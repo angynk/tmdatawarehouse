@@ -41,4 +41,7 @@ public class ArchivosDao {
         return criteria.list();
     }
 
+    public void deleteArchivo(Archivos selectedArchivo) {
+        getSessionFactory().getCurrentSession().delete(selectedArchivo);
+    }
 }

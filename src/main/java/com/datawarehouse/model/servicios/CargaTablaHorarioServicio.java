@@ -70,4 +70,7 @@ public class CargaTablaHorarioServicio {
         return csvFileOut;
     }
 
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        tablaHorarioDao.eliminarDatosDeCuadro(cuadro);
+    }
 }

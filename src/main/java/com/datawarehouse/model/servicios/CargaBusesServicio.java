@@ -116,4 +116,7 @@ public class CargaBusesServicio {
     }
 
 
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        busesDao.eliminarDatosDeCuadro(cuadro);
+    }
 }

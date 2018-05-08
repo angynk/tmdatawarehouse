@@ -1,6 +1,7 @@
 package com.datawarehouse.model.dao;
 
 import com.datawarehouse.model.entity.Buses;
+import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Expediciones;
 import com.datawarehouse.model.entity.Programacion;
 import org.hibernate.SessionFactory;
@@ -69,4 +70,7 @@ public class BusesDao {
     }
 
 
+    public void eliminarDatosDeCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_buses WHERE bus_registro IN (SELECT id FROM dh_bus_registro WHERE cuadro ="+cuadro.getId()+")").executeUpdate();
+    }
 }

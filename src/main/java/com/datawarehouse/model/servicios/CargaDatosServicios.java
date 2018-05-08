@@ -172,4 +172,17 @@ public class CargaDatosServicios {
     public void agregarInformacionBuses(Programacion programacionSelected, Archivos archivo, List<LogDatos> logDatos, Cuadro nuevoCuadro) {
         cargaBusesServicio.agregarInformacionBuses(programacionSelected,archivo,logDatos,nuevoCuadro);
     }
+
+    public void eliminarDatosArchivo(Archivos selectedArchivo) {
+        if(selectedArchivo.getGrupo().equals(TipoArchivo.expediciones)){
+            cargaExpedicionesServicio.eliminarDatosDeCuadro(selectedArchivo.getCuadro());
+        }else if (selectedArchivo.getGrupo().equals(TipoArchivo.buses)){
+            cargaBusesServicio.eliminarDatosDeCuadro(selectedArchivo.getCuadro());
+        }else if (selectedArchivo.getGrupo().equals(TipoArchivo.tablaHorario)){
+            cargaTablaHorarioServicio.eliminarDatosDeCuadro(selectedArchivo.getCuadro());
+        }else if (selectedArchivo.getGrupo().equals(TipoArchivo.distribuciones)){
+            cargaDistribucionesServicio.eliminarDatosDeCuadro(selectedArchivo.getCuadro());
+        }
+        archivosDao.deleteArchivo(selectedArchivo);
+    }
 }
