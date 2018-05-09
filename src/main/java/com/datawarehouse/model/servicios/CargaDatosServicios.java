@@ -1,9 +1,6 @@
 package com.datawarehouse.model.servicios;
 
-import com.datawarehouse.model.dao.ArchivosDao;
-import com.datawarehouse.model.dao.CuadroDao;
-import com.datawarehouse.model.dao.FechasProgDao;
-import com.datawarehouse.model.dao.ProgramacionDao;
+import com.datawarehouse.model.dao.*;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.FechasProg;
@@ -30,6 +27,9 @@ public class CargaDatosServicios {
 
     @Autowired
     private FechasProgDao fechasProgDao;
+
+    @Autowired
+    private ExportarDatosBaseDao exportarDatosBaseDao;
 
 
     @Autowired
@@ -135,7 +135,7 @@ public class CargaDatosServicios {
 
     public void generarConsultaExpediciones(String consultaPath, Programacion programacion, String cuadro) {
         Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
-        exportarExpedicionesProcessor.generarConsultaExpediciones(consultaPath,programacion,cuadroObj);
+        exportarDatosBaseDao.generarReporteExpedicionesPorCuadro(cuadroObj,consultaPath);
     }
 
 

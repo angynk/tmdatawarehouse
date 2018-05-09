@@ -100,7 +100,7 @@ public class ConsultasBasicasBean {
     public void descargar(){
         String path = PathFiles.PATH_EXPEDICIONES;
         try {
-            Util.descargarArchivo(path,"ExpedicionesData.csv");
+            Util.descargarArchivo(path,"ExpedicionesData.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,7 @@
 package com.datawarehouse.model.entity;
 
+import com.datawarehouse.view.util.Util;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +41,10 @@ public class Cuadro {
 
     public String getNumero() {
         return numero;
+    }
+
+    public String getIdentificador(){
+        return numero+"/"+ Util.convertirAString(fecha);
     }
 
     public void setNumero(String numero) {
