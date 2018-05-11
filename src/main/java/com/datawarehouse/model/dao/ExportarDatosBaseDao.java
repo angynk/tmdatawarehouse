@@ -134,10 +134,65 @@ public class ExportarDatosBaseDao {
         parametros.put(ConsultaBasicaDEF.EXP_TX_DESA,ConsultaBasicaDEF.EXP_DESA);
         parametros.put(ConsultaBasicaDEF.EXP_TX_DESB,ConsultaBasicaDEF.EXP_DESB);
 
-        String tituloReporte = "Vacios Por Operador";
+        String tituloReporte = "Expediciones Cuadro";
 
         generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
 
     }
 
+    public void generarReporteBusesPorCuadro(Cuadro cuadroObj, String archivoReporte) {
+        String sqlQuery = "Select r.bus, e.inicio, e.fin, e.jornada, e.circ ,e.punto_inicio, \n" +
+                "e.punto_fin, e.linea_inicio, e.linea_fin, e.kilometros, e.tipologia, e.bus_bd, e.operador \n" +
+                "from dh_buses e \n" +
+                "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
+                "WHERE r.cuadro ="+cuadroObj.getId();
+
+        HashMap<String,Integer> parametros = new HashMap<>();
+        parametros.put(ConsultaBasicaDEF.BUS_TX_BUS,ConsultaBasicaDEF.BUS_BUS);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_INICIO,ConsultaBasicaDEF.BUS_INICIO);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_FIN,ConsultaBasicaDEF.BUS_FIN);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_JOR,ConsultaBasicaDEF.BUS_JOR);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_CIR,ConsultaBasicaDEF.BUS_CIR);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_DE,ConsultaBasicaDEF.BUS_DE);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_A,ConsultaBasicaDEF.BUS_A);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_LDE,ConsultaBasicaDEF.BUS_LDE);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_LA,ConsultaBasicaDEF.BUS_LA);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_KM,ConsultaBasicaDEF.BUS_KM);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_TIPO,ConsultaBasicaDEF.BUS_TIPO);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_BUSBD,ConsultaBasicaDEF.BUS_BUSBD);
+        parametros.put(ConsultaBasicaDEF.BUS_TX_OPERADOR,ConsultaBasicaDEF.BUS_OPERADOR);
+
+        String tituloReporte = "Buses Cuadro";
+
+        generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
+    }
+
+    public void generarReporteDistribucionesPorCuadro(Cuadro cuadroObj, String consultaPath) {
+
+//        String sqlQuery = "Select r.bus, e.inicio, e.fin, e.jornada, e.circ ,e.punto_inicio, \n" +
+//                "e.punto_fin, e.linea_inicio, e.linea_fin, e.kilometros, e.tipologia, e.bus_bd, e.operador \n" +
+//                "from dh_buses e \n" +
+//                "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
+//                "WHERE r.cuadro ="+cuadroObj.getId();
+//
+//        HashMap<String,Integer> parametros = new HashMap<>();
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_BUS,ConsultaBasicaDEF.BUS_BUS);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_INICIO,ConsultaBasicaDEF.BUS_INICIO);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_FIN,ConsultaBasicaDEF.BUS_FIN);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_JOR,ConsultaBasicaDEF.BUS_JOR);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_CIR,ConsultaBasicaDEF.BUS_CIR);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_DE,ConsultaBasicaDEF.BUS_DE);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_A,ConsultaBasicaDEF.BUS_A);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_LDE,ConsultaBasicaDEF.BUS_LDE);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_LA,ConsultaBasicaDEF.BUS_LA);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_KM,ConsultaBasicaDEF.BUS_KM);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_TIPO,ConsultaBasicaDEF.BUS_TIPO);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_BUSBD,ConsultaBasicaDEF.BUS_BUSBD);
+//        parametros.put(ConsultaBasicaDEF.BUS_TX_OPERADOR,ConsultaBasicaDEF.BUS_OPERADOR);
+//
+//        String tituloReporte = "Buses Cuadro";
+//
+//        generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
+
+    }
 }

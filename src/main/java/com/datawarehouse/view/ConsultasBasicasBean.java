@@ -85,6 +85,12 @@ public class ConsultasBasicasBean {
         if(tipoConsulta.equals(TipoArchivo.expediciones)){
             consultaPath = PathFiles.PATH_EXPEDICIONES;
             cargaDatosServicios.generarConsultaExpediciones(consultaPath,programacion,cuadro);
+        }else if (tipoConsulta.equals(TipoArchivo.buses)){
+            consultaPath = PathFiles.PATH_BUSES;
+            cargaDatosServicios.generarConsultaBuses(consultaPath,programacion,cuadro);
+        }else if (tipoConsulta.equals(TipoArchivo.distribuciones)){
+            consultaPath = PathFiles.PATH_DISTRIBUCIONES;
+            cargaDatosServicios.generarConsultaDistribuciones(consultaPath,programacion,cuadro);
         }
 
         descargaVisible = true;
@@ -98,9 +104,9 @@ public class ConsultasBasicasBean {
     }
 
     public void descargar(){
-        String path = PathFiles.PATH_EXPEDICIONES;
+        String path = consultaPath;
         try {
-            Util.descargarArchivo(path,"ExpedicionesData.xls");
+            Util.descargarArchivo(path,"ReporteDatos.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

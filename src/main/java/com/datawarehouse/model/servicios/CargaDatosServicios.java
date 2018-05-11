@@ -185,4 +185,15 @@ public class CargaDatosServicios {
         }
         archivosDao.deleteArchivo(selectedArchivo);
     }
+
+    public void generarConsultaBuses(String consultaPath, Programacion programacion, String cuadro) {
+        Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
+        exportarDatosBaseDao.generarReporteBusesPorCuadro(cuadroObj,consultaPath);
+
+    }
+
+    public void generarConsultaDistribuciones(String consultaPath, Programacion programacion, String cuadro) {
+        Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
+        exportarDatosBaseDao.generarReporteDistribucionesPorCuadro(cuadroObj,consultaPath);
+    }
 }

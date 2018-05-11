@@ -149,10 +149,10 @@ public class Util {
     public static List<String> listaConsultasBasicas() {
         List<String> tipoArchivos = new ArrayList<>();
         tipoArchivos.add(TipoArchivo.expediciones);
-//        tipoArchivos.add(TipoArchivo.buses);
-//        tipoArchivos.add(TipoArchivo.distribuciones);
+        tipoArchivos.add(TipoArchivo.buses);
+        tipoArchivos.add(TipoArchivo.distribuciones);
+        tipoArchivos.add(TipoArchivo.tablaHorario);
 //        tipoArchivos.add(TipoArchivo.tracelog);
-//        tipoArchivos.add(TipoArchivo.tablaHorario);
 //        tipoArchivos.add(TipoArchivo.matrizDistancia);
         return tipoArchivos;
     }
