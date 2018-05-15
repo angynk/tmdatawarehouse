@@ -91,6 +91,9 @@ public class ConsultasBasicasBean {
         }else if (tipoConsulta.equals(TipoArchivo.distribuciones)){
             consultaPath = PathFiles.PATH_DISTRIBUCIONES;
             cargaDatosServicios.generarConsultaDistribuciones(consultaPath,programacion,cuadro);
+        }else if (tipoConsulta.equals(TipoArchivo.tablaHorario)){
+            consultaPath = PathFiles.PATH_IPH;
+            cargaDatosServicios.generarConsultaTablaHorario(consultaPath,programacion,cuadro);
         }
 
         descargaVisible = true;

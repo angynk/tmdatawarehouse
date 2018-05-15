@@ -124,10 +124,16 @@ public class BuscarProgBean {
         if(datosCuadroCompletos()){
             if(file!=null){
                 if(fileBuses!=null){
-                    cargaDatosServicios.guardarCuadro(nuevoCuadro);
-                    cargarExpediciones();
-                    cargarBuses();
-                    verCuadro();
+                    if(cargaDatosServicios.noExisteElNumeroDeCuadro(nuevoCuadro.getNumero())){
+                        nuevoCuadro.setFecha(programacionSelected.getFecha());
+                        cargaDatosServicios.guardarCuadro(nuevoCuadro);
+                        cargarExpediciones();
+                        cargarBuses();
+                        verCuadro();
+                    }else{
+                        messagesView.error("Operación fallida","Ya existe un cuadro con ese número");
+                    }
+
                 }else{
                     messagesView.error("Operación fallida","Debe adjuntar el archivo de buses");
                 }
@@ -166,7 +172,7 @@ public class BuscarProgBean {
     private boolean datosCuadroCompletos() {
 
         if(nuevoCuadro!=null){
-            if (nuevoCuadro.getFecha()!=null && nuevoCuadro.getNumero()!=null && nuevoCuadro.getDescripcion()!=null){
+            if (nuevoCuadro.getNumero()!=null && nuevoCuadro.getDescripcion()!=null){
                 return true;
             }
         }

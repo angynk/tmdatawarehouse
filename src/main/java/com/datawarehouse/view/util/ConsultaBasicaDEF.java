@@ -71,4 +71,72 @@ public class ConsultaBasicaDEF {
     public static String BUS_TX_OPERADOR = "Operador";
 
 
+    /*REPORTE IPH*/
+    public static int IPH_JORNADA_TIPO = 0;
+    public static int IPH_TIPO_DIA = 1;
+    public static int IPH_OPERADOR = 2;
+    public static int IPH_INSTANTE = 3;
+    public static int IPH_SERBUS = 4;
+    public static int IPH_EVENTO = 5;
+    public static int IPH_LINEA = 6;
+    public static int IPH_COCHE = 7;
+    public static int IPH_SUBLINEA = 8;
+    public static int IPH_RUTA = 9;
+    public static int IPH_PUNTO = 10;
+    public static int IPH_TIPO_NODO = 11;
+    public static int IPH_VIAJE = 12;
+
+    public static String IPH_TX_JORNADA_TIPO = "JornadaTipo";
+    public static String IPH_TX_TIPO_DIA = "TipoDia";
+    public static String IPH_TX_OPERADOR = "Operador";
+    public static String IPH_TX_INSTANTE = "Instante";
+    public static String IPH_TX_SERBUS = "Serbus";
+    public static String IPH_TX_EVENTO = "Evento";
+    public static String IPH_TX_LINEA = "Linea";
+    public static String IPH_TX_COCHE = "Coche";
+    public static String IPH_TX_SUBLINEA = "Sublinea";
+    public static String IPH_TX_RUTA = "Ruta";
+    public static String IPH_TX_PUNTO = "Punto";
+    public static String IPH_TX_TIPO_NODO = "TipoNodo";
+    public static String IPH_TX_VIAJE = "Viaje";
+
+    /*REPORTE DISTRIBUCIONES*/
+    public static int DIS_SERBUS = 0;
+    public static int DIS_OPERADOR = 1;
+    public static int DIS_PATIO_INICIO = 2;
+    public static int DIS_PATIO_FIN = 3;
+    public static int DIS_PATIO_VALLE = 4;
+    public static int DIS_TIPOLOGIA = 5;
+    public static int DIS_PUNTO_INICIO = 6;
+    public static int DIS_PUNTO_FIN = 7;
+    public static int DIS_DISTANCIA = 8;
+    public static int DIS_VACIO_INTERNO = 9;
+    public static int DIS_KM_VACIO_VALLE = 10;
+    public static int DIS_VACIO_EXTERNO = 11;
+    public static int DIS_VACIO_TOTAL = 12;
+    public static int DIS_PUNTO_INICIO_VALLE = 13;
+    public static int DIS_PUNTO_FIN_VALLE = 14;
+    public static int DIS_DUR_VALLE = 15;
+    public static int DIS_RESERVA = 16;
+
+    public static String DIS_TX_SERBUS = "Serbus";
+    public static String DIS_TX_OPERADOR = "Operador";
+    public static String DIS_TX_PATIO_INICIO = "Patio Inicio";
+    public static String DIS_TX_PATIO_FIN = "Patio Fin";
+    public static String DIS_TX_PATIO_VALLE = "Patio Valle";
+    public static String DIS_TX_TIPOLOGIA = "Tipologia";
+    public static String DIS_TX_PUNTO_INICIO = "Punto Inicio";
+    public static String DIS_TX_PUNTO_FIN = "Punto Fin";
+    public static String DIS_TX_DISTANCIA = "Distancia";
+    public static String DIS_TX_VACIO_INTERNO = "Vacio Interno";
+    public static String DIS_TX_KM_VACIO_VALLE = "Km Vacio Valle";
+    public static String DIS_TX_VACIO_EXTERNO = "Vacio Externo";
+    public static String DIS_TX_VACIO_TOTAL = "Vacio Total";
+    public static String DIS_TX_PUNTO_INICIO_VALLE = "Punto Inicio Valle";
+    public static String DIS_TX_PUNTO_FIN_VALLE = "Punto Fin Valle";
+    public static String DIS_TX_DUR_VALLE = "Duración Valle";
+    public static String DIS_TX_RESERVA = "Reserva";
+
+
+
 }

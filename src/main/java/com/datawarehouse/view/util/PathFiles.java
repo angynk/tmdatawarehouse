@@ -13,6 +13,7 @@ public class PathFiles {
  public static final String PATH_EXPEDICIONES = "C:\\temp\\Datawarehouse\\Expediciones.xls";
  public static final String PATH_BUSES = "C:\\temp\\Datawarehouse\\Buses.xls";
  public static final String PATH_DISTRIBUCIONES = "C:\\temp\\Datawarehouse\\Distribuciones.xls";
+ public static final String PATH_IPH = "C:\\temp\\Datawarehouse\\TablaHorario.xls";
 
 
     public static final String PATH_REPORTE_TOTAL_KM_VACIOS_OPERADOR = PATH+"Reporte-km-vacios-operador";

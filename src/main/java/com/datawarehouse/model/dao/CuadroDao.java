@@ -80,4 +80,10 @@ public class CuadroDao {
         }
         return "Duplicación fallo";
     }
+
+    public List<Cuadro> obtenerCuadroNumero(String numero) {
+        Criteria criteria = getSessionFactory().getCurrentSession().createCriteria(Cuadro.class);
+        criteria.add(Restrictions.eq("numero",numero));
+        return criteria.list();
+    }
 }

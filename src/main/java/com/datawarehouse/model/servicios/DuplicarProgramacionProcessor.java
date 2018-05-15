@@ -157,13 +157,18 @@ public class DuplicarProgramacionProcessor {
         Programacion nueva = new Programacion();
         nueva.setTipoProgramacion(TipoProgramacion.D.toString());
         nueva.setModo(programacionbyFecha.getModo());
-        nueva.setDescripcion(razonProgramacion);
         nueva.setTipoDia(programacionbyFecha.getTipoDia());
         nueva.setJornada(programacionbyFecha.getJornada());
         nueva.setFecha(fechasRecords.get(0));
         nueva.setDiasAplica(fechasRecords.size());
         nueva.setFechaDuplicado(programacionbyFecha.getFecha());
         nueva.setIdentificador(programacionbyFecha.getFecha().toString() +"/"+programacionbyFecha.getJornada());
+
+        if(razonProgramacion!=null){
+            nueva.setDescripcion(razonProgramacion);
+        }else{
+            nueva.setDescripcion(programacionbyFecha.getDescripcion());
+        }
         return nueva;
     }
 

@@ -167,32 +167,64 @@ public class ExportarDatosBaseDao {
         generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
     }
 
-    public void generarReporteDistribucionesPorCuadro(Cuadro cuadroObj, String consultaPath) {
+    public void generarReporteDistribucionesPorCuadro(Cuadro cuadroObj, String archivoReporte) {
 
-//        String sqlQuery = "Select r.bus, e.inicio, e.fin, e.jornada, e.circ ,e.punto_inicio, \n" +
-//                "e.punto_fin, e.linea_inicio, e.linea_fin, e.kilometros, e.tipologia, e.bus_bd, e.operador \n" +
-//                "from dh_buses e \n" +
-//                "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
-//                "WHERE r.cuadro ="+cuadroObj.getId();
-//
-//        HashMap<String,Integer> parametros = new HashMap<>();
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_BUS,ConsultaBasicaDEF.BUS_BUS);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_INICIO,ConsultaBasicaDEF.BUS_INICIO);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_FIN,ConsultaBasicaDEF.BUS_FIN);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_JOR,ConsultaBasicaDEF.BUS_JOR);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_CIR,ConsultaBasicaDEF.BUS_CIR);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_DE,ConsultaBasicaDEF.BUS_DE);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_A,ConsultaBasicaDEF.BUS_A);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_LDE,ConsultaBasicaDEF.BUS_LDE);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_LA,ConsultaBasicaDEF.BUS_LA);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_KM,ConsultaBasicaDEF.BUS_KM);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_TIPO,ConsultaBasicaDEF.BUS_TIPO);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_BUSBD,ConsultaBasicaDEF.BUS_BUSBD);
-//        parametros.put(ConsultaBasicaDEF.BUS_TX_OPERADOR,ConsultaBasicaDEF.BUS_OPERADOR);
-//
-//        String tituloReporte = "Buses Cuadro";
-//
-//        generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
+        String sqlQuery = "Select r.bus, e.operador,e.patio_ini, e.patio_fin, e.patio_valle, e.tipologia," +
+                "e.punto_inicio, e.punto_fin, e.distancia, e.vacio_interno_sin_valle,e.km_vacio_valle, e.vacio_externo," +
+                " e.vacio_total, e.punto_inicio_valle, e.punto_fin_valle, e.duracion_valle, e.reserva  \n" +
+                "from dh_distribucion e \n" +
+                "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
+                "WHERE r.cuadro ="+cuadroObj.getId();
 
+        HashMap<String,Integer> parametros = new HashMap<>();
+        parametros.put(ConsultaBasicaDEF.DIS_TX_SERBUS,ConsultaBasicaDEF.DIS_SERBUS);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_OPERADOR,ConsultaBasicaDEF.DIS_OPERADOR);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PATIO_INICIO,ConsultaBasicaDEF.DIS_PATIO_INICIO);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PATIO_FIN,ConsultaBasicaDEF.DIS_PATIO_FIN);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PATIO_VALLE,ConsultaBasicaDEF.DIS_PATIO_VALLE);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_TIPOLOGIA,ConsultaBasicaDEF.DIS_TIPOLOGIA);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PUNTO_INICIO,ConsultaBasicaDEF.DIS_PUNTO_INICIO);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PUNTO_FIN,ConsultaBasicaDEF.DIS_PUNTO_FIN);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_DISTANCIA,ConsultaBasicaDEF.DIS_DISTANCIA);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_VACIO_INTERNO,ConsultaBasicaDEF.DIS_VACIO_INTERNO);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_KM_VACIO_VALLE,ConsultaBasicaDEF.DIS_KM_VACIO_VALLE);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_VACIO_EXTERNO,ConsultaBasicaDEF.DIS_VACIO_EXTERNO);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_VACIO_TOTAL,ConsultaBasicaDEF.DIS_VACIO_TOTAL);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PUNTO_INICIO_VALLE,ConsultaBasicaDEF.DIS_PUNTO_INICIO_VALLE);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_PUNTO_FIN_VALLE,ConsultaBasicaDEF.DIS_PUNTO_FIN_VALLE);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_DUR_VALLE,ConsultaBasicaDEF.DIS_DUR_VALLE);
+        parametros.put(ConsultaBasicaDEF.DIS_TX_RESERVA,ConsultaBasicaDEF.DIS_RESERVA);
+
+        String tituloReporte = "Distribución Cuadro";
+
+        generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
+
+    }
+
+    public void generarReporteTablaHorarioPorCuadro(Cuadro cuadroObj, String archivoReporte) {
+        String sqlQuery = "Select e.jornada_tipo, e.tipo_dia, e.operador,e.instante, r.bus, e.evento, e.linea, " +
+                "e.coche, e.sublinea, e.ruta, e.punto, e.tipo_nodo, e.viaje  \n" +
+                "from dh_tabla_horario e \n" +
+                "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
+                "WHERE r.cuadro ="+cuadroObj.getId();
+
+        HashMap<String,Integer> parametros = new HashMap<>();
+        parametros.put(ConsultaBasicaDEF.IPH_TX_JORNADA_TIPO,ConsultaBasicaDEF.IPH_JORNADA_TIPO);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_TIPO_DIA,ConsultaBasicaDEF.IPH_TIPO_DIA);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_OPERADOR,ConsultaBasicaDEF.IPH_OPERADOR);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_INSTANTE,ConsultaBasicaDEF.IPH_INSTANTE);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_SERBUS,ConsultaBasicaDEF.IPH_SERBUS);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_EVENTO,ConsultaBasicaDEF.IPH_EVENTO);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_LINEA,ConsultaBasicaDEF.IPH_LINEA);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_COCHE,ConsultaBasicaDEF.IPH_COCHE);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_SUBLINEA,ConsultaBasicaDEF.IPH_SUBLINEA);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_RUTA,ConsultaBasicaDEF.IPH_RUTA);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_PUNTO,ConsultaBasicaDEF.IPH_PUNTO);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_TIPO_NODO,ConsultaBasicaDEF.IPH_TIPO_NODO);
+        parametros.put(ConsultaBasicaDEF.IPH_TX_VIAJE,ConsultaBasicaDEF.IPH_VIAJE);
+
+        String tituloReporte = "IPH Cuadro";
+
+        generarReporte(archivoReporte,sqlQuery,tituloReporte,parametros);
     }
 }

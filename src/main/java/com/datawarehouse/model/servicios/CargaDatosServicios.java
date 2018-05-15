@@ -196,4 +196,15 @@ public class CargaDatosServicios {
         Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
         exportarDatosBaseDao.generarReporteDistribucionesPorCuadro(cuadroObj,consultaPath);
     }
+
+    public void generarConsultaTablaHorario(String consultaPath, Programacion programacion, String cuadro) {
+        Cuadro cuadroObj = obtenerCuadro(programacion,cuadro);
+        exportarDatosBaseDao.generarReporteTablaHorarioPorCuadro(cuadroObj,consultaPath);
+    }
+
+    public boolean noExisteElNumeroDeCuadro(String numero) {
+        List<Cuadro> cuadros =cuadroDao.obtenerCuadroNumero(numero);
+        if(cuadros.size()>0) return false;
+        return true;
+    }
 }
