@@ -12,6 +12,7 @@ import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -92,12 +93,11 @@ public class CargaExpedicionesServicio {
     }
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) throws IOException {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
         CSVReader reader = null;
-        try {
             reader = new CSVReader(new FileReader(csvFile),',');
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
@@ -125,8 +125,6 @@ public class CargaExpedicionesServicio {
                 writer.writeNext(entries);
             }
             writer.close();
-        } catch (IOException e) {
-        }
         return csvFileOut;
     }
 
@@ -138,12 +136,11 @@ public class CargaExpedicionesServicio {
         expedicionesDao.eliminarDatos(nuevaProgramacion);
     }
 
-    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) {
+    public String incluirFilaArchivoPuntoComa(String nombre, Programacion nuevaProgramacion, String modo,String numeroCuadro) throws IOException {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
         CSVReader reader = null;
-        try {
             reader = new CSVReader(new FileReader(csvFile),';');
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
@@ -158,8 +155,6 @@ public class CargaExpedicionesServicio {
                 writer.writeNext(entries);
             }
             writer.close();
-        } catch (IOException e) {
-        }
         return csvFileOut;
     }
 

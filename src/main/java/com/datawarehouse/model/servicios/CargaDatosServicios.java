@@ -9,6 +9,7 @@ import com.datawarehouse.view.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +70,7 @@ public class CargaDatosServicios {
         return fileName;
     }
 
-    public List<LogDatos> cargarArchivoNuevo(Archivos archivo, List<LogDatos> logDatos, Programacion programacion,Cuadro cuadro) {
+    public List<LogDatos> cargarArchivoNuevo(Archivos archivo, List<LogDatos> logDatos, Programacion programacion,Cuadro cuadro) throws Exception {
         if(archivo.getGrupo().equals(TipoArchivo.expediciones)){
 
         }else if(archivo.getGrupo().equals(TipoArchivo.buses)){
@@ -88,7 +89,7 @@ public class CargaDatosServicios {
 
 
 
-    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo,String modo,String numeroCuadro) {
+    public String incluirFilaArchivo(String nombre, Programacion nuevaProgramacion, String tipo,String modo,String numeroCuadro) throws IOException {
         if(tipo.equals(FormatoArchivo.CSV_COMMA)){
             return cargaExpedicionesServicio.incluirFilaArchivo(nombre,nuevaProgramacion,modo,numeroCuadro);
         }
@@ -169,7 +170,7 @@ public class CargaDatosServicios {
         return programacionDao.getProgramaciones(fechaInicio,fechaFin,modo);
     }
 
-    public void agregarInformacionBuses(Programacion programacionSelected, Archivos archivo, List<LogDatos> logDatos, Cuadro nuevoCuadro) {
+    public void agregarInformacionBuses(Programacion programacionSelected, Archivos archivo, List<LogDatos> logDatos, Cuadro nuevoCuadro) throws Exception {
         cargaBusesServicio.agregarInformacionBuses(programacionSelected,archivo,logDatos,nuevoCuadro);
     }
 

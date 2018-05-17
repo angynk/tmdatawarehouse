@@ -96,7 +96,8 @@ public class CrearProgBean {
 
 
     private boolean datosCompletos() {
-        if(fecha!=null && jornada!=null && descripcion!=null && fechas!=null) return true;
+        if(fecha!=null && !jornada.equals("") && !descripcion.equals("") && !fechas.equals("")) return true;
+
         return false;
     }
 

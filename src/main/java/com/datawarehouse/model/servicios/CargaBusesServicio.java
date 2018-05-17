@@ -11,6 +11,7 @@ import com.opencsv.CSVWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,30 +32,25 @@ public class CargaBusesServicio {
     }
 
 
-    public List<LogDatos> agregarInformacionBuses(Programacion programacion, Archivos archivo, List<LogDatos> logDatos, Cuadro cuadro) {
+    public List<LogDatos> agregarInformacionBuses(Programacion programacion, Archivos archivo, List<LogDatos> logDatos, Cuadro cuadro) throws Exception {
         String nombre = archivo.getNombre();
         if(archivo.getTipo().equals(FormatoArchivo.CSV_COMMA)){
             nombre = incluirFilasArchivoComma(programacion,nombre,cuadro);
         }else if(archivo.getTipo().equals(FormatoArchivo.CSV_PUNTO_COMMA)){
             nombre = incluirFilasArchivoPuntoComma(programacion,nombre,cuadro);
         }
-        try {
             busesDao.cargarArchivoBuses(nombre);
             busesDao.eliminarDatosBuses(programacion);
             archivosDao.addArchivos(archivo);
-        } catch (Exception e) {
-            logDatos.add(new LogDatos(e.getMessage(), TipoLog.ERROR));
-        }
 
         return logDatos;
     }
 
-    private String incluirFilasArchivoPuntoComma(Programacion programacion, String nombre, Cuadro cuadro) {
+    private String incluirFilasArchivoPuntoComma(Programacion programacion, String nombre, Cuadro cuadro) throws IOException {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
         CSVReader reader = null;
-        try {
             reader = new CSVReader(new FileReader(csvFile),';');
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
@@ -72,17 +68,14 @@ public class CargaBusesServicio {
                 writer.writeNext(entries);
             }
             writer.close();
-        } catch (IOException e) {
-        }
         return csvFileOut;
     }
 
-    private String incluirFilasArchivoComma(Programacion programacion, String nombre, Cuadro cuadro) {
+    private String incluirFilasArchivoComma(Programacion programacion, String nombre, Cuadro cuadro) throws IOException {
         String csvFile = PathFiles.PATH+"/"+nombre;
         String csvFileOut = PathFiles.PATH+"/out_"+nombre;
         CSVWriter writer = null;
         CSVReader reader = null;
-        try {
             reader = new CSVReader(new FileReader(csvFile),',');
             writer = new CSVWriter(new FileWriter(csvFileOut), ',');
             String[] entries = null;
@@ -110,8 +103,6 @@ public class CargaBusesServicio {
                 writer.writeNext(entries);
             }
             writer.close();
-        } catch (IOException e) {
-        }
         return csvFileOut;
     }
 

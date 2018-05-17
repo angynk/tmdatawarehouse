@@ -122,14 +122,12 @@ public class BuscarProgBean {
 
     public void guardarCuadro(){
         if(datosCuadroCompletos()){
-            if(file!=null){
-                if(fileBuses!=null){
+            if(archivoExpedicionesCargado()){
+                if(archivoBusesCargado()){
                     if(cargaDatosServicios.noExisteElNumeroDeCuadro(nuevoCuadro.getNumero())){
                         nuevoCuadro.setFecha(programacionSelected.getFecha());
                         cargaDatosServicios.guardarCuadro(nuevoCuadro);
                         cargarExpediciones();
-                        cargarBuses();
-                        verCuadro();
                     }else{
                         messagesView.error("Operación fallida","Ya existe un cuadro con ese número");
                     }
@@ -147,12 +145,32 @@ public class BuscarProgBean {
         }
     }
 
+    private boolean archivoExpedicionesCargado() {
+
+        if(file!=null){
+            if( !file.getFileName().equals("")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean archivoBusesCargado() {
+
+        if(fileBuses!=null){
+            if( !fileBuses.getFileName().equals("")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void cargarBuses() {
         if(fileBuses!=null){
             try {
                 List<LogDatos> logDatos = new ArrayList<>();
-
-
                 String nombre = cargaDatosServicios.copyFile(fileBuses.getFileName(),fileBuses.getInputstream());
                 Archivos archivo = new Archivos();
                 archivo.setNombre(fileBuses.getFileName());
@@ -161,10 +179,11 @@ public class BuscarProgBean {
                 archivo.setCuadro(nuevoCuadro);
                 cargaDatosServicios.agregarInformacionBuses(programacionSelected, archivo, logDatos,nuevoCuadro);
                 messagesView.info("Proceso Exitoso ","Nuevo Cuadro creado");
+                verCuadro();
             } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
+                messagesView.error("Error en la carga del archivo de Buses ",e.getMessage());
             } catch (Exception e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
+                messagesView.error("Error en la carga del archivo de Buses",e.getMessage());
             }
         }
     }
@@ -172,7 +191,7 @@ public class BuscarProgBean {
     private boolean datosCuadroCompletos() {
 
         if(nuevoCuadro!=null){
-            if (nuevoCuadro.getNumero()!=null && nuevoCuadro.getDescripcion()!=null){
+            if (!nuevoCuadro.getNumero().equals("") && !nuevoCuadro.getDescripcion().equals("")){
                 return true;
             }
         }
@@ -205,10 +224,11 @@ public class BuscarProgBean {
                 archivo.setTipo(tipo);
                 archivo.setCuadro(nuevoCuadro);
                 cargaDatosServicios.agregarArchivo(archivo);
+                cargarBuses();
             } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
+                messagesView.error("Error en la carga del archivo de Expediciones",e.getMessage());
             } catch (Exception e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
+                messagesView.error("Error en la carga del archivo de Expediciones",e.getMessage());
             }
         }
     }
@@ -239,7 +259,11 @@ public class BuscarProgBean {
             for(Archivos archivo: archivosLista){
                 if(!archivo.isAdjuntado()){
                     archivo.setCuadro(cuadroProg);
-                    logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacionSelected,cuadroProg);
+                    try {
+                        logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacionSelected,cuadroProg);
+                    } catch (Exception e) {
+                        messagesView.error("Error en la carga de datos",e.getMessage());
+                    }
                 }
             }
             resultadosVisibles = false;

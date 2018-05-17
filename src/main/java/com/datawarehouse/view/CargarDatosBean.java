@@ -75,50 +75,7 @@ public class CargarDatosBean {
 
 
 
-    public void cargaMasivaDatos(){
-        if(archivosLista.size()>0 && cuadro!=""){
-            Cuadro cuadroProg = cargaDatosServicios.obtenerCuadro(programacion,cuadro);
-            for(Archivos archivo: archivosLista){
-                if(!archivo.isAdjuntado()){
-                    archivo.setCuadro(cuadroProg);
-                    logDatos= cargaDatosServicios.cargarArchivoNuevo(archivo,logDatos,programacion,cuadroProg);
-                }
-            }
-            incluirArchivosVisibles = false;
-            resultadosVisibles = false;
-            archivosVisibles = false;
-            messagesView.info("Operación exitosa","Se ha cargado la datos asociados al cuadro de la programación");
-        }else{
-            messagesView.error("No hay archivos asociados a la programacion","Verificar datos");
-        }
-    }
 
-    public void agregarArchivo(){
-        nuevoArchivo = new Archivos();
-    }
-
-    public void guardarArchivo(){
-        if(file!=null){
-            try {
-                String nombre = cargaDatosServicios.copyFile(file.getFileName(),file.getInputstream());
-                nuevoArchivo.setNombre(nombre);
-                nuevoArchivo.setAdjuntado(false);
-                archivosLista.add(nuevoArchivo);
-            } catch (IOException e) {
-                messagesView.error("Error en la carga del archivo",e.getMessage());
-            }
-        }
-
-    }
-
-    public void cancelar(){
-
-    }
-
-    public void updateCuadros(){
-        programacion = cargaDatosServicios.obtenerProgramacion(progr);
-        cuadros = cargaDatosServicios.obtenerCuadrosProgramacion(programacion);
-    }
 
 
     @PostConstruct
