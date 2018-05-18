@@ -3,6 +3,7 @@ package com.datawarehouse.view;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
+import com.datawarehouse.model.servicios.CalcularIndicadoresServicio;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.TipoArchivo;
 import com.datawarehouse.view.util.Util;
@@ -43,6 +44,9 @@ public class CrearCuadroBean {
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
+
+    @ManagedProperty(value="#{CalcularIndicadoresServicio}")
+    private CalcularIndicadoresServicio calcularIndicadoresServicio;
 
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
@@ -282,5 +286,13 @@ public class CrearCuadroBean {
 
     public void setProgramacion(Programacion programacion) {
         this.programacion = programacion;
+    }
+
+    public CalcularIndicadoresServicio getCalcularIndicadoresServicio() {
+        return calcularIndicadoresServicio;
+    }
+
+    public void setCalcularIndicadoresServicio(CalcularIndicadoresServicio calcularIndicadoresServicio) {
+        this.calcularIndicadoresServicio = calcularIndicadoresServicio;
     }
 }

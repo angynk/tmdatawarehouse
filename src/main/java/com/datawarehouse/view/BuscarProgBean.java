@@ -3,6 +3,7 @@ package com.datawarehouse.view;
 import com.datawarehouse.model.entity.Archivos;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
+import com.datawarehouse.model.servicios.CalcularIndicadoresServicio;
 import com.datawarehouse.model.servicios.CargaDatosServicios;
 import com.datawarehouse.view.util.LogDatos;
 import com.datawarehouse.view.util.TipoArchivo;
@@ -54,6 +55,9 @@ public class BuscarProgBean {
 
     @ManagedProperty(value="#{CargaDatosServicios}")
     private CargaDatosServicios cargaDatosServicios;
+
+    @ManagedProperty(value="#{CalcularIndicadoresServicio}")
+    private CalcularIndicadoresServicio calcularIndicadoresServicio;
 
     public BuscarProgBean() {
            programacionList = new ArrayList<>();
@@ -226,6 +230,7 @@ public class BuscarProgBean {
                 archivo.setTipo(tipo);
                 archivo.setCuadro(nuevoCuadro);
                 cargaDatosServicios.agregarArchivo(archivo);
+                calcularIndicadoresServicio.calcularIndicadoresExpediciones(nuevoCuadro);
                 cargarBuses();
             } catch (IOException e) {
                 messagesView.error("Error en la carga del archivo de Expediciones",e.getMessage());
@@ -506,5 +511,13 @@ public class BuscarProgBean {
 
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
+    }
+
+    public CalcularIndicadoresServicio getCalcularIndicadoresServicio() {
+        return calcularIndicadoresServicio;
+    }
+
+    public void setCalcularIndicadoresServicio(CalcularIndicadoresServicio calcularIndicadoresServicio) {
+        this.calcularIndicadoresServicio = calcularIndicadoresServicio;
     }
 }

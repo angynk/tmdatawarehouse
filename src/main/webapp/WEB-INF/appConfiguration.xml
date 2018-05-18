@@ -48,6 +48,7 @@
                 <value>com.datawarehouse.model.entity.Tracelog</value>
                 <value>com.datawarehouse.model.entity.Cuadro</value>
                 <value>com.datawarehouse.model.entity.FechasProg</value>
+                <value>com.datawarehouse.model.entity.Indicadores</value>
 
             </list>
         </property>
