@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -47,6 +46,8 @@ public class BuscarProgBean {
     private List<LogDatos> logDatos;
     private boolean visibleCargaArchivos;
     private List<String> tiposArchivo;
+    private List<String> tipologias;
+    private String tipologia;
 
     @ManagedProperty("#{MessagesView}")
     private MessagesView messagesView;
@@ -65,6 +66,7 @@ public class BuscarProgBean {
         formatosArchivo = Util.listaFormatosCSV();
         archivosLista = new ArrayList<Archivos>();
         tiposArchivo = Util.listaTipoArchivos();
+        tipologias = Util.listaDeTipologia();
     }
 
     public void verCuadro(){
@@ -488,5 +490,21 @@ public class BuscarProgBean {
 
     public void setSelectedArchivo(Archivos selectedArchivo) {
         this.selectedArchivo = selectedArchivo;
+    }
+
+    public List<String> getTipologias() {
+        return tipologias;
+    }
+
+    public void setTipologias(List<String> tipologias) {
+        this.tipologias = tipologias;
+    }
+
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
     }
 }

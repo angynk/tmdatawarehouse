@@ -27,6 +27,11 @@
 
                         <p:outputLabel value="Descripción:" />
                         <p:inputText value="#{buscarProgBean.nuevoCuadro.descripcion}"  />
+
+                        <p:outputLabel value="Tipología:" />
+                        <p:selectOneMenu  value="#{buscarProgBean.nuevoCuadro.tipologia}" style="width:100px">
+                            <f:selectItems value="#{buscarProgBean.tipologias}" var="tip" itemLabel="#{tip}" itemValue="#{tip}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <div style="height: 15px"></div>
 

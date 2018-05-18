@@ -26,6 +26,9 @@ public class Cuadro {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "tipologia")
+    private String tipologia;
+
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
     @JoinColumn(name = "programacion", nullable = false)
     private Programacion programacion;
@@ -97,5 +100,13 @@ public class Cuadro {
 
     public void setBusesLista(Set<BusRegistro> busesLista) {
         this.busesLista = busesLista;
+    }
+
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
     }
 }
