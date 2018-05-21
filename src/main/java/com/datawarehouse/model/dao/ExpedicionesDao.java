@@ -52,13 +52,10 @@ public class ExpedicionesDao {
             copyManager.copyIn("COPY dh_temp_exp (evento,tipo,inicio,punto_inicio,fin,punto_fin,duracion,bus,linea,kilometros,inferido,identi,frec,serbus,des_dur,desc_frec,jornada,cuadro,modo,fecha)" +
                     " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
             throw new Exception(e.getMessage());
         }
     }
