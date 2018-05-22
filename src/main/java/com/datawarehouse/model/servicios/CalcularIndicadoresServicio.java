@@ -21,11 +21,12 @@ public class CalcularIndicadoresServicio {
         //Calcular Numero de buses
         indicadores.setNumBuses(indicadoresDao.getNumeroBuses(nuevoCuadro));
         indicadores.setKmComerciales(indicadoresDao.getKilometros(nuevoCuadro,"Exp"));
-        indicadores.setKmVacioVEX(indicadoresDao.getKilometros(nuevoCuadro,"Vexp"));
-        indicadores.setKmVacioVPA(indicadoresDao.getKilometros(nuevoCuadro,"Vpa"));
-        indicadores.setKmVacioVH(indicadoresDao.getKilometros(nuevoCuadro,"Vh"));
+        indicadores.setKmVacioVEX(indicadoresDao.getKilometros(nuevoCuadro,"VEx"));
+        indicadores.setKmVacioVPA(indicadoresDao.getKilometros(nuevoCuadro,"VPa"));
+        indicadores.setKmVacioVH(indicadoresDao.getKilometros(nuevoCuadro,"VIn"));
         indicadores.setKmVacioTotal(calcularSumaVacio(indicadores));
         indicadores.setPorcentajeVacio(calcularPorcentajeVacio(indicadores));
+        indicadores.setCuadro(nuevoCuadro);
 
         indicadoresDao.addIndicador(indicadores);
     }
@@ -33,6 +34,7 @@ public class CalcularIndicadoresServicio {
     private Double calcularPorcentajeVacio(Indicadores indicadores) {
         Double porcentaje = indicadores.getKmVacioTotal()*100;
         porcentaje = porcentaje / indicadores.getKmComerciales();
+        porcentaje = Math.floor(porcentaje * 100) / 100;
         return porcentaje;
     }
 

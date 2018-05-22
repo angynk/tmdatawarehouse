@@ -61,7 +61,8 @@ public class IndicadoresDao {
         try {
             ps = conn.prepareStatement(sqlQuery);
             ResultSet query_set = ps.executeQuery();
-            return query_set.getInt(0);
+            query_set.next();
+            return query_set.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,7 +83,10 @@ public class IndicadoresDao {
         try {
             ps = conn.prepareStatement(sqlQuery);
             ResultSet query_set = ps.executeQuery();
-            return query_set.getDouble(0);
+            query_set.next();
+            double valor= query_set.getDouble(1);
+            valor = Math.floor(valor * 100) / 100;
+            return valor;
         } catch (SQLException e) {
             e.printStackTrace();
         }
