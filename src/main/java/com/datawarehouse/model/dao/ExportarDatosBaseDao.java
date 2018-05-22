@@ -85,7 +85,8 @@ public class ExportarDatosBaseDao {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             String value =(String)pair.getKey();
-            if(value.equals(ConsultaBasicaDEF.EXP_TX_KM )|| value.equals(ConsultaBasicaDEF.EXP_TX_DE) || value.equals(ConsultaBasicaDEF.EXP_TX_A)){
+            if(value.equals(ConsultaBasicaDEF.EXP_TX_KM )|| value.equals(ConsultaBasicaDEF.EXP_TX_DE)
+                    || value.equals(ConsultaBasicaDEF.EXP_TX_A)){
                 ExcelUtilProcessor.createCellNumberResultados(rowInfo1,
                         query_set.getDouble((Integer)pair.getValue()+1),
                         (Integer)pair.getValue());
@@ -109,7 +110,7 @@ public class ExportarDatosBaseDao {
     }
 
     public void generarReporteExpedicionesPorCuadro(Cuadro cuadroObj, String archivoReporte) {
-        String sqlQuery = "Select e.evento,e.tipo,e.inicio,e.punto_inicio, e.fin, e.punto_fin, e.duracion, \n" +
+        String sqlQuery = "Select e.evento,e.tipo,e.inicio,e.punto_inicio,e.punto_inicio_tx, e.fin, e.punto_fin, e.punto_inicio_tx, e.duracion, \n" +
                 "r.bus, e.linea, e.kilometros, e.inferido , e.identificador, e.frec, e.serbus, e.des_dur, e.des_frec \n" +
                 "from dh_expediciones e \n" +
                 "INNER JOIN dh_bus_registro r ON e.bus_registro = r.id \n" +
@@ -120,8 +121,10 @@ public class ExportarDatosBaseDao {
         parametros.put(ConsultaBasicaDEF.EXP_TX_TIPO,ConsultaBasicaDEF.EXP_TIPO);
         parametros.put(ConsultaBasicaDEF.EXP_TX_INICIO,ConsultaBasicaDEF.EXP_INICIO);
         parametros.put(ConsultaBasicaDEF.EXP_TX_DE,ConsultaBasicaDEF.EXP_DE);
+        parametros.put(ConsultaBasicaDEF.EXP_TX_DE_TX,ConsultaBasicaDEF.EXP_INICIO_TX);
         parametros.put(ConsultaBasicaDEF.EXP_TX_FIN,ConsultaBasicaDEF.EXP_FIN);
         parametros.put(ConsultaBasicaDEF.EXP_TX_A,ConsultaBasicaDEF.EXP_A);
+        parametros.put(ConsultaBasicaDEF.EXP_TX_A_TX,ConsultaBasicaDEF.EXP_FIN_TX);
         parametros.put(ConsultaBasicaDEF.EXP_TX_DUR,ConsultaBasicaDEF.EXP_DUR);
         parametros.put(ConsultaBasicaDEF.EXP_TX_BUS,ConsultaBasicaDEF.EXP_BUS);
         parametros.put(ConsultaBasicaDEF.EXP_TX_LINEA,ConsultaBasicaDEF.EXP_LINEA);

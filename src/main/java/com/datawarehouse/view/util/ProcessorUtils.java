@@ -1,5 +1,6 @@
 package com.datawarehouse.view.util;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.stereotype.Service;
@@ -16,25 +17,47 @@ import java.util.List;
 @Service
 public class ProcessorUtils {
 
+    private static String OS = System.getProperty("os.name").toLowerCase();
 
     public void copyFile(String fileName, InputStream in, String destination) {
+        if(OS.indexOf("win") >= 0){
+            try {
+
+                destination= destination+fileName;
+                // write the inputStream to a FileOutputStream
+                OutputStream out = new FileOutputStream(new File(destination));
+
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                while ((read = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+
+                in.close();
+                out.flush();
+                out.close();
+
+                System.out.println("New file created!");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }else{
+            copyFileUTF8(fileName,in,destination);
+        }
+
+    }
+
+    public void copyFileUTF8(String fileName, InputStream in, String destination) {
         try {
 
             destination= destination+fileName;
             // write the inputStream to a FileOutputStream
-            OutputStream out = new FileOutputStream(new File(destination));
-
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = in.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-
-            in.close();
-            out.flush();
-            out.close();
-
+            Writer out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(destination)));
+//            IOUtils.copy(in, out, "UTF-8");
+            IOUtils.copy(in, out, "ISO-8859-1");
+            IOUtils.closeQuietly(out);
             System.out.println("New file created!");
         } catch (IOException e) {
             System.out.println(e.getMessage());

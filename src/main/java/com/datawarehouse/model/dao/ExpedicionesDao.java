@@ -50,7 +50,7 @@ public class ExpedicionesDao {
             copyManager = new CopyManager((BaseConnection) conn);
             FileReader fileReader = new FileReader(filename);
             copyManager.copyIn("COPY dh_temp_exp (evento,tipo,inicio,punto_inicio,fin,punto_fin,duracion,bus,linea,kilometros,inferido,identi,frec,serbus,des_dur,desc_frec,jornada,cuadro,modo,fecha)" +
-                    " from  STDIN DELIMITER ',' CSV HEADER encoding 'windows-1251' ", fileReader );
+                    " from  STDIN DELIMITER ',' CSV HEADER ", fileReader );
         } catch (SQLException e) {
             throw new Exception(e.getMessage());
         } catch (FileNotFoundException e) {
