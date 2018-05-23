@@ -150,6 +150,7 @@ public class DuplicarProgramacionProcessor {
         nuevo.setDescripcion(cuadro.getDescripcion());
         nuevo.setNumero(cuadro.getNumero());
         nuevo.setFecha(nuevaProgramacion.getFecha());
+        nuevo.setTipologia(cuadro.getTipologia());
         return nuevo;
     }
 
