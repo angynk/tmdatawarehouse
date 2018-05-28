@@ -23,8 +23,16 @@ public class LoginBean implements Serializable {
     private String uname;
     private String nombreUsuario;
     private String password;
+    private String area;
     private String role;
     private String logout;
+    private Usuario usuario;
+
+    //Perfil Usuario
+    public boolean cambioContrasena ;
+    public String contrasenaAntigua;
+    public String contrasenaNueva;
+    public String contrasenaNuevaRep;
 
 
     @ManagedProperty(value="#{navigationBean}")
@@ -32,6 +40,9 @@ public class LoginBean implements Serializable {
 
     @ManagedProperty(value="#{UsuariosService}")
     private UsuarioServicios usuarioServicios;
+
+    @ManagedProperty("#{MessagesView}")
+    private MessagesView messagesView;
 
     @PostConstruct
     public void init(){
@@ -65,6 +76,8 @@ public class LoginBean implements Serializable {
                     session.setAttribute("role", usuario.getRole());
                     this.role ="ADMIN";
                     this.nombreUsuario = usuario.getNombre();
+                    this.area = usuario.getArea();
+                    this.usuario = usuario;
                     return navigationBean.redirectToWelcome();
             } else {
                 FacesContext.getCurrentInstance().addMessage(
@@ -88,14 +101,11 @@ public class LoginBean implements Serializable {
     public String logout() {
         HttpSession session = Util.getSession();
         session.invalidate();
-//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//        try {
-//            ec.redirect(ec.getRequestContextPath()
-//                    + "/index.xhtml");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        return navigationBean.toLogin();
+        return navigationBean.redirectToLogin();
+    }
+
+    public String gotoperfil(){
+        return "/secured/miPerfil.xhtml?faces-redirect=true";
     }
 
     public boolean puedeEditar(){
@@ -110,6 +120,36 @@ public class LoginBean implements Serializable {
             return true;
         }
         return false;
+    }
+
+    private boolean contrasenasNuevasIguales() {
+        if(contrasenaNueva.equals(contrasenaNuevaRep)) return true;
+        return false;
+    }
+
+    private boolean contrasenaViejaEsCorrecta() {
+        contrasenaAntigua = Util.md5(contrasenaAntigua);
+        if(contrasenaAntigua.equals(usuario.getContrasena())) return true;
+
+        return false;
+    }
+
+    public void modificarContrasena(){
+        cambioContrasena = true;
+    }
+
+    public void cambiar(){
+        if(contrasenaViejaEsCorrecta()) {
+            if(contrasenasNuevasIguales()){
+                usuario.setContrasena(Util.md5(contrasenaNueva));
+                usuarioServicios.updateUsuario(usuario);
+                messagesView.info("Proceso Exitoso","La contraseña fue modificada");
+            }else{
+                messagesView.error("Proceso Fallido","Las contraseñas no coinciden");
+            }
+        }else{
+            messagesView.error("Proceso Fallido","La contraseña vieja no coincide");
+        }
     }
 
     public String getLogout() {
@@ -154,5 +194,65 @@ public class LoginBean implements Serializable {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public boolean isCambioContrasena() {
+        return cambioContrasena;
+    }
+
+    public void setCambioContrasena(boolean cambioContrasena) {
+        this.cambioContrasena = cambioContrasena;
+    }
+
+    public String getContrasenaAntigua() {
+        return contrasenaAntigua;
+    }
+
+    public void setContrasenaAntigua(String contrasenaAntigua) {
+        this.contrasenaAntigua = contrasenaAntigua;
+    }
+
+    public String getContrasenaNueva() {
+        return contrasenaNueva;
+    }
+
+    public void setContrasenaNueva(String contrasenaNueva) {
+        this.contrasenaNueva = contrasenaNueva;
+    }
+
+    public String getContrasenaNuevaRep() {
+        return contrasenaNuevaRep;
+    }
+
+    public void setContrasenaNuevaRep(String contrasenaNuevaRep) {
+        this.contrasenaNuevaRep = contrasenaNuevaRep;
+    }
+
+    public MessagesView getMessagesView() {
+        return messagesView;
+    }
+
+    public void setMessagesView(MessagesView messagesView) {
+        this.messagesView = messagesView;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }
