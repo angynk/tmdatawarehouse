@@ -65,27 +65,37 @@ public class CrearProgBean {
         if(datosCompletos()){
             List<Date> fechasRecords = ProcessorUtils.convertirAfechas(fechas);
             identificador = calcularIdentificador();
-            if(!cargaDatosServicios.existeProgramacion(identificador) && !cargaDatosServicios.existeProgramacionFechas(fechasRecords)){
-                nuevaProgramacion = new Programacion();
-                nuevaProgramacion.setIdentificador(identificador);
-                nuevaProgramacion.setFecha(fecha);
-                nuevaProgramacion.setJornada(jornada);
-                nuevaProgramacion.setTipoDia(tipoDia);
-                nuevaProgramacion.setDescripcion(descripcion);
-                nuevaProgramacion.setModo(Util.convertirModo(modo));
-                nuevaProgramacion.setDiasAplica(fechasRecords.size());
-                nuevaProgramacion.setTipoProgramacion(TipoProgramacion.N.toString());
-                cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
+            if(!cargaDatosServicios.existeProgramacion(identificador) ){
+                if(!cargaDatosServicios.existeProgramacionFechas(fechasRecords)){
+                    if(!cargaDatosServicios.existeProgramacionEnFecha(fecha,modo)){
+                        nuevaProgramacion = new Programacion();
+                        nuevaProgramacion.setIdentificador(identificador);
+                        nuevaProgramacion.setFecha(fecha);
+                        nuevaProgramacion.setJornada(jornada);
+                        nuevaProgramacion.setTipoDia(tipoDia);
+                        nuevaProgramacion.setDescripcion(descripcion);
+                        nuevaProgramacion.setModo(Util.convertirModo(modo));
+                        nuevaProgramacion.setDiasAplica(fechasRecords.size());
+                        nuevaProgramacion.setTipoProgramacion(TipoProgramacion.N.toString());
+                        cargaDatosServicios.agregarProgramacion(nuevaProgramacion);
 
-               if( cargaDatosServicios.agregarProgramacionAFechas(fechasRecords,nuevaProgramacion)){
-                   creacionVisible = false;
-                   incluirArchivosVisibles = true;
-                   messagesView.info("Proceso Exitoso","La progrmación ha sido creada");
-               }else{
-                   messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
-               }
+                        if( cargaDatosServicios.agregarProgramacionAFechas(fechasRecords,nuevaProgramacion)){
+                            creacionVisible = false;
+                            incluirArchivosVisibles = true;
+                            messagesView.info("Proceso Exitoso","La programación ha sido creada");
+                        }else{
+                            messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+                        }
+                    }else{
+                        messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+                    }
+
+                }else{
+                    messagesView.error("Ya existe información para esas fechas asociadas","Completar correctamente el formulario");
+                }
+
             }else{
-                messagesView.error("Ya existe información para esa fecha","Completar correctamente el formulario");
+                messagesView.error("Ya existe información con esa jornada","Completar correctamente el formulario");
             }
         }else{
             messagesView.error("Campos incompletos","Completar correctamente el formulario");

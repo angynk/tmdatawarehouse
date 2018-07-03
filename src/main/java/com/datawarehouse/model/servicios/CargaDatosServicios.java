@@ -208,4 +208,10 @@ public class CargaDatosServicios {
         if(cuadros.size()>0) return false;
         return true;
     }
+
+    public boolean existeProgramacionEnFecha(Date fecha, String modo) {
+        List<Programacion> programaciones = programacionDao.getProgramacionFecha(fecha,modo);
+        if(programaciones.size()>0)return true;
+        return false;
+    }
 }
