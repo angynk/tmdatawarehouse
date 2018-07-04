@@ -44,19 +44,19 @@
                         <f:facet name="header">
                             Programaciones
                         </f:facet>
-                        <p:column headerText="Fecha">
+                        <p:column headerText="Fecha" sortBy="#{prog.fecha}">
                             <h:outputText value="#{prog.fecha}" />
                         </p:column>
-                        <p:column headerText="Descripción">
+                        <p:column headerText="Descripción" sortBy="#{prog.descripcion}">
                             <h:outputText value="#{prog.descripcion}" />
                         </p:column>
-                        <p:column headerText="Jornada">
+                        <p:column headerText="Jornada" sortBy="#{prog.jornada}">
                             <h:outputText value="#{prog.jornada}" />
                         </p:column>
-                        <p:column headerText="Modo">
+                        <p:column headerText="Modo" sortBy="#{prog.modo}">
                             <h:outputText value="#{prog.modo}" />
                         </p:column>
-                        <p:column headerText="Tipo Día">
+                        <p:column headerText="Tipo Día" sortBy="#{prog.tipoDia}">
                             <h:outputText value="#{prog.tipoDia}" />
                         </p:column>
                         <p:column style="width:50px;text-align: center">

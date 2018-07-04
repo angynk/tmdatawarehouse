@@ -18,6 +18,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +72,15 @@ public class BuscarProgBean {
         archivosLista = new ArrayList<Archivos>();
         tiposArchivo = Util.listaTipoArchivos();
         tipologias = Util.listaDeTipologia();
+        fechaFin = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(fechaFin);
+        c.add(Calendar.MONTH, -6);
+        fechaInicio = c.getTime();
+        modo = "Troncal";
+        programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,Util.convertirModo(modo));
+        buscarProgramacion();
+
     }
 
     public void verCuadro(){
