@@ -69,7 +69,7 @@ public class ConsultasAvanzadasBean {
 
     public void descargar(){
         try {
-            Util.descargarArchivo(archivoReporte,"ConsultaAvanzada.csv");
+            Util.descargarArchivo(archivoReporte,"ConsultaAvanzada.xls");
         } catch (IOException e) {
             e.printStackTrace();
         }

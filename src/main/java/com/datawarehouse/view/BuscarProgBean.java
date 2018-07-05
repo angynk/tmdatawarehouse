@@ -126,6 +126,7 @@ public class BuscarProgBean {
     public void habilitarNuevoCuadro(){
         nuevoCuadro = new Cuadro();
         nuevoCuadro.setProgramacion(programacionSelected);
+        nuevoCuadro.setDescripcion(programacionSelected.getDescripcion());
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath()

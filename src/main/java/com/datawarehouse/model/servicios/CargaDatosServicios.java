@@ -66,7 +66,7 @@ public class CargaDatosServicios {
     }
 
     public String copyFile(String fileName, InputStream in){
-        processorUtils.copyFileUTF8(fileName,in, PathFiles.PATH);
+        processorUtils.copyFile(fileName,in, PathFiles.PATH);
         return fileName;
     }
 
