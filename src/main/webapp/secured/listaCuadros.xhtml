@@ -35,15 +35,48 @@
                         <p:column headerText="Descripción">
                             <h:outputText value="#{cuadro.descripcion}" />
                         </p:column>
-                        <p:column style="width:50px;text-align: center">
+                        <p:column style="width:80px;text-align: center">
                             <p:commandButton action="#{buscarProgBean.verDetalleCuadro}" icon="ui-icon-search" title="Ver Detalle Cuadro" >
                                 <f:setPropertyActionListener value="#{cuadro}" target="#{buscarProgBean.cuadro}" />
                             </p:commandButton>
                         </p:column>
 
+                        <p:column style="width:80px;text-align: center" exportable="false" rendered="#{loginBean.puedeEliminar()}" headerText="">
+                            <p:commandButton id="delete"
+                                             icon="ui-icon ui-icon-trash"
+                                             title="GDeleteButton"
+                                             onclick="PF('groupDeleteConfirm').show()">
+                                <f:setPropertyActionListener value="#{cuadro}" target="#{buscarProgBean.cuadro}" />
+                            </p:commandButton>
+
+                        </p:column>
+
+
                     </p:dataTable>
 
                 </p:panel>
+
+                <p:confirmDialog message="¿Esta seguro de eliminar este cuadro y todos los datos asociados?"
+                                 showEffect="fade"
+                                 hideEffect="explode"
+                                 widgetVar="groupDeleteConfirm">
+                    <p:commandButton title="GDelYesButton"
+                                     value="Sí"
+                                     action="#{buscarProgBean.eliminarCuadro}" ajax="false"
+                                     async="true" process="@form" onclick="PF('dlg2').show();" global="false"
+                                     oncomplete="PF('dlg2').hide();PF('groupDeleteConfirm').hide()"/>
+                    <p:commandButton title="GDelNoButton"
+                                     value="No"
+                                     oncomplete="PF('groupDeleteConfirm').hide()"/>
+
+                </p:confirmDialog>
+
+                <p:dialog  widgetVar="dlg2" modal="true" height="100" closable="false" resizable="false"
+                           minHeight="40" style="height: 40px">
+                    <h:outputText value="En Proceso.." />
+                    <p:graphicImage name="images/ajaxloadingbar.gif" />
+                </p:dialog>
+
             </h:form>
         </ui:define>
 

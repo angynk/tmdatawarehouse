@@ -86,4 +86,8 @@ public class CuadroDao {
         criteria.add(Restrictions.eq("numero",numero));
         return criteria.list();
     }
+
+    public void eliminarCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().delete(cuadro);
+    }
 }

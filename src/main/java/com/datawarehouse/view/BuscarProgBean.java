@@ -95,6 +95,12 @@ public class BuscarProgBean {
         }
     }
 
+    public void eliminarCuadro(){
+        cargaDatosServicios.eliminarDatosCuadro(cuadro);
+        messagesView.info("Operación exitosa","Cuadro eliminado");
+        cuadroList = cargaDatosServicios.obtenerCuadrosProgramacion(programacionSelected);
+    }
+
 
 
     public void volver(){

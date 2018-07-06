@@ -214,4 +214,21 @@ public class CargaDatosServicios {
         if(programaciones.size()>0)return true;
         return false;
     }
+
+    public void eliminarDatosCuadro(Cuadro cuadro) {
+
+        //Eliminar archivos
+        archivosDao.eliminarArchivosCuadro(cuadro);
+
+        //Eliminar expediciones
+        cargaExpedicionesServicio.eliminarDatosDeCuadro(cuadro);
+        //Eliminar Buses
+        cargaBusesServicio.eliminarDatosDeCuadro(cuadro);
+        //Eliminar Distribuciones
+        cargaDistribucionesServicio.eliminarDatosDeCuadro(cuadro);
+        //Eliminar IPH
+        cargaTablaHorarioServicio.eliminarDatosDeCuadro(cuadro);
+
+        cuadroDao.eliminarCuadro(cuadro);
+    }
 }

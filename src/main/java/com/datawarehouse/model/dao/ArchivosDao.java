@@ -5,6 +5,7 @@ import com.datawarehouse.model.entity.Bus;
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.Programacion;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,9 @@ public class ArchivosDao {
 
     public void deleteArchivo(Archivos selectedArchivo) {
         getSessionFactory().getCurrentSession().delete(selectedArchivo);
+    }
+
+    public void eliminarArchivosCuadro(Cuadro cuadro) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_archivo WHERE cuadro = "+cuadro.getId()).executeUpdate();
     }
 }
