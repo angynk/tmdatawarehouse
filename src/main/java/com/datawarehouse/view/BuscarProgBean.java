@@ -101,6 +101,12 @@ public class BuscarProgBean {
         cuadroList = cargaDatosServicios.obtenerCuadrosProgramacion(programacionSelected);
     }
 
+    public void eliminarProgramacion(){
+        cargaDatosServicios.eliminarDatosProgramacion(programacionSelected);
+        messagesView.info("Operación exitosa","Programación eliminada");
+        programacionList = cargaDatosServicios.getProgramaciones(fechaInicio,fechaFin,Util.convertirModo(modo));
+    }
+
 
 
     public void volver(){

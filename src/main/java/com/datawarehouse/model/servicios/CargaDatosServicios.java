@@ -231,4 +231,19 @@ public class CargaDatosServicios {
 
         cuadroDao.eliminarCuadro(cuadro);
     }
+
+    public void eliminarDatosProgramacion(Programacion programacionSelected) {
+
+        //Eliminar Datos Cuadros
+        List<Cuadro> cuadrosProg = cuadroDao.obtenerCuadrosProgramacion(programacionSelected);
+        for(Cuadro cuadro:cuadrosProg){
+            eliminarDatosCuadro(cuadro);
+        }
+
+        //Eliminar fechas programación
+        fechasProgDao.eliminarFechasProgramacion(programacionSelected);
+
+        //Eliminar programación
+        programacionDao.deleteProgramacion(programacionSelected);
+    }
 }

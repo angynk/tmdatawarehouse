@@ -2,6 +2,7 @@ package com.datawarehouse.model.dao;
 
 import com.datawarehouse.model.entity.Cuadro;
 import com.datawarehouse.model.entity.FechasProg;
+import com.datawarehouse.model.entity.Programacion;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -43,5 +44,9 @@ public class FechasProgDao {
         criteria.add(Restrictions.eq("fecha",date));
         criteria.add(Restrictions.eq("modo",modo));
         return criteria.list();
+    }
+
+    public void eliminarFechasProgramacion(Programacion programacionSelected) {
+        getSessionFactory().getCurrentSession().createSQLQuery("DELETE FROM dh_fechas_programacion WHERE programacion = "+programacionSelected.getId()).executeUpdate();
     }
 }
