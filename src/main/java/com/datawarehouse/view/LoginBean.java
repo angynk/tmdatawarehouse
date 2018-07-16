@@ -2,6 +2,9 @@ package com.datawarehouse.view;
 
 
 
+import com.datawarehouse.model.entity.Aplicacion;
+import com.datawarehouse.model.entity.RolAplicacion;
+import com.datawarehouse.model.entity.Role;
 import com.datawarehouse.model.entity.Usuario;
 import com.datawarehouse.model.servicios.UsuarioServicios;
 import com.datawarehouse.view.util.Util;
@@ -24,7 +27,7 @@ public class LoginBean implements Serializable {
     private String nombreUsuario;
     private String password;
     private String area;
-    private String role;
+    private Role role;
     private String logout;
     private Usuario usuario;
 
@@ -33,6 +36,8 @@ public class LoginBean implements Serializable {
     public String contrasenaAntigua;
     public String contrasenaNueva;
     public String contrasenaNuevaRep;
+
+    private static  int ID_APLICACION = 3;
 
 
     @ManagedProperty(value="#{navigationBean}")
@@ -74,11 +79,19 @@ public class LoginBean implements Serializable {
                     HttpSession session = Util.getSession();
                     session.setAttribute("user", uname);
                     session.setAttribute("role", usuario.getRole());
-                    this.role ="ADMIN";
+                this.role =obtenerRol(usuario);
+                if(role!=null){
                     this.nombreUsuario = usuario.getNombre();
                     this.area = usuario.getArea();
                     this.usuario = usuario;
                     return navigationBean.redirectToWelcome();
+                }else{
+                    FacesContext.getCurrentInstance().addMessage(
+                            null,
+                            new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                    "Inicio de sesion invalido",
+                                    "Usted no tiene permisos sobre esta aplicación, contacte al administrador"));
+                }
             } else {
                 FacesContext.getCurrentInstance().addMessage(
                         null,
@@ -125,6 +138,17 @@ public class LoginBean implements Serializable {
     private boolean contrasenasNuevasIguales() {
         if(contrasenaNueva.equals(contrasenaNuevaRep)) return true;
         return false;
+    }
+
+    private Role obtenerRol(Usuario usuario) {
+
+        // Obtener aplicacion
+        Aplicacion aplicacion = usuarioServicios.getAplicacion(ID_APLICACION);
+        RolAplicacion rolAplicacion = usuarioServicios.getRolUsuarioAplicacion(aplicacion,usuario);
+        if(rolAplicacion!=null){
+            return rolAplicacion.getRole();
+        }
+        return null;
     }
 
     private boolean contrasenaViejaEsCorrecta() {
@@ -176,11 +200,11 @@ public class LoginBean implements Serializable {
         this.usuarioServicios = usuarioServicios;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

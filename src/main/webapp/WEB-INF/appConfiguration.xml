@@ -35,6 +35,8 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.datawarehouse.model.entity.Usuario</value>
+                <value>com.datawarehouse.model.entity.Aplicacion</value>
+                <value>com.datawarehouse.model.entity.RolAplicacion</value>
                 <value>com.datawarehouse.model.entity.Role</value>
                 <value>com.datawarehouse.model.entity.Programacion</value>
                 <value>com.datawarehouse.model.entity.Operador</value>
